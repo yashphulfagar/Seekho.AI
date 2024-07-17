@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Starter Page</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='starter-page.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Welcome to SE Project</h1>
+      <a href="{{ url_for('dashboard') }}"
+        ><button id="get-started-btn">Let's Get Started</button></a
+      >
+    </div>
+    <script>
+      //   document.getElementById("get-started-btn").onclick = function () {
+      //     alert("Button clicked!");
+      //   };
+    </script>
+  </body>
+</html>
