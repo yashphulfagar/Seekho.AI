@@ -1,1 +1,14 @@
+# Ignore virtual environment folder
 venv/
+
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+
+# Ignore other system files
+.DS_Store
+*.swp
+
+# Ignore logs
+*.log
+
