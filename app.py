@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from youtube_transcript_api import YouTubeTranscriptApi
 import re
+from chatbot import chat_bot
 
 app = Flask(__name__)
 
@@ -72,11 +73,10 @@ def get_transcript():
 def chatbot_page():
     data = request.get_json()
     user_message = data.get('message', '')
-
+    print(user_message)
+    chatbot_response = chat_bot(str(user_message))
     # sample repsonse, modify this Aryan to send the actual chatbot thing
-    bot_response = f"You said: {user_message}"
-
-    return jsonify({'response': bot_response})
+    return jsonify({'response': chatbot_response})
 
 @app.route('/')
 def index():
