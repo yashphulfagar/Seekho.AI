@@ -229,3 +229,555 @@ asg_2 = {
     }
   ],
 }
+
+asg_3 = {
+
+ 1:
+  [
+    "",
+    {
+        1:[ "Consider an operating system that asks users if they really want to delete every time they try to delete a file or folder. Which of the following usability goals is fulfilled by the operating system?",
+            ["Effectiveness","Efficiency","Safe to use","Learnability","Memorability"],
+            ["Safe to use"]
+          ],
+
+    }
+  ],
+
+ 2:
+  [
+    "",
+    {
+        1:[ "An employee payroll software provides its users with several services. For each service, a tutorial video is provided along with step-by-step examples. Which of the following usability goals is fulfilled by the payroll software?",
+            ["Effectiveness","Efficiency","Safe to use","Learnability","Memorability"],
+            ["Learnability"]
+          ],
+
+    }
+  ],
+
+ 3:
+  [
+    "",
+    {
+        1:[ ". ",
+            ["Effectiveness","Efficiency","Safe to use","Learnability","Memorability"],
+            ["Safe to use"]
+          ],
+
+    }
+  ],
+
+ 4:
+  [
+    "",
+    {
+        1:[ ". ",
+            ["Effectiveness","Efficiency","Safe to use","Learnability","Memorability"],
+            ["Safe to use"]
+          ],
+
+    }
+  ],
+
+ 5:
+  [
+    "",
+    {
+        1:[ "Assume one of the apps on your mobile phone enables you to do a bulk download of files from Google Drive. The app has a feature that if the storage of your mobile is 90% full, then it shows an alert message and prompts you to clear some amount of storage space. Which of the following heuristics of UI evaluation is satisfied by the app?",
+            ["Prevent errors","Show status","Support error recovery","Provide help"],
+            ["Show status"]
+          ],
+
+    }
+  ],
+
+ 6:
+  [
+    "",
+    {
+        1:[ "A given prototype is a hand-drawn comic that features the setting, sequence, and satisfaction. Identify the type of the given prototype.",
+            ["Storyboards","Paper prototype","Digital mock-ups","Interactive prototype"],
+            ["Storyboards"]
+          ],
+
+    }
+  ],
+
+ 7:
+  [
+    "",
+    {
+        1:[ "A food delivery app allows a user to place an order with a minimum number of clicks. It also remembers the favourite dishes of a user along with the delivery address and payment information. Which of the following usability goals is fulfilled by the mobile app?",
+            ["Effectiveness","Efficiency","Safe to use","Learnability","Memorability"],
+            ["Efficiency"]
+          ],
+
+    }
+  ],
+
+ 8:
+  [
+    "",
+    {
+        1:[ "Which of the following belong to users experience goals?",
+            ["motivating","effective and efficient","satisfying","safe and less error-prone","entertaining","durable"],
+            ["motivating","satisfying","entertaining"]
+          ],
+
+    }
+  ],
+
+ 9:
+  [
+    "",
+    {
+        1:[ "Which of the following prototype is the closest to the final product?",
+            ["Storyboards","Paper prototype","Digital mock-ups","Interactive prototype"],
+            ["Interactive prototype"]
+          ],
+
+    }
+  ],
+
+ 10:
+  [
+    "",
+    {
+        1:[ "When developing software to create and edit spreadsheets, you give regular users a menu-based interface and give advanced users shortcuts to perform different tasks. Which of the following heuristics of UI evaluation is fulfilled in this case?",
+            ["Flexibility","Consistency","Clean and functional design","Freedom"],
+            ["Flexibility"]
+          ],
+
+    }
+  ],
+
+ 11:
+  [
+    "",
+    {
+        1:[ "You are designing a web page for user registration where a user can upload his/her image, it also shows a progress bar to show the upload status. Which of the following heuristics of UI evaluation is satisfied in this case?",
+            ["Prevent errors","Show status","Support error recovery","Provide help"],
+            ["Show status"]
+          ],
+
+    }
+  ],
+
+ 12:
+  [
+    "",
+    {
+        1:[ "An organisation uses an app to register all new employees in the organization. During the registration, the new employee has to select his/her joining date from a calendar shown on the interface. The calendar disables selection of all the dates that fall on a weekends or on an official holiday declated by the organization. Which of the following heuristics of UI evaluation is satisfied by the app?",
+            ["Prevent errors","Show status","Support error recovery","Provide help"],
+            ["Prevent errors"]
+          ],
+
+    }
+  ],
+
+
+}
+
+
+asg_4 = {
+
+ 
+1:
+  [
+    "",
+    {
+        1:[ "A project requires 240 person-months of development time. Which of the following statements is/are true?",
+            ["It requires 240 developers to complete the project.","It requires 10 developers to complete the project in 2 years.", "It requires 120 developers to complete the project in 2 months.","It requires 24 developers to complete the project in 10 years."],
+            ["It requires 10 developers to complete the project in 2 years.", "It requires 120 developers to complete the project in 2 months."]
+          ],
+
+    }
+  ], 
+
+
+2:
+  [
+    "",
+    {
+        1:[ "Consider the following statements: Statement 1: Project estimation is based on the experience of the people who have completed similar types of projects. Statement 2: Project estimation is based on mathematical models. Select the option that is correct about the above statements.         ",
+            ["Both Statement 1 and Statement 2 are true for Empirical estimation techniques.","Both Statement 1 and Statement 2 are false for Heuristic estimation techniques", "Statement 1 is true for Empirical estimation techniques and Statement 2 is true for Heuristic estimation techniques","Statement 1 is true for Heuristic estimation techniques and Statement 2 is true for Empirical estimation techniques."],
+            ["Statement 1 is true for Empirical estimation techniques and Statement 2 is true for Heuristic estimation techniques"]
+          ],
+
+    }
+  ],
+ 
+3:
+  [
+    "",
+    {
+        1:[ "A software company wants to develop a mobile app to beatify the snaps taken by mobile cameras. The company wants to estimate the cost of the product. Therefore, they have developed a team comprising a group of experts (estimators) and a co-ordinator. First, the coordinator provides each estimator with a copy of SRS and a form for recording his or her estimation. Each estimator estimates the cost and anonymously submits the form to the coordinator. The coordinator compiles a summary of these responses and publishes it. The entire process is repeated several times. What kind of estimation technique is used in the given scenario? ",
+            ["Expert judgement","Delphi technique", "COCOMO estimation model","None of the above"],
+            ["Delphi technique"]
+          ],
+
+    }
+  ],
+ 
+4:
+  [
+    "",
+    {
+        1:[ "A software company must develop a smartwatch that can continuously monitor several health parameters of the customer wearing it. The development team has to build software that would be strongly coupled with the hardware of the smartwatch. The values for the constants in the COCOMO model for the different types of the project are as follows: Organic project: a = 2.4, b = 1.05 Semi-organic project: a = 3.0, b = 1.12 Embedded project: a = 3.6, b = 1.20 Considering the source code of 50,000 lines and effort adjustment factor = 1.62, what is the final estimated effort for the project?        ",
+            ["394","146", "240","638"],
+            ["638"]
+          ],
+
+    }
+  ],
+ 
+5:
+  [
+    "",
+    {
+        1:[ "In the given WBS, Requirement gathering and analysis is ___.",
+            ["the project name","an activity which can be further breakdown into smaller task", "a task which can be allocated to a developer and scheduled","None of the above"],
+            ["an activity which can be further breakdown into smaller task"]
+          ],
+
+    }
+  ],
+ 
+6:
+  [
+    "Consider that a software company is developing an e-shopping application. However, it has been found that most of the developer team members do not have sufficient domain knowledge",
+    {
+        1:[ "Identify the type of risk in the given scenario.",
+            ["Technical risk","Project risk", "Business risk","None of above"],
+            ["Project risk"]
+          ],
+
+    }
+  ],
+ 
+7:
+  [
+    "",
+    {
+        1:[ "Select the correct option that specifies how the risk can be mitigated.",
+            ["By communicating with clients or building prototype to collect clients' feedback","By benchmarking and regular inspection to verify that the external component is up to the mark.", "By hiring developers with relevant experience within the company and/or outside the company.","By training multiple people with the required skills to work on the project"],
+            ["By hiring developers with relevant experience within the company and/or outside the company."]
+          ],
+
+    }
+  ],
+ 
+8:
+  [
+    "",
+    {
+        1:[ "Consider that a software company is developing an e-shopping application. However, the project has exceeded the estimated budget. Identify the type of risk in the given scenario.",
+            ["Technical risk","Project risk", "Business risk","None of above"],
+            ["Project risk"]
+          ],
+
+    }
+  ],
+9:
+  [
+    "Consider that a software company is developing an editor to process text documents. However, the editor has been found not competitive in the market.",
+    {
+        1:[ "Identify the type of risk in the given scenario.",
+            ["Technical risk","Project risk", "Business risk","None of above"],
+            ["Business risk"]
+          ],
+        2:[ "Select the correct option that specifies how the risk can be mitigated.",
+            ["By communicating with clients or building prototype to collect clients' feedback","By benchmarking and regular inspection to verify that the external component is up to the mark.", "By exploring the market for similar products.","By training multiple people with the required skills to work on the project."],
+            ["By exploring the market for similar products."]
+          ],
+    }
+  ], 
+}
+
+
+asg_5 = {
+
+ 1:
+  [
+    "",
+    {
+        1:[ "When all the functions in each module of a software system perform a single objective, then the modules ________. ",
+            ["Have high cohesion","Have low cohesion", "Are highly coupled", "Are lowly coupled"],
+            ["Have high cohesion"]
+          ],
+
+    }
+  ],
+ 2:
+  [
+    "",
+    {
+        1:[ "A software design process has ensured that the changes to the software will be easy to implement even after the product has been released. Which of the following characteristics of a good software design is ensured in the above process?",
+            ["Correctness","Efficiency", "Maintainability","Understandable"],
+            ["Maintainability"]
+          ],
+
+    }
+  ],
+ 3:
+  [
+    "",
+    {
+        1:[ "When function calls between two modules involve passing a large chunk of shared data, then the modules ________",
+            ["Have high cohesion","Have low cohesion", "Are highly coupled", "Are lowly coupled"],
+            ["Are highly coupled"]
+          ],
+
+    }
+  ],
+ 4:
+  [
+    "",
+    {
+        1:[ "Consider a food delivery app in which the order module interacts with the payment module to initiate payment for an order by passing the payable amount (which is of floating point type). Identify the type of coupling in the given context.",
+            ["Content coupling","Common coupling", "Control coupling", "Data coupling"],
+            ["Data coupling"]
+          ],
+
+    }
+  ],
+ 5:
+  [
+    "",
+    {
+        1:[ "Consider an e-commerce app in which the order module interacts with the delivery module to initiate order delivery by passing a flag indicating whether the customer is a regular customer or a priority customer. Depending on the flag value, the delivery module executes different internal logic. Identify the type of coupling in the given context. ",
+            ["Content coupling","Common coupling", "Control coupling", "Data coupling"],
+            ["Control coupling"]
+          ],
+
+    }
+  ],
+ 6:
+  [
+    "",
+    {
+        1:[ "In an object-oriented design for a Library Management System, the objects of Novel class are categorised into two classes, namely objects of Fiction class and objects of Nonfiction class. Identify the class relationship between Novel class and, Fiction and Nonfiction classes. ",
+            ["Association", "Composition", "Inheritance", "Dependency"],
+            ["Inheritance"]
+          ],
+
+    }
+  ],
+ 7:
+  [
+    "",
+    {
+        1:[ "In which of the following diagram models, is the flow of control among computational activities?",
+            ["Class diagram", "State machine diagram", "Activity view", "Interaction view"],
+            ["Activity view"]
+          ],
+
+    }
+  ],
+}
+
+# asg with no answers yet
+
+asg_7 = {
+
+1:
+  [
+    "",
+    {
+        1:[ "Which of the following statements about the flask framework is/are correct? ",
+            ["It is a mobile application framework.","It is a web application framework.", "It is a micro-framework.", "It imposes several restrictions on developing applications, like the kind of databases that can be used and the type of web servers that can be used."],
+            ["", ""]
+          ],
+
+    }
+  ],
+2:
+  [
+    "",
+    {
+        1:[
+            '''Consider the code given in Python.\n
+            def lsearch(key, list):\n
+             for i in list:\n
+             if i == key:\n
+             print('key found')\n
+             return\n
+             print('key not found')\n
+            list = [10, 20, 30, 40]\n
+            lsearch(40, list)\n\n
+            What is the cyclomatic complexity of the function lsearch?''',
+            ["1", "2", "3", "4"],
+            [""]
+          ],
+
+    }
+  ],
+3:
+  [
+    "",
+    {
+        1:[ "Which of the following range of cyclomatic complexities represents an error-prone, unstable code?",
+            ["11 - 20","21 - 30", "31 - 40", ">=41"],
+            [""]
+          ],
+
+    }
+  ],
+4:
+  [
+    "",
+    {
+        1:[ "During debugging, a developer finds out the statement that generates incorrect output. He follows data and control dependencies backwards to find the incorrect line of code. Which of the following debugging strategies was chosen by the developer?",
+            ["Input manipulation","Backwards strategy", "Forwards strategy", "Blackbox debugging"],
+            [""]
+          ],
+
+    }
+  ],
+5:
+  [
+    "",
+    {
+        1:[ "Identify the statements which are true and related to the code smells.",
+            ["All the commented-out codes should be retained in the final code base.","It is better to have a function that does many things", "A function ideally should not have any argument, however, in practical situations, it should not use more than three arguments.", "A function should not use any flag (based on which function perform certain operations) argument."],
+            ["", ""]
+          ],
+
+    }
+  ],
+6:
+  [
+    "",
+    {
+        1:[ "Which of the following types of software metrics considers the number of distinct operators and the total number of operators along with the number of distinct operands and the total number of operands to measure various properties in a program, like a program vocabulary, difficulty, volume, etc.?",
+            ["Cyclomatic complexity","Raw Metrics", "Halstead's Metrics", "None of the above"],
+            [""]
+          ],
+
+    }
+  ],
+7:
+  [
+    "",
+    {
+        1:[ "Consider a program that finds the minimum integer from a list of integers. For debugging purposes, the developer uses various inputs and observes the differences in output. Which of the following debugging strategies is chosen by the developer?",
+            ["Input manipulation","Backwards strategy", "Forwards strategy", "Blackbox debugging"],
+            [""]
+          ],
+
+    }
+  ],
+8:
+  [
+    "",
+    {
+        1:[
+            '''Consider the status of your local repository as given below.\n\n
+              $ git status\n
+              warning: unable to unlink '/home/db/sample/.git/index.lock': Permission denied\n
+              On branch master\n
+              Changes not staged for commit:\n
+               (use \"git add <file>...\" to update what will be committed)\n
+               (use \"git restore <file>...\" to discard changes in working directory)\n
+               modified: file1.py\n
+              Untracked files:\n
+               (use \"git add <file>...\" to include in what will be committed)\n
+               data.txt\n
+               lib/\n
+              no changes added to commit (use \"git add\" and/or \"git commit -a\")\n\n
+              The file data.txt contains 4 GB of raw data that you do not want to share with others working on the same repository. 
+              You have also modified file1.py and added a directory lib which has two files in it, this set of changes you want to share with the others. 
+              Select the most appropriate version control strategy to accomplish this.''',
+            ["$ git add .\n$ git commit -m \"adding new files\"","$ git commit -ma \"adding new files\"", "$ git add lib\n$ git commit -m \"adding new library files\"", "$ git add lib file1.py\n$ git commit -m \"adding new files\""],
+            [""]
+          ],
+
+    }
+  ],
+
+
+}
+
+
+asg_8 = {
+
+1:
+  [
+    "",
+    {
+        1:[ "Consider a video editing software that enhances the quality of the videos taken by mobile cameras. The input video undergoes processing by several components of the software, and the output of one component is fed to the input of the next. Each component gradually enhances the quality of the input video. Identify the type of software architecture used for the video editing software.",
+            ["Client-server system","Pipe and filter", "Model view controller", "Peer-to-peer architecture"],
+            [""]
+          ],
+
+    }
+  ],
+2:
+  [
+    "",
+    {
+        1:[
+            "Consider developing a food delivery app that provides a catalogue of different food items. The food items are supplied by the respective restaurants. The class Restaurant is used to store information about the restaurants as well as information about the food items. Furthermore, the class Restaurant also provides functions like adding restaurants, modifying restaurants, deleting restaurants, adding food items, modifying food items, and deleting food items. Identify the SOLID principle that is violated by the class Restaurant.",
+            ["Single responsibility principle","Open-close principle", "Liskov substitution principle", "Interface segregation principle", "Dependency inversion principle"],
+            [""]
+          ],
+
+    }
+  ],
+
+3:
+  [
+    "",
+    {
+        1:[ '''Consider the design of an online food delivery app. It has an interface DeliveryProcessing that specifies the methods to be implemented by any delivery class, and those are packageOrder(), notifyCustomer(), bookDeliveryPartner() and deliver().\n\n
+            However, along with ordering the food, which has to be delivered physically, customers can also order to dine out. For dine-out bookings, a dine-out coupon would be delivered to the customers online.\n\n
+            To support the dine-out coupon delivery process, the actual DeliveryProcessing interface is segregated into two different interfaces:\n\n
+            -- interface PhysicalDeliveryProcess which provides the methods (to be implemented) to support the physical delivery of the food items for normal orders,\n\n
+            -- interface CouponDeliveryProcess which provides the methods (to be implemented) to support online delivery of the coupons for dine-out booking for dine-out orders.\n\n
+            Identify the SOLID principle that is fulfilled by the design.''',
+            ["Single responsibility principle","Open-close principle", "Liskov substitution principle", "Interface segregation principle", "Dependency inversion principle"],
+            [""]
+          ],
+
+    }
+  ],
+4:
+  [
+    "",
+    {
+        1:[ "Which of the following types of design patterns ensures effective communication between the objects such that the responsibilities of the objects are well distributed?",
+            ["Creational design pattern","Structural design pattern", "Behavioural design pattern", "None of the above"],
+            [""]
+          ],
+
+    }
+  ],
+
+
+5:
+  [
+    "",
+    {
+        1:[ "Consider an IoT-based system in a chemical plant that starts the cooling system if the temperature within the plant reaches a threshold. The class CoolerOperator can operate at all the temperatures that are given in Fahrenheit. However, some of the sensors measure temperature in Celsius and some in Kelvin. TemperatureConvertor, the class responsible for temperature conversion (Celsius to Fahrenheit and Kelvin to Fahrenheit), is incompatible with the class CoolerOperator. Which design pattern can be used to solve the problem?",
+            ["Factory design pattern","Builder design pattern", "Adapter design pattern", "Facade design pattern"],
+            [""]
+          ],
+
+    }
+  ],
+
+6:
+  [
+    "",
+    {
+        1:[ "Which among the following are behavioural design patterns?",
+            ["Factory design pattern","Builder design pattern", "Iterator design pattern", "Adapter design pattern", "Strategy design pattern"],
+            ["", ""]
+          ],
+
+    }
+  ],
+
+
+}
