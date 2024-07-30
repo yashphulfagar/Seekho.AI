@@ -116,19 +116,19 @@ asg_1 = {
             ["Requirement gathering","Development phase", "Design phase", "Testing phase","Maintenence phase"], 
             ["Requirement gathering"] 
           ],
-        2:[ "this is the first question", 
+        2:[ "The entire task is divided into different modules, and the interactions between the modules are outlined.", 
             ["Requirement gathering","Development phase", "Design phase", "Testing phase","Maintenence phase"],  
             ["Design phase"] 
           ],
-        3:[ "this is the first question", 
+        3:[ "Different teams of the developers start coding their assigned modules.", 
             ["Requirement gathering","Development phase", "Design phase", "Testing phase","Maintenence phase"], 
             ["Development phase"] 
           ],
-        4:[ "this is the first question", 
+        4:[ "The link to the website is given to a predefined set of customers. The customer uncovered an error that if more than one e-shopping website provided the minimum price, then only one of them would be shown by the website.", 
             ["Requirement gathering","Development phase", "Design phase", "Testing phase","Maintenence phase"], 
             ["Testing phase"] 
           ],
-        5:[ "this is the first question", 
+        5:[ "Following the final release of http://www.slightest.com/, a large number of customers requested that the delivery time of the product be included as a search criteria alongside the price. The developer company decided to proceed with the change.", 
             ["Requirement gathering","Development phase", "Design phase", "Testing phase","Maintenence phase"], 
             ["Maintenence phase"] 
           ],                                
@@ -906,19 +906,19 @@ all_asg = {
                 ["Requirement gathering","Development phase", "Design phase", "Testing phase","Maintenence phase"], 
                 ["Requirement gathering"] 
               ],
-            2:[ "this is the first question", 
+            2:[ "The entire task is divided into different modules, and the interactions between the modules are outlined.", 
                 ["Requirement gathering","Development phase", "Design phase", "Testing phase","Maintenence phase"],  
                 ["Design phase"] 
               ],
-            3:[ "this is the first question", 
+            3:[ "Different teams of the developers start coding their assigned modules.", 
                 ["Requirement gathering","Development phase", "Design phase", "Testing phase","Maintenence phase"], 
                 ["Development phase"] 
               ],
-            4:[ "this is the first question", 
+            4:[ "The link to the website is given to a predefined set of customers. The customer uncovered an error that if more than one e-shopping website provided the minimum price, then only one of them would be shown by the website.", 
                 ["Requirement gathering","Development phase", "Design phase", "Testing phase","Maintenence phase"], 
                 ["Testing phase"] 
               ],
-            5:[ "this is the first question", 
+            5:[ "Following the final release of http://www.slightest.com/, a large number of customers requested that the delivery time of the product be included as a search criteria alongside the price. The developer company decided to proceed with the change.", 
                 ["Requirement gathering","Development phase", "Design phase", "Testing phase","Maintenence phase"], 
                 ["Maintenence phase"] 
               ],                                

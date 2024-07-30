@@ -85,6 +85,8 @@ def chatbot_page():
     # sample repsonse, modify this Aryan to send the actual chatbot thing
     return jsonify({'response': chatbot_response})
 
+
+
 @app.route('/')
 def index():
     return render_template('starter-page.html')
