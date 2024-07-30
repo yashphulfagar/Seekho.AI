@@ -1,0 +1,116 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+
+Graded Assignment
+
+{% endblock %}
+
+{% block links %}
+
+<link
+rel="stylesheet"
+href="{{ url_for('static', filename='gradedassignment.css') }}"
+/>
+
+
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+<div class="div4">
+    <br>
+    <span class="topic">Graded Assignment 1</span>
+    <br><br>
+    <span class="question">1. The software can be divided into separably addressable components known as - </span><br>
+    <div class="options-container">
+      <input type="radio" id="option1" name="components" value="elements">
+      <label for="option1">Elements</label><br>
+      <input type="radio" id="option2" name="components" value="modules">
+      <label for="option2">Modules</label><br>
+      <input type="radio" id="option3" name="components" value="partitions">
+      <label for="option3">Partitions</label><br>
+      <input type="radio" id="option4" name="components" value="cases">
+      <label for="option4">Cases</label><br>
+    </div>
+    <div class="answer-container">
+      <textarea
+        class="answer-textarea"
+        placeholder="We divide software into small addressable components known as modules to reduce the workload for any one particular software developer. In this way, you get more productivity."
+      ></textarea>
+    </div>
+    <div class="question-container">
+      <textarea
+        class="question-textarea"
+        placeholder="Why we divide software into components? ..."
+      ></textarea>
+    </div>
+    <button class="send-button">Send</button>
+    <hr>
+    <span class="question">2. “Software Components run independent of each other and should not share any data or communicate
+with each other.” Is this statement true or false?</span><br>
+    <div class="options-container">
+      <input type="radio" id="option1" name="components" value="elements">
+      <label for="option1">True</label><br>
+      <input type="radio" id="option2" name="components" value="modules">
+      <label for="option2">False</label><br>
+    </div>
+    <div class="answer-container">
+      <textarea
+        class="answer-textarea"
+        placeholder="Yeah obviously, the modules of the software have to interact with each other all the time. Most of the time, they interact with each other with the help of interfaces. "
+      ></textarea>
+    </div>
+    <div class="question-container">
+      <textarea
+        class="question-textarea"
+        placeholder="Does modules of software interact with each other?"
+      ></textarea>
+    </div>
+    <button class="send-button">Send</button>
+    <hr>
+    <span class="question">3. “Software Components run independent of each other and should not share any data or communicate
+with each other.” Is this statement true or false?</span><br>
+    <div class="options-container">
+      <input type="radio" id="option1" name="components" value="elements">
+      <label for="option1">True</label><br>
+      <input type="radio" id="option2" name="components" value="modules">
+      <label for="option2">False</label><br>
+    </div>
+    <div class="answer-container">
+      <textarea
+        class="answer-textarea"
+        placeholder="Yeah obviously, the modules of the software have to interact with each other all the time. Most of the time, they interact with each other with the help of interfaces. "
+      ></textarea>
+    </div>
+    <div class="question-container">
+      <textarea
+        class="question-textarea"
+        placeholder="Does modules of software interact with each other?"
+      ></textarea>
+    </div>
+    <button class="send-button">Send</button>
+    <hr>
+    <div class="analyse-solution">
+      <div class="analysis-container">
+        <textarea
+          class="analysis-textarea"
+          placeholder="Analyze your solutions with AI"
+        ></textarea>
+      </div>
+      <div class="analyse-button">
+        <button class="analysis">Analyze Solutions</button>
+      </div>
+    </div>
+    <hr>
+    <div class="submit-button">
+      <button class="submit">Check Answers</button>
+    </div>
+</div>
+    
+
+{% endblock %}        

@@ -1,0 +1,59 @@
+{% extends 'base_template.html' %}
+
+
+{% block title %}
+
+Lecture
+
+{% endblock %}
+
+
+{% block links %}
+
+<link
+rel="stylesheet"
+href="{{ url_for('static', filename='lecture.css') }}"
+/>
+
+
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+
+
+  <br />
+  <span class="topic">Lecture 1</span>
+  <br /><br />
+  <div class="div4_1">
+    <iframe
+      class="video"
+      width="800"
+      height="300"
+      src="https://www.youtube.com/embed/F9BZ5JsnjYM"
+      frameborder="0"
+      allowfullscreen
+    ></iframe>
+  </div>
+  <br />
+  <span class="topic">Lecture 1: Summary</span>
+  <div class="summary-container">
+    <textarea
+      class="summary-textarea"
+      placeholder="AI Generated Summary"
+    ></textarea>
+  </div>
+  <br />
+  <span class="topic">Lecture 1: Key Topics</span>
+  <div class="summary-container">
+    <textarea
+      class="summary-textarea"
+      placeholder="AI Generated Key Topics"
+    ></textarea>
+  </div>
+
+  {% endblock %}

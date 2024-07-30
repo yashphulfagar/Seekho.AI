@@ -5,6 +5,13 @@ from chatbot import chat_bot
 
 app = Flask(__name__)
 
+@app.route('/api/populate_assignments', methods=['POST'])
+def populate_assignments():
+    return
+
+
+
+
 @app.route('/api/process_regular_questions', methods=['POST'])
 def process_questions():
     data = request.get_json()
@@ -84,27 +91,33 @@ def index():
 
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html')
+    return render_template('dashboard_copy.html')
 
 @app.route('/dashboard/lecture')
 def lecture():
-    return render_template('lecture.html')
+    return render_template('lecture_copy.html')
+
+@app.route('/dashboard/gradedassignment')
+def gradedassignment():
+    return render_template('ga_copy.html')
+
+@app.route('/dashboard/chatbot')
+def chatbot():
+    return render_template('chatbot.html')
+
+
+
 
 @app.route('/dashboard/activityquestion')
 def activityquestion():
     return render_template('activityquestion.html')
 
-@app.route('/dashboard/gradedassignment')
-def gradedassignment():
-    return render_template('gradedassignment.html')
-
 @app.route('/dashboard/programmingassignment')
 def programmingassignment():
     return render_template('programmingassignment.html')
 
-@app.route('/dashboard/chatbot')
-def chatbot():
-    return render_template('chatbot.html')
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

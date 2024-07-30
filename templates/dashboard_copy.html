@@ -1,0 +1,46 @@
+{% extends 'base_template.html' %}
+
+
+{% block title %}
+
+Dashboard
+
+{% endblock %}
+
+
+{% block links %}
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='dashboard.css') }}"
+    />
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+
+
+<div class="div4">
+  <br /><br />
+  <span class="topic">Welcome to Software Engineering Course</span>
+  <br /><br /><br />
+  <span class="description"
+    >We as a part of course team welcome you to the May 2024 term in
+    this Software Engineering course.
+  </span>
+  <br />
+  <span class="description"
+    >In this course we will learn all the basics of Software Development
+    Life Cycle, how do the steps of SDLC interact with each other.</span
+  >
+  <br />
+  <span class="description">
+    We have introduced the GenAI integrated with our portal...
+  </span>
+</div>
+      
+
+{% endblock %}
