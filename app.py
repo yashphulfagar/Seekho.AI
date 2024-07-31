@@ -9,7 +9,46 @@ app = Flask(__name__)
 def populate_assignments():
     return
 
+@app.route('/api/verify_assignments', methods=['POST'])
+def verify_assignments():
+    return
 
+@app.route('/api/lecture_populate', methods=['POST'])
+def lecture_populate():
+    return
+
+@app.route('/api/vid_database_fetch', methods=['POST'])
+def vid_database_fetch():
+    return
+
+
+@app.route('/api/chat_chain', methods=['POST'])
+def chat_chain():
+    return
+
+@app.route('/api/vid_summary', methods=['POST'])
+def vid_summary():
+    return
+
+@app.route('/api/vid_summary_gen', methods=['POST'])
+def vid_summary_gen():
+    return
+
+@app.route('/api/vid_keyword', methods=['POST'])
+def vid_keyword():
+    return
+
+@app.route('/api/vid_keyword_gen', methods=['POST'])
+def vid_keyword_gen():
+    return
+
+@app.route('/api/per_qn_explaination', methods=['POST'])
+def per_qn_explaination():
+    return
+
+@app.route('/api/per_qn_doubt', methods=['POST'])
+def per_qn_doubt():
+    return
 
 
 @app.route('/api/process_regular_questions', methods=['POST'])
