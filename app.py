@@ -1,58 +1,201 @@
 from flask import Flask, render_template, request, jsonify
 from youtube_transcript_api import YouTubeTranscriptApi
+from apispec import APISpec
+from apispec_webframeworks.flask import FlaskPlugin
+import yaml
+
+
+
+
+
+
+
+
+
+from flask import Flask, render_template, request, jsonify
+from youtube_transcript_api import YouTubeTranscriptApi
 import re
 from chatbot import chat_bot
 
 app = Flask(__name__)
 
+# Initialize
+spec = APISpec(
+    title="SE Gen AI Project",
+    version="1.0.0",
+    openapi_version="3.0.0",
+    plugins=[FlaskPlugin()],
+)
+
+
 @app.route('/api/populate_assignments', methods=['POST'])
 def populate_assignments():
+
+    """
+    ---
+    post:
+      summary: Populates assignment
+      description: Endpoint to populate assignments into the page.
+      responses:
+        200:
+          description: Success
+    """
     return
 
 @app.route('/api/verify_assignments', methods=['POST'])
 def verify_assignments():
+
+    """
+    ---
+    post:
+      summary: Verifies assignment
+      description: Endpoint to verify the responses that the user has given.
+      responses:
+        200:
+          description: Success
+    """
     return
 
 @app.route('/api/lecture_populate', methods=['POST'])
 def lecture_populate():
+
+    """
+    ---
+    post:
+      summary: Populates lecture pages
+      description: Endpoint to populate lectures pages.
+      responses:
+        200:
+          description: Success
+    """    
     return
 
 @app.route('/api/vid_database_fetch', methods=['POST'])
 def vid_database_fetch():
+
+    """
+    ---
+    post:
+      summary: Fetches video data from database
+      description: Endpoint to fetch video data from database.
+      responses:
+        200:
+          description: Success
+    """    
     return
 
 
 @app.route('/api/chat_chain', methods=['POST'])
 def chat_chain():
+
+    """
+    ---
+    post:
+      summary: Chain LLM conversation
+      description: Endpoint to chain LLM conversations and generate responses.
+      responses:
+        200:
+          description: Success
+    """    
     return
 
 @app.route('/api/vid_summary', methods=['POST'])
 def vid_summary():
+
+    """
+    ---
+    post:
+      summary: Fetches video summary
+      description: Endpoint to fetch video summary.
+      responses:
+        200:
+          description: Success
+    """    
     return
 
 @app.route('/api/vid_summary_gen', methods=['POST'])
 def vid_summary_gen():
+
+    """
+    ---
+    post:
+      summary: Generates video summary
+      description: Endpoint to generate video summary.
+      responses:
+        200:
+          description: Success
+    """    
     return
 
 @app.route('/api/vid_keyword', methods=['POST'])
 def vid_keyword():
+
+    """
+    ---
+    post:
+      summary: Fetches video keywords
+      description: Endpoint to fetch keywords mentioned in video.
+      responses:
+        200:
+          description: Success
+    """        
     return
 
 @app.route('/api/vid_keyword_gen', methods=['POST'])
 def vid_keyword_gen():
+
+    """
+    ---
+    post:
+      summary: Generates video keywords
+      description: Endpoint to generate keywords mentioned in video.
+      responses:
+        200:
+          description: Success
+    """        
     return
 
 @app.route('/api/per_qn_explaination', methods=['POST'])
 def per_qn_explaination():
+
+    """
+    ---
+    post:
+      summary: Generates explanation for individual question
+      description: Endpoint to generate explanation for individual question without user query.
+      responses:
+        200:
+          description: Success
+    """        
     return
 
 @app.route('/api/per_qn_doubt', methods=['POST'])
 def per_qn_doubt():
+
+    """
+    ---
+    post:
+      summary: Generates explanation for individual question based on doubt
+      description: Endpoint to generate explanation for individual question with user query.
+      responses:
+        200:
+          description: Success
+    """        
     return
 
 
 @app.route('/api/process_regular_questions', methods=['POST'])
 def process_questions():
+
+    """
+    ---
+    post:
+      summary: Chatbot for regular questions
+      description: Endpoint to process regular questions and generate responses from LLM.
+      responses:
+        200:
+          description: Success
+    """       
     data = request.get_json()
     question = data.get('question', '')
     options = data.get('options', [])
@@ -65,6 +208,16 @@ def process_questions():
 
 @app.route('/api/complete_assignment_feedback', methods=['POST'])
 def process_questionnaire():
+
+    """
+    ---
+    post:
+      summary: Generate student custom feedback
+      description: Endppoint to generate student custom feedback based on the questionnaire and student responses.
+      responses:
+        200:
+          description: Success
+    """       
     # input format: [[question, options, marked_answer, correct_answer]]
     # [
     # ["What is Flask?", ["A web framework", "A type of container"], "A web framework", "A web framework"],
@@ -94,6 +247,16 @@ def process_questionnaire():
 
 @app.route('/api/get_transcript', methods=['POST'])
 def get_transcript():
+
+    """
+    ---
+    post:
+      summary: Fetches video transcript
+      description: Get the transcript of a given video lecture.
+      responses:
+        200:
+          description: Success
+    """       
     #input format: {'video_url': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
 
     data = request.get_json()
@@ -117,6 +280,16 @@ def get_transcript():
 
 @app.route('/api/chatbot_page', methods=['POST'])
 def chatbot_page():
+
+    """
+    ---
+    post:
+      summary: Chatbot for general questions
+      description: Route for chatbot page
+      responses:
+        200:
+          description: Success
+    """       
     data = request.get_json()
     user_message = data.get('message', '')
     print(user_message)
@@ -128,22 +301,72 @@ def chatbot_page():
 
 @app.route('/')
 def index():
+
+    """
+    ---
+    post:
+      summary: Home Page
+      description: Route for home page
+      responses:
+        200:
+          description: Success
+    """       
     return render_template('starter-page.html')
 
 @app.route('/dashboard')
 def dashboard():
+
+    """
+    ---
+    post:
+      summary: Dashboard
+      description: Route for dashboard
+      responses:
+        200:
+          description: Success
+    """       
     return render_template('dashboard_copy.html')
 
 @app.route('/dashboard/lecture')
 def lecture():
+
+    """
+    ---
+    post:
+      summary: Lecture Page
+      description: Route for lecture page
+      responses:
+        200:
+          description: Success
+    """       
     return render_template('lecture_copy.html')
 
 @app.route('/dashboard/gradedassignment')
 def gradedassignment():
+
+    """
+    ---
+    post:
+      summary: Graded Assignment Page
+      description: 
+      responses:
+        200:
+          description: Success
+    """       
     return render_template('ga_copy.html')
 
 @app.route('/dashboard/chatbot')
 def chatbot():
+       
+    """
+    ---
+    post:
+      summary: Central Chatbot 
+      description: Route for chatbot interface
+      responses:
+        200:
+          description: Success
+    """           
     return render_template('chatbot.html')
 
 
@@ -151,11 +374,44 @@ def chatbot():
 
 @app.route('/dashboard/activityquestion')
 def activityquestion():
+
+    """
+    ---
+    post:
+      summary: Activity Question Page
+      description: Route for activity question page
+      responses:
+        200:
+          description: Success
+    """       
     return render_template('activityquestion.html')
 
 @app.route('/dashboard/programmingassignment')
 def programmingassignment():
+
+    """
+    ---
+    post:
+      summary: Programming Assignment Page
+      description: Route for programming assignment page
+      responses:
+        200:
+          description: Success
+    """       
     return render_template('programmingassignment.html')
+
+
+
+# Register paths with the spec
+with app.test_request_context():
+    for rule in app.url_map.iter_rules():
+        if rule.endpoint != 'static':
+            spec.path(view=app.view_functions[rule.endpoint])
+
+# Output the spec to a YAML file
+with open('se_api.yaml', 'w') as file:
+    yaml.dump(spec.to_dict(), file)
+    
 
 
 
