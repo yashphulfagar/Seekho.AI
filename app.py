@@ -304,7 +304,7 @@ def index():
 
     """
     ---
-    post:
+    get:
       summary: Home Page
       description: Route for home page
       responses:
@@ -318,7 +318,7 @@ def dashboard():
 
     """
     ---
-    post:
+    get:
       summary: Dashboard
       description: Route for dashboard
       responses:
@@ -327,12 +327,26 @@ def dashboard():
     """       
     return render_template('dashboard_copy.html')
 
+@app.route('/api/dashboard')
+def dashboard_api():
+
+    """
+    ---
+    post:
+      summary: Dashboard Page Contents
+      description: Dashboard Page populated with details
+      responses:
+        200:
+          description: Success
+    """       
+    return 
+
 @app.route('/dashboard/lecture')
 def lecture():
 
     """
     ---
-    post:
+    get:
       summary: Lecture Page
       description: Route for lecture page
       responses:
@@ -341,26 +355,54 @@ def lecture():
     """       
     return render_template('lecture_copy.html')
 
+@app.route('/api/dashboard/lecture')
+def lecture_api():
+
+    """
+    ---
+    post:
+      summary: Lecture Page Contents
+      description: Lecture Page populated with details
+      responses:
+        200:
+          description: Success
+    """       
+    return 
+
 @app.route('/dashboard/gradedassignment')
 def gradedassignment():
 
     """
     ---
-    post:
+    get:
       summary: Graded Assignment Page
-      description: 
+      description: Graded Assignment Page populated with details
       responses:
         200:
           description: Success
     """       
     return render_template('ga_copy.html')
 
+@app.route('/api/dashboard/gradedassignment')
+def gradedassignment_api():
+
+    """
+    ---
+    post:
+      summary: Graded Assignment Page Details
+      description: Graded Assignment Page populated with details
+      responses:
+        200:
+          description: Success
+    """       
+    return 
+
 @app.route('/dashboard/chatbot')
 def chatbot():
        
     """
     ---
-    post:
+    get:
       summary: Central Chatbot 
       description: Route for chatbot interface
       responses:
@@ -377,7 +419,7 @@ def activityquestion():
 
     """
     ---
-    post:
+    get:
       summary: Activity Question Page
       description: Route for activity question page
       responses:
@@ -386,12 +428,27 @@ def activityquestion():
     """       
     return render_template('activityquestion.html')
 
+@app.route('/api/dashboard/activityquestion')
+def activityquestion_api():
+
+    """
+    ---
+    post:
+      summary: Activity Question Page Details
+      description: Activity Question Page populated with details
+      responses:
+        200:
+          description: Success
+    """       
+    return 
+
+
 @app.route('/dashboard/programmingassignment')
 def programmingassignment():
 
     """
     ---
-    post:
+    get:
       summary: Programming Assignment Page
       description: Route for programming assignment page
       responses:
@@ -400,6 +457,92 @@ def programmingassignment():
     """       
     return render_template('programmingassignment.html')
 
+@app.route('/api/dashboard/programmingassignment')
+def programmingassignment_api():
+
+    """
+    ---
+    post:
+      summary: Programming Assignment Page Details
+      description: Programming assignment Page populated with details
+      responses:
+        200:
+          description: Success
+    """       
+    return 
+
+
+@app.route('/api/chat/clear')
+def clearchat():
+
+    """
+    ---
+    delete:
+      summary: Clear Chat History
+      description: Clears all chat history involving the chatbot and current user
+      responses:
+        200:
+          description: Success
+    """       
+    return 
+
+@app.route('/api/logout')
+def logout_user():
+
+    """
+    ---
+    delete:
+      summary: Clear All User Data
+      description: Clears all of the current users history and data
+      responses:
+        200:
+          description: Success
+    """       
+    return 
+
+@app.route('/api/activityquestion/clear')
+def activityreset():
+
+    """
+    ---
+    delete:
+      summary: Clear Activity
+      description: Clear the answers of the current activity question
+      responses:
+        200:
+          description: Success
+    """       
+    return 
+
+
+
+@app.route('/api/programmingassignment/clear')
+def programmingassignmentreset():
+
+    """
+    ---
+    delete:
+      summary: Clear Programming Assignment
+      description: Clear the answers of the current Programming Assignment
+      responses:
+        200:
+          description: Success
+    """       
+    return 
+
+@app.route('/api/gradedassignment/clear')
+def gradedassignmentreset():
+
+    """
+    ---
+    delete:
+      summary: Clear Graded Assignment
+      description: Clear the answers of the current graded assignment
+      responses:
+        200:
+          description: Success
+    """       
+    return 
 
 
 # Register paths with the spec
