@@ -30,6 +30,14 @@ spec = APISpec(
     plugins=[FlaskPlugin()],
 )
 
+
+
+
+
+# =============================== ALL OF THE BELOW ARE THE NEWLY ADDED API ENDPOINTS ===============================
+# =============================== APPLICATION STILL WORKS WITHOUT THEM ===============================
+
+
 """
 ---
 post:
@@ -53,6 +61,330 @@ post:
     
 # api.add_resource(lecture_url, '/api/vid_database_fetch/<string:week_id>/<string:lecture_id>')
 
+@app.route('/api/chat/clear')
+def clearchat():
+
+    """
+    ---
+    delete:
+      summary: Clear Chat History
+      description: Clears all chat history involving the chatbot and current user
+      responses:
+        200:
+          description: Success
+    """       
+    return 
+
+@app.route('/api/chat_chain', methods=['POST'])
+def chat_chain():
+
+    """
+    ---
+    post:
+      summary: Chain LLM conversation
+      description: Endpoint to chain LLM conversations and generate responses.
+      responses:
+        200:
+          description: Success
+    """    
+    return
+
+
+
+
+
+
+@app.route('/api/vid_summary/<string:week_id>/<string:lecture_id>', methods=['POST'])
+def vid_summary(week_id, lecture_id):
+
+    """
+    ---
+    post:
+      summary: Fetches video summary
+      description: Endpoint to fetch video summary.
+      responses:
+        200:
+          description: Success
+          
+    """    
+
+    lecture_link = lectures_db[int(week_id)][int(lecture_id)]
+
+
+    lec_transcript = lecture_link[1]
+
+
+    lec_summary = get_summary(lec_transcript)
+    
+    return  jsonify({'summary': lec_summary})
+
+@app.route('/api/vid_summary_gen/<string:week_id>/<string:lecture_id>', methods=['POST'])
+def vid_summary_gen(week_id, lecture_id):
+
+    """
+    ---
+    post:
+      summary: Generates video summary
+      description: Endpoint to generate video summary.
+      responses:
+        200:
+          description: Success
+    """    
+
+    lecture_link = lectures_db[int(week_id)][int(lecture_id)]
+
+
+    lec_transcript = lecture_link[1]
+
+
+    lec_summary = get_summary(lec_transcript)
+    
+    return  jsonify({'summary': lec_summary})
+
+@app.route('/api/vid_keyword/<string:week_id>/<string:lecture_id>', methods=['POST'])
+def vid_keyword(week_id, lecture_id):
+
+    """
+    ---
+    post:
+      summary: Fetches video keywords
+      description: Endpoint to fetch keywords mentioned in video.
+      responses:
+        200:
+          description: Success
+    """        
+
+    lecture_link = lectures_db[int(week_id)][int(lecture_id)]
+
+
+    lec_transcript = lecture_link[1]
+    lec_key = get_key(lec_transcript)
+    return jsonify({'keypoints': lec_key})
+
+@app.route('/api/vid_keyword_gen/<string:week_id>/<string:lecture_id>', methods=['POST'])
+def vid_keyword_gen(week_id, lecture_id):
+
+    """
+    ---
+    post:
+      summary: Generates video keywords
+      description: Endpoint to generate keywords mentioned in video.
+      responses:
+        200:
+          description: Success
+    """        
+    lecture_link = lectures_db[int(week_id)][int(lecture_id)]
+
+
+    lec_transcript = lecture_link[1]
+    lec_key = get_key(lec_transcript)
+    return jsonify({'keypoints': lec_key})
+
+@app.route('/api/logout')
+def logout_user():
+
+    """
+    ---
+    delete:
+      summary: Clear All User Data
+      description: Clears all of the current users history and data
+      responses:
+        200:
+          description: Success
+    """       
+    
+    return render_template('starter-page.html')
+
+@app.route('/api/dashboard')
+def dashboard_api():
+
+    """
+    ---
+    post:
+      summary: Dashboard Page Contents
+      description: Dashboard Page populated with details
+      responses:
+        200:
+          description: Success
+    """       
+    return render_template('dashboard_copy.html')
+
+@app.route('/api/dashboard/lecture/<week_id>/<lecture_id>')
+def lecture_api(week_id,lecture_id):
+
+
+    """
+    ---
+    post:
+      summary: Lecture Page Contents
+      description: Lecture Page populated with details
+      responses:
+        200:
+          description: Success
+    """       
+    lecture_link = lectures_db[int(week_id)][int(lecture_id)]
+
+    video_url = lecture_link[0]
+    
+    
+
+    lec_transcript = lecture_link[1]
+
+
+    lec_summary = get_summary(lec_transcript)
+    lec_key = get_key(lec_transcript)
+
+    return jsonify({'video_url': video_url, 'summary': lec_summary, 'keypoints': lec_key, 'transcript': lec_transcript})
+
+@app.route('/api/gradedassignment/<week_id>/clear')
+def gradedassignmentreset(week_id):
+
+    """
+    ---
+    delete:
+      summary: Clear Graded Assignment
+      description: Clear the answers of the current graded assignment
+      responses:
+        200:
+          description: Success
+    """       
+    weeks_asg=  all_asg[int(week_id)]
+    # print(weeks_asg)
+    return render_template('ga_copy.html', weeks_asg=weeks_asg, week_id=week_id)
+
+@app.route('/api/dashboard/gradedassignment/<week_id>')
+def gradedassignment_api(week_id):
+
+    """
+    ---
+    post:
+      summary: Graded Assignment Page Details
+      description: Graded Assignment Page populated with details
+      responses:
+        200:
+          description: Success
+    """       
+    weeks_asg=  all_asg[int(week_id)]
+    # print(weeks_asg)
+    return jsonify({'weeks_asg': weeks_asg, 'week_id': week_id})
+
+@app.route('/api/per_qn_explaination', methods=['POST'])
+def per_qn_explaination():
+
+    """
+    ---
+    post:
+      summary: Generates explanation for individual question
+      description: Endpoint to generate explanation for individual question without user query.
+      responses:
+        200:
+          description: Success
+    """        
+    if request.method == 'POST':
+        question = request.form.get('question')
+        doubt = "Please explain this question more elaborately to me."
+        response = individual_doubt(question, doubt)
+        return jsonify({'response': response})
+
+@app.route('/api/per_qn_doubt', methods=['POST'])
+def per_qn_doubt():
+
+    """
+    ---
+    post:
+      summary: Generates explanation for individual question based on doubt
+      description: Endpoint to generate explanation for individual question with user query.
+      responses:
+        200:
+          description: Success
+    """        
+    if request.method == 'POST':
+        question = request.form.get('question')
+        doubt = request.form.get('doubt')
+        response = individual_doubt(question, doubt)
+        return jsonify({'response': response})
+    
+@app.route('/api/verify_assignments', methods=['POST'])
+def verify_assignments():
+
+    """
+    ---
+    post:
+      summary: Verifies assignment
+      description: Endpoint to verify the responses that the user has given.
+      responses:
+        200:
+          description: Success
+    """
+    if request.method == 'POST':
+        selected_options = request.form
+        print("submit just took place")
+
+        # Print the submitted form data to the console
+        week_id = selected_options.get('week')
+        print(week_id)
+        print(selected_options)
+        print("hiiiiiiiiiiiiiiiii")
+        # print(all_asg)
+
+        results={}
+        counter = 0
+        grp_counter = 0
+        weeks_questions=all_asg[int(week_id)]
+        print("new")
+        # print(weeks_questions)
+        for i, bulk_question in weeks_questions.items():
+            # print(bulk_question)
+            # print("yo")
+            grp_counter += 1
+            results[grp_counter] = {}
+            
+
+
+            bulk_context = bulk_question[0]
+            for j, question_deets in bulk_question[1].items():
+                counter += 1
+                print(question_deets)
+
+                act_qn = question_deets[0]
+                act_opt = question_deets[1]
+                act_ans = question_deets[2]
+                act_ans.sort()
+                this_name = "question-"+str(counter)
+
+                
+
+                selected_answers = selected_options.getlist(this_name)
+                selected_answers.sort()
+
+                # print("_________strt____________")
+                # print(act_qn)
+                # print(act_opt)
+                # print(act_ans)
+                # print(selected_answers)
+                # print("_________nxt____________")
+
+
+                print(grp_counter)
+                print(j)
+                if selected_answers == act_ans:
+                    results[grp_counter][j] = "Correct"
+                    
+                else:
+                    results[grp_counter][j] = "Incorrect"
+                
+
+        print("___________hia____________")
+        print(results)
+
+
+        return jsonify(results)
+    
+
+
+
+
+
 
 
 
@@ -73,76 +405,6 @@ def lecture_populate():
 
 
 
-@app.route('/api/vid_summary', methods=['POST'])
-def vid_summary():
-
-    """
-    ---
-    post:
-      summary: Fetches video summary
-      description: Endpoint to fetch video summary.
-      responses:
-        200:
-          description: Success
-    """    
-    return
-
-@app.route('/api/vid_summary_gen', methods=['POST'])
-def vid_summary_gen():
-
-    """
-    ---
-    post:
-      summary: Generates video summary
-      description: Endpoint to generate video summary.
-      responses:
-        200:
-          description: Success
-    """    
-    return
-
-@app.route('/api/vid_keyword', methods=['POST'])
-def vid_keyword():
-
-    """
-    ---
-    post:
-      summary: Fetches video keywords
-      description: Endpoint to fetch keywords mentioned in video.
-      responses:
-        200:
-          description: Success
-    """        
-    return
-
-@app.route('/api/vid_keyword_gen', methods=['POST'])
-def vid_keyword_gen():
-
-    """
-    ---
-    post:
-      summary: Generates video keywords
-      description: Endpoint to generate keywords mentioned in video.
-      responses:
-        200:
-          description: Success
-    """        
-    return
-
-@app.route('/api/dashboard/lecture')
-def lecture_api():
-
-    """
-    ---
-    post:
-      summary: Lecture Page Contents
-      description: Lecture Page populated with details
-      responses:
-        200:
-          description: Success
-    """       
-    return 
-
 @app.route('/api/populate_assignments', methods=['POST'])
 def populate_assignments():
 
@@ -157,173 +419,41 @@ def populate_assignments():
     """
     return
 
-@app.route('/api/verify_assignments', methods=['POST'])
-def verify_assignments():
-
-    """
-    ---
-    post:
-      summary: Verifies assignment
-      description: Endpoint to verify the responses that the user has given.
-      responses:
-        200:
-          description: Success
-    """
-    return
-
-@app.route('/api/chat_chain', methods=['POST'])
-def chat_chain():
-
-    """
-    ---
-    post:
-      summary: Chain LLM conversation
-      description: Endpoint to chain LLM conversations and generate responses.
-      responses:
-        200:
-          description: Success
-    """    
-    return
-
-@app.route('/api/per_qn_explaination', methods=['POST'])
-def per_qn_explaination():
-
-    """
-    ---
-    post:
-      summary: Generates explanation for individual question
-      description: Endpoint to generate explanation for individual question without user query.
-      responses:
-        200:
-          description: Success
-    """        
-    return
-
-@app.route('/api/per_qn_doubt', methods=['POST'])
-def per_qn_doubt():
-
-    """
-    ---
-    post:
-      summary: Generates explanation for individual question based on doubt
-      description: Endpoint to generate explanation for individual question with user query.
-      responses:
-        200:
-          description: Success
-    """        
-    return
-
-@app.route('/api/dashboard/programmingassignment')
-def programmingassignment_api():
-
-    """
-    ---
-    post:
-      summary: Programming Assignment Page Details
-      description: Programming assignment Page populated with details
-      responses:
-        200:
-          description: Success
-    """       
-    return 
 
 
-@app.route('/api/dashboard/gradedassignment')
-def gradedassignment_api():
 
-    """
-    ---
-    post:
-      summary: Graded Assignment Page Details
-      description: Graded Assignment Page populated with details
-      responses:
-        200:
-          description: Success
-    """       
-    return 
 
-@app.route('/api/chat/clear')
-def clearchat():
+# =============================== ALL OF THE ABOVE ARE THE NEWLY ADDED API ENDPOINTS ===============================
+# =============================== APPLICATION STILL WORKS WITHOUT THEM ===============================
 
-    """
-    ---
-    delete:
-      summary: Clear Chat History
-      description: Clears all chat history involving the chatbot and current user
-      responses:
-        200:
-          description: Success
-    """       
-    return 
 
-@app.route('/api/logout')
-def logout_user():
 
-    """
-    ---
-    delete:
-      summary: Clear All User Data
-      description: Clears all of the current users history and data
-      responses:
-        200:
-          description: Success
-    """       
-    return 
 
-@app.route('/api/activityquestion/clear')
-def activityreset():
 
-    """
-    ---
-    delete:
-      summary: Clear Activity
-      description: Clear the answers of the current activity question
-      responses:
-        200:
-          description: Success
-    """       
-    return 
 
-@app.route('/api/programmingassignment/clear')
-def programmingassignmentreset():
 
-    """
-    ---
-    delete:
-      summary: Clear Programming Assignment
-      description: Clear the answers of the current Programming Assignment
-      responses:
-        200:
-          description: Success
-    """       
-    return 
 
-@app.route('/api/gradedassignment/clear')
-def gradedassignmentreset():
 
-    """
-    ---
-    delete:
-      summary: Clear Graded Assignment
-      description: Clear the answers of the current graded assignment
-      responses:
-        200:
-          description: Success
-    """       
-    return 
-@app.route('/api/dashboard')
-def dashboard_api():
 
-    """
-    ---
-    post:
-      summary: Dashboard Page Contents
-      description: Dashboard Page populated with details
-      responses:
-        200:
-          description: Success
-    """       
-    return 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @app.route('/api/process_regular_questions', methods=['POST'])
 def process_questions():
