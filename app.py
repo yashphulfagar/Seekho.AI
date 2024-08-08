@@ -3,19 +3,11 @@ from youtube_transcript_api import YouTubeTranscriptApi
 from apispec import APISpec
 from apispec_webframeworks.flask import FlaskPlugin
 import yaml
-
-
-
-
-
-
-
-
-
 from flask import Flask, render_template, request, jsonify
 from youtube_transcript_api import YouTubeTranscriptApi
 import re
 from chatbot import chat_bot
+
 
 app = Flask(__name__)
 
@@ -27,11 +19,11 @@ spec = APISpec(
     plugins=[FlaskPlugin()],
 )
 
-
 @app.route('/api/populate_assignments', methods=['POST'])
 def populate_assignments():
 
     """
+
     ---
     post:
       summary: Populates assignment
@@ -184,28 +176,6 @@ def per_qn_doubt():
     return
 
 
-@app.route('/api/process_regular_questions', methods=['POST'])
-def process_questions():
-
-    """
-    ---
-    post:
-      summary: Chatbot for regular questions
-      description: Endpoint to process regular questions and generate responses from LLM.
-      responses:
-        200:
-          description: Success
-    """       
-    data = request.get_json()
-    question = data.get('question', '')
-    options = data.get('options', [])
-
-    # replace this with the function Aryan, for example question_answer = functioncall()
-    question_answer = f"Main question: {question}\n Options: {', '.join(options)}"
-
-    # Return the response as JSON
-    return jsonify({'response': question_answer})
-
 @app.route('/api/complete_assignment_feedback', methods=['POST'])
 def process_questionnaire():
 
@@ -296,8 +266,7 @@ def chatbot_page():
     chatbot_response = chat_bot(str(user_message))
     # sample repsonse, modify this Aryan to send the actual chatbot thing
     return jsonify({'response': chatbot_response})
-
-
+      
 
 @app.route('/')
 def index():
@@ -327,19 +296,6 @@ def dashboard():
     """       
     return render_template('dashboard_copy.html')
 
-@app.route('/api/dashboard')
-def dashboard_api():
-
-    """
-    ---
-    post:
-      summary: Dashboard Page Contents
-      description: Dashboard Page populated with details
-      responses:
-        200:
-          description: Success
-    """       
-    return 
 
 @app.route('/dashboard/lecture')
 def lecture():
@@ -411,9 +367,6 @@ def chatbot():
     """           
     return render_template('chatbot.html')
 
-
-
-
 @app.route('/dashboard/activityquestion')
 def activityquestion():
 
@@ -472,21 +425,7 @@ def programmingassignment_api():
     return 
 
 
-@app.route('/api/chat/clear')
-def clearchat():
-
-    """
-    ---
-    delete:
-      summary: Clear Chat History
-      description: Clears all chat history involving the chatbot and current user
-      responses:
-        200:
-          description: Success
-    """       
-    return 
-
-@app.route('/api/logout')
+@app.route('/api/logout',options=['DELETE'])
 def logout_user():
 
     """
@@ -498,7 +437,7 @@ def logout_user():
         200:
           description: Success
     """       
-    return 
+    return render_template('starter-page.html')
 
 @app.route('/api/activityquestion/clear')
 def activityreset():
