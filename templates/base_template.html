@@ -92,19 +92,19 @@
           </div>
           <div class="div3_1">
             <span>Week 1</span>
-            <button class="explore2" onclick="openModal('1')">Explore</button>
+            <button class="explore2" onclick="openModal_new('1')">Explore</button>
           </div>
           <div class="div3_1">
             <span>Week 2</span>
-            <button class="explore2" onclick="openModal('2')">Explore</button>
+            <button class="explore2" onclick="openModal_new('2')">Explore</button>
           </div>
           <div class="div3_1">
             <span>Week 3</span>
-            <button class="explore2" onclick="openModal('3')">Explore</button>
+            <button class="explore2" onclick="openModal_new('3')">Explore</button>
           </div>
           <div class="div3_1">
             <span>Week 4</span>
-            <button class="explore2" onclick="openModal('4')">Explore</button>
+            <button class="explore2" onclick="openModal_new('4')">Explore</button>
           </div>
         </div>
         <div class="div4outer">
@@ -115,34 +115,95 @@
       </div>
     </div>
 
-    <div id="myModal" class="modal">
+
+    <div id="myModal_1" class="modal">
       <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
+        <span class="close" onclick="closeModal_new('1')">&times;</span>
         <h2>Week 1 Content</h2>
         <div class="button-column">
-          <a href="{{ url_for('lecture') }}"><button>Lecture 1</button></a>
-          <a href="{{ url_for('lecture') }}"><button>Lecture 2</button></a>
-          <a href="{{ url_for('lecture') }}"><button>Lecture 3</button></a>
+          <a href="{{ url_for('lecture', week_id=1, lecture_id=1) }}"><button>Lecture 1</button></a>
+          <a href="{{ url_for('lecture', week_id=1, lecture_id=2) }}"><button>Lecture 2</button></a>
+          <a href="{{ url_for('lecture', week_id=1, lecture_id=3) }}"><button>Lecture 3</button></a>
+          <a href="{{ url_for('lecture', week_id=1, lecture_id=4) }}"><button>Lecture 4</button></a>
+          <a href="{{ url_for('lecture', week_id=1, lecture_id=5) }}"><button>Lecture 5</button></a>
+          <a href="{{ url_for('lecture', week_id=1, lecture_id=6) }}"><button>Lecture 6</button></a>          
+          <a href="{{ url_for('lecture', week_id=1, lecture_id=7) }}"><button>Lecture 7</button></a>          
           <a href="{{ url_for('gradedassignment') }}"
             ><button>Graded Assignment</button></a
           >
         </div>
       </div>
     </div>
+
+    <div id="myModal_2" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal_new('2')">&times;</span>
+        <h2>Week 2 Content</h2>
+        <div class="button-column">
+          <a href="{{ url_for('lecture', week_id=2, lecture_id=1) }}"><button>Lecture 1</button></a>
+          <a href="{{ url_for('lecture', week_id=2, lecture_id=2) }}"><button>Lecture 2</button></a>
+          <a href="{{ url_for('lecture', week_id=2, lecture_id=3) }}"><button>Lecture 3</button></a>
+          <a href="{{ url_for('lecture', week_id=2, lecture_id=4) }}"><button>Lecture 4</button></a>
+          <a href="{{ url_for('lecture', week_id=2, lecture_id=5) }}"><button>Lecture 5</button></a>          
+          <a href="{{ url_for('gradedassignment') }}"
+            ><button>Graded Assignment</button></a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div id="myModal_3" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal_new('3')">&times;</span>
+        <h2>Week 3 Content</h2>
+        <div class="button-column">
+          <a href="{{ url_for('lecture', week_id=3, lecture_id=1) }}"><button>Lecture 1</button></a>
+          <a href="{{ url_for('lecture', week_id=3, lecture_id=2) }}"><button>Lecture 2</button></a>
+          <a href="{{ url_for('lecture', week_id=3, lecture_id=3) }}"><button>Lecture 3</button></a>
+          <a href="{{ url_for('lecture', week_id=3, lecture_id=4) }}"><button>Lecture 4</button></a>
+          <a href="{{ url_for('lecture', week_id=3, lecture_id=5) }}"><button>Lecture 5</button></a>
+          <a href="{{ url_for('lecture', week_id=3, lecture_id=6) }}"><button>Lecture 6</button></a>          
+          <a href="{{ url_for('gradedassignment') }}"
+            ><button>Graded Assignment</button></a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div id="myModal_4" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal_new('4')">&times;</span>
+        <h2>Week 4 Content</h2>
+        <div class="button-column">
+          <a href="{{ url_for('lecture', week_id=4, lecture_id=1) }}"><button>Lecture 1</button></a>
+          <a href="{{ url_for('lecture', week_id=4, lecture_id=2) }}"><button>Lecture 2</button></a>
+          <a href="{{ url_for('lecture', week_id=4, lecture_id=3) }}"><button>Lecture 3</button></a>
+          <a href="{{ url_for('lecture', week_id=4, lecture_id=4) }}"><button>Lecture 4</button></a>
+          <a href="{{ url_for('lecture', week_id=4, lecture_id=5) }}"><button>Lecture 5</button></a>
+          <a href="{{ url_for('lecture', week_id=4, lecture_id=6) }}"><button>Lecture 6</button></a>          
+          <a href="{{ url_for('gradedassignment') }}"
+            ><button>Graded Assignment</button></a
+          >
+        </div>
+      </div>
+    </div>        
+
   </body>
   <script>
     function openDesmos() {
       window.open("https://www.desmos.com/scientific", "_blank");
     }
 
-    function openModal(weekNumber) {
-      document.getElementById("myModal").style.display = "block";
+
+    function openModal_new(weekNumber) {
+      div_name = "myModal_" + weekNumber;      
+      document.getElementById(div_name).style.display = "block";
     }
 
-    function closeModal() {
-      document.getElementById("myModal").style.display = "none";
+    function closeModal_new(weekNumber) {
+      div_name = "myModal_" + weekNumber;
+      document.getElementById(div_name).style.display = "none";
     }
-
     function openDiscourse() {
       window.open("https://discourse.onlinedegree.iitm.ac.in/", "_blank");
     }

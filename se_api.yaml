@@ -1,24 +1,6 @@
 info:
   title: SE Gen AI Project
   version: 1.0.0
-  description: >-
-    <h3>Software Engineering Project: Milestone 4</h3>
-
-    <h3>Task: API Endpoints Documentation</h3>
-
-    <h3>Course: BSCSS3001 - Software Engineering</h3>
-
-    <h3>Group: 20</h3>
-
-    <h3>Program: Online BSc in Programming and Data Science</h3>
-
-    <h3>Institute: Indian Institute of Technology, Madras</h3>
-
-  termsOfService: http://swagger.io/terms/
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.2.0    
 openapi: 3.0.0
 paths:
   /:
@@ -172,13 +154,6 @@ paths:
         '200':
           description: Success
       summary: Verifies assignment
-  /api/vid_database_fetch:
-    post:
-      description: Endpoint to fetch video data from database.
-      responses:
-        '200':
-          description: Success
-      summary: Fetches video data from database
   /api/vid_keyword:
     post:
       description: Endpoint to fetch keywords mentioned in video.
@@ -235,7 +210,7 @@ paths:
         '200':
           description: Success
       summary: Graded Assignment Page
-  /dashboard/lecture:
+  /dashboard/lecture/{week_id}/{lecture_id}:
     get:
       description: Route for lecture page
       responses:
