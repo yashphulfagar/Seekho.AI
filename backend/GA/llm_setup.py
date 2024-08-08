@@ -1,16 +1,11 @@
 import google.generativeai as genai
 import os
-
-import os
 from pinecone import Pinecone
 from transformers import AutoTokenizer, AutoModel
 import torch
-from IPython.display import Markdown
 
 genai.configure(api_key="AIzaSyB7t4BLUq7lmE-7Es7GGRsTCcNUKULSfPg")
 gemini_model = genai.GenerativeModel('gemini-1.5-flash')
-
-
 
 # response = gemini_model.generate_content("what is the capitla of spain?")
 # print(response.text)

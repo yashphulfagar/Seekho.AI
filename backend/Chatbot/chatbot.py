@@ -3,10 +3,18 @@ import numpy as np
 import pandas as pd
 import google.generativeai as genai
 from IPython.display import Markdown
-API_KEY= "AIzaSyAptDqXJLYJTf2ttp_8J1ZN3em9P2HkfSg"
-genai.configure(api_key=API_KEY)
+import os 
+from dotenv import load_dotenv
+load_dotenv()
 
-df = pd.read_pickle('dataframe.pkl')
+# Suppress logging warnings
+os.environ["GRPC_VERBOSITY"] = "ERROR"
+os.environ["GLOG_minloglevel"] = "2"
+
+
+genai.configure(api_key=os.getenv('API_KEY'))
+path = "backend\Chatbot\dataframe.pkl"
+df = pd.read_pickle(path)
 model = 'models/text-embedding-004'
 
 
