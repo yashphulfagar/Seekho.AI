@@ -210,3 +210,4 @@ paths:
         '200':
           description: Success
       summary: Programming Assignment Page
+  /submit: {}

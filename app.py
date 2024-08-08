@@ -526,8 +526,8 @@ def lecture(week_id,lecture_id):
     """       
     # print(week_id+"_"+lecture_id+"_"+"lectureeeeeeeeeeeeeeeeee")
 
-    print("before passing")
-    print(week_id, lecture_id)
+    # print("before passing")
+    # print(week_id, lecture_id)
 
 
     lecture_link = lectures_db[int(week_id)][int(lecture_id)]
@@ -577,17 +577,89 @@ def gradedassignment(week_id):
     """     
 
 
-    print("week_id",week_id)
+    # print("week_id",week_id)
 
     weeks_asg=  all_asg[int(week_id)]
-    print(weeks_asg)
+    # print(weeks_asg)
     return render_template('ga_copy.html', weeks_asg=weeks_asg, week_id=week_id)
 
 
 
 
+@app.route('/submit', methods=['POST'])
+def temp_submission():
+  if request.method == 'POST':
+    selected_options = request.form
+
+    # Print the submitted form data to the console
+    week_id = selected_options.get('week')
+    print(week_id)
+    print(selected_options)
+    print("hiiiiiiiiiiiiiiiii")
+    # print(all_asg)
+
+    results={}
+    counter = 0
+    grp_counter = 0
+    weeks_questions=all_asg[int(week_id)]
+    print("new")
+    # print(weeks_questions)
+    for i, bulk_question in weeks_questions.items():
+      # print(bulk_question)
+      # print("yo")
+      grp_counter += 1
+      results[grp_counter] = {}
+      
 
 
+      bulk_context = bulk_question[0]
+      for j, question_deets in bulk_question[1].items():
+        counter += 1
+        print(question_deets)
+
+        act_qn = question_deets[0]
+        act_opt = question_deets[1]
+        act_ans = question_deets[2]
+        act_ans.sort()
+        this_name = "question-"+str(counter)
+
+        
+
+        selected_answers = selected_options.getlist(this_name)
+        selected_answers.sort()
+
+        print("_________strt____________")
+        print(act_qn)
+        print(act_opt)
+        print(act_ans)
+        print(selected_answers)
+        print("_________nxt____________")
+
+
+        print(grp_counter)
+        print(j)
+        if selected_answers == act_ans:
+          results[grp_counter][j] = "yes"
+          
+        else:
+          results[grp_counter][j] = "no"
+        
+
+    print("___________hi____________")
+    print(results)
+
+
+
+
+
+
+
+
+
+
+    # Return the submitted form data as a simple text response
+    return f"Received: {dict(selected_options)}"
+   
 
 
 

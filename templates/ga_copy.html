@@ -24,8 +24,51 @@ href="{{ url_for('static', filename='gradedassignment.css') }}"
 
 <div class="div4">
     <br>
-    <span class="topic">Graded Assignment 1</span>
+    <span class="topic">Graded Assignment {{week_id}}</span>
     <br><br>
+
+    <form action="/submit" method="POST">
+      {% set count = namespace(value=0) %}
+      {% for index, q in weeks_asg.items() %}
+          <div>
+              <p>{{ q[0] }}</p>
+              <br>
+
+              {% for index2, optionss in q[1].items() %}
+                {% set count.value = count.value + 1 %}
+                <!-- <div>{{ optionss }}</div><br> -->
+              
+               <div class="question">
+                <h4>{{ count.value }}. {{ optionss[0] }} </h4><br>
+                 
+              
+               <!-- <div>{{ optionss[1] }} </div> -->
+               
+                {% for soln in optionss[1] %}
+                  
+                  <!-- <div>{{ soln }}</div><br> -->
+
+                  <input type="checkbox" name="question-{{count.value}}" value="{{soln}}">{{soln}}</input>
+                  <br>
+                {% endfor %} 
+               
+
+                </div>                   
+              {% endfor %}              
+              
+
+          </div>
+      {% endfor %}
+      <input type="hidden" name="week" value="{{week_id}}">
+
+      <input type="submit" value="Submit">
+  </form>
+
+
+
+
+
+
     <span class="question">1. The software can be divided into separably addressable components known as - </span><br>
     <div class="options-container">
       <input type="radio" id="option1" name="components" value="elements">
@@ -51,6 +94,13 @@ href="{{ url_for('static', filename='gradedassignment.css') }}"
     </div>
     <button class="send-button">Send</button>
     <hr>
+
+
+
+
+
+
+
     <span class="question">2. “Software Components run independent of each other and should not share any data or communicate
 with each other.” Is this statement true or false?</span><br>
     <div class="options-container">
@@ -73,6 +123,8 @@ with each other.” Is this statement true or false?</span><br>
     </div>
     <button class="send-button">Send</button>
     <hr>
+
+
     <span class="question">3. “Software Components run independent of each other and should not share any data or communicate
 with each other.” Is this statement true or false?</span><br>
     <div class="options-container">
@@ -95,6 +147,12 @@ with each other.” Is this statement true or false?</span><br>
     </div>
     <button class="send-button">Send</button>
     <hr>
+
+
+
+
+
+
     <div class="analyse-solution">
       <div class="analysis-container">
         <textarea
