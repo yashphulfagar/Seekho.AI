@@ -935,19 +935,20 @@ demo_results= {
 
 def feedback_gen(asg_no, results):
 
-    asg_number=1
+    asg_number=int(asg_no)
+    demo_results=results
 
-    initial_instructions="________FILL THIS_______"
-    final_instructions = "________FILL THIS_______"
-    correct_questions ="These are the questions that the student has answered correctly: \n"
-    incorrect_questions ="These are the questions that the student has answered incorrectly: \n"
+    initial_instructions="You are a analyzer who analyzes the assignments that students have submitted. On the basis of the questions that the student has answered correctly as well as the basis of the questions that the student has answered incorrectly, identify the weak topics of the student, what exactly they need to study in order to improve. Prepare an analysis of this. Also identify what the user is actually good at. Talk directly to the student."
+    final_instructions = ""
+    correct_questions ="### These are the questions that the student has answered correctly: \n"
+    incorrect_questions ="### These are the questions that the student has answered incorrectly: \n"
 
     question_counter=0
     for i in  demo_results:
         for j in demo_results[i]:
             question_counter+=1
             # print(i,j)
-            if demo_results[i][j] == "yes":
+            if demo_results[i][j] == "Correct":
                 correct_questions += "\nQ"+str(question_counter)+"\n"+all_asg[asg_number][i][0]+"\n"+ all_asg[asg_number][i][1][j][0]+"\n"+"Correct Options: \n"
                 for k in all_asg[asg_number][i][1][j][2]:
                     correct_questions += k+"\n"
@@ -963,6 +964,29 @@ def feedback_gen(asg_no, results):
 
     final_to_send = initial_instructions + "\n\n" + correct_questions + "\n\n" + incorrect_questions + "\n\n" + final_instructions
 
-    response_gen = full_fucntion(final_to_send)
+    # response_gen = full_fucntion(final_to_send)
+    response_gen = get_response(final_to_send)
 
-    return response_gen
+
+    print(final_to_send)
+
+    print("_____________________")
+    print(response_gen)
+    # return final_to_send
+    return response_gen    
+
+
+def individual_doubt(doubt, context, question, options, answer):
+    initial_inst="You are a doubt solver who solves the doubts of the students which are based on a specific question. A student has asked you the following doubt. He has also provided the corresponding question: \n"
+    final_inst="Solve the doubt using the given information. Give the response directly to the student. Remember to not give the student the answer directly even if he asks for it. You are there to teach him not to enable copying.\n"
+    question_text=" Question: "+ context+"\n" + question + "\n"
+    options_text="Options: \n" + "\n".join(options) + "\n"
+    answer_text="Correct Answer: "+ "\n".join(answer) + "\n"
+    doubt_text="Doubt: "+ doubt + "\n"
+    final_to_send = initial_inst + question_text + options_text + answer_text + doubt_text + final_inst
+
+    cleared_doubt= get_response(final_to_send)
+
+    print("this is the cleared doubt \n"+cleared_doubt)
+    return cleared_doubt
+

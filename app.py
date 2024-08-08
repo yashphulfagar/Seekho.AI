@@ -590,6 +590,7 @@ def gradedassignment(week_id):
 def temp_submission():
   if request.method == 'POST':
     selected_options = request.form
+    print("submit just took place")
 
     # Print the submitted form data to the console
     week_id = selected_options.get('week')
@@ -628,12 +629,12 @@ def temp_submission():
         selected_answers = selected_options.getlist(this_name)
         selected_answers.sort()
 
-        print("_________strt____________")
-        print(act_qn)
-        print(act_opt)
-        print(act_ans)
-        print(selected_answers)
-        print("_________nxt____________")
+        # print("_________strt____________")
+        # print(act_qn)
+        # print(act_opt)
+        # print(act_ans)
+        # print(selected_answers)
+        # print("_________nxt____________")
 
 
         print(grp_counter)
@@ -645,7 +646,7 @@ def temp_submission():
           results[grp_counter][j] = "Incorrect"
         
 
-    print("___________hi____________")
+    print("___________hia____________")
     print(results)
 
 
@@ -655,9 +656,130 @@ def temp_submission():
 
 
 
+@app.route('/analyze', methods=['POST'])
+def submission_analysis():
+  if request.method == 'POST':
+    selected_options = request.form
+    print("analyze just took place")
 
 
+    # Print the submitted form data to the console
+    week_id = selected_options.get('week')
+    print(week_id)
+    print(selected_options)
+    print("hiiiiiiiiiiiiiiiii")
+    # print(all_asg)
 
+    results={}
+    counter = 0
+    grp_counter = 0
+    weeks_questions=all_asg[int(week_id)]
+    print("new")
+    # print(weeks_questions)
+    for i, bulk_question in weeks_questions.items():
+      # print(bulk_question)
+      # print("yo")
+      grp_counter += 1
+      results[grp_counter] = {}
+      
+
+
+      bulk_context = bulk_question[0]
+      for j, question_deets in bulk_question[1].items():
+        counter += 1
+        print(question_deets)
+
+        act_qn = question_deets[0]
+        act_opt = question_deets[1]
+        act_ans = question_deets[2]
+        act_ans.sort()
+        this_name = "question-"+str(counter)
+
+        
+
+        selected_answers = selected_options.getlist(this_name)
+        selected_answers.sort()
+
+        # print("_________strt____________")
+        # print(act_qn)
+        # print(act_opt)
+        # print(act_ans)
+        # print(selected_answers)
+        # print("_________nxt____________")
+
+
+        print(grp_counter)
+        print(j)
+        if selected_answers == act_ans:
+          results[grp_counter][j] = "Correct"
+          
+        else:
+          results[grp_counter][j] = "Incorrect"
+        
+
+    print("___________hib____________")
+    print(results)
+
+    somethign = feedback_gen(week_id, results)
+
+
+    return jsonify(somethign)
+
+
+@app.route('/analyze_doubt', methods=['POST'])
+def analyze_doubt():
+    if request.method == 'POST':
+      print("doubt just took place")
+
+      print("htis is where doubt analysis begins")
+      question_index = request.form.get('question_index')
+      doubt = request.form.get('doubt')
+      week_id = request.form.get('week')
+      print(question_index)
+      print(doubt)
+      print(week_id)
+
+
+      results={}
+      counter = 0
+      grp_counter = 0
+      weeks_questions=all_asg[int(week_id)]
+      print("new")
+      # print(weeks_questions)
+      for i, bulk_question in weeks_questions.items():
+        # print(bulk_question)
+        # print("yo")
+        grp_counter += 1
+        results[grp_counter] = {}
+        
+
+
+        bulk_context = bulk_question[0]
+        for j, question_deets in bulk_question[1].items():
+          counter += 1
+          if counter == int(question_index):
+            act_qn = question_deets[0]
+            act_opt = question_deets[1]
+            act_ans = question_deets[2]
+            act_ans.sort()
+
+
+            print("_________strt____________")
+            print(act_qn)
+            print(act_opt)
+            print(act_ans)
+            
+            print("_________nxt____________")
+
+            # send the doubt top the llm
+            cleared_doubt = individual_doubt(doubt= doubt, question= act_qn, options= act_opt, answer= act_ans, context= bulk_context)
+
+            return jsonify(cleared_doubt)
+        else:
+          print("searcgubf")  
+          continue
+
+    return  jsonify("No question found")
 
 
 

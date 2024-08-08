@@ -10,6 +10,8 @@ paths:
         '200':
           description: Success
       summary: Home Page
+  /analyze: {}
+  /analyze_doubt: {}
   /api/activityquestion/clear:
     delete:
       description: Clear the answers of the current activity question
