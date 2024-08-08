@@ -639,27 +639,17 @@ def temp_submission():
         print(grp_counter)
         print(j)
         if selected_answers == act_ans:
-          results[grp_counter][j] = "yes"
+          results[grp_counter][j] = "Correct"
           
         else:
-          results[grp_counter][j] = "no"
+          results[grp_counter][j] = "Incorrect"
         
 
     print("___________hi____________")
     print(results)
 
 
-
-
-
-
-
-
-
-
-    # Return the submitted form data as a simple text response
-    return f"Received: {dict(selected_options)}"
-   
+    return render_template('ga_copy_ans.html', weeks_asg=weeks_questions, week_id=week_id, results=results)
 
 
 
