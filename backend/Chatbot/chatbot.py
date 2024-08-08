@@ -13,7 +13,8 @@ os.environ["GLOG_minloglevel"] = "2"
 
 
 genai.configure(api_key=os.getenv('API_KEY'))
-df = pd.read_pickle('dataframe.pkl')
+path = "backend\Chatbot\dataframe.pkl"
+df = pd.read_pickle(path)
 model = 'models/text-embedding-004'
 
 

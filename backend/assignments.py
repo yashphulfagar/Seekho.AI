@@ -1,6 +1,7 @@
 from flask import render_template,request,redirect,url_for,Blueprint,flash,abort,jsonify
 import re
 from youtube_transcript_api import YouTubeTranscriptApi
+from backend.GA.llm_setup import *
 assgn = Blueprint("assignments",__name__,static_folder = '../static',template_folder="../templates" )
 
 

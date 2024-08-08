@@ -3,7 +3,6 @@ import os
 from pinecone import Pinecone
 from transformers import AutoTokenizer, AutoModel
 import torch
-from IPython.display import Markdown
 
 genai.configure(api_key="AIzaSyB7t4BLUq7lmE-7Es7GGRsTCcNUKULSfPg")
 gemini_model = genai.GenerativeModel('gemini-1.5-flash')

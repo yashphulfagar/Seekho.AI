@@ -1,4 +1,6 @@
 from flask import render_template,request,redirect,url_for,Blueprint,flash,abort
+from lecture_database import lectures_db as lectures_db
+from backend.GA.llm_setup import get_summary,get_key
 lec = Blueprint("lecture_routes",__name__,static_folder = '../static',template_folder="../templates" )
 
 
@@ -88,3 +90,39 @@ def lecture_api():
           description: Success
     """       
     return 
+
+@lec.route('/dashboard/lecture/<week_id>/<lecture_id>')
+def lecture(week_id,lecture_id):
+
+    """
+    ---
+    get:
+      summary: Lecture Page
+      description: Route for lecture page
+      responses:
+        200:
+          description: Success
+    """       
+    # print(week_id+"_"+lecture_id+"_"+"lectureeeeeeeeeeeeeeeeeeeeeeeeeee")
+
+    print("before passing")
+    print(week_id, lecture_id)
+
+
+    lecture_link = lectures_db[int(week_id)][int(lecture_id)]
+
+    def convert_to_embed_url(youtube_url):
+        # print(youtube_url)
+        video_id = youtube_url[0].split(".be/")[-1].split("&")[0]
+        embed_url = f"https://www.youtube.com/embed/{video_id}"
+        return embed_url  
+    
+    embed_url = convert_to_embed_url(lecture_link)
+
+    lec_transcript = lecture_link[1]
+
+
+    lec_summary = get_summary(lec_transcript)
+    lec_key = get_key(lec_transcript)
+
+    return render_template('lecture_copy.html', lecture_link=embed_url,lecture_id=lecture_id,week_id=week_id,lec_summary=lec_summary,lec_key=lec_key)

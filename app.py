@@ -1,27 +1,24 @@
 ###############Importing Libraries################
-from flask import Flask, render_template, request, jsonify
-from youtube_transcript_api import YouTubeTranscriptApi
+from flask import Flask, render_template, request, jsonify, Blueprint
 #from apispec import APISpec
 #from apispec_webframeworks.flask import FlaskPlugin
 #import yaml
 #import requests
-from lecture_database import lectures_db as lectures_db
-from flask_restful import Resource, Api
-from backend.GA.llm_setup import *
-from flask import Flask, render_template, request, jsonify
-from youtube_transcript_api import YouTubeTranscriptApi
-import re
 from backend.Chatbot.chatbot import chat_bot
-from backend.lecture_routes import lec
-from backend.assignments import assgn
+
 ###############Importing Libraries################
 
 
 # Initialize
 app = Flask(__name__)
-api = Api(app)
-app.register_blueprint(lec)
-app.register_blueprint(assgn)
+
+# Register Blueprints
+with app.app_context():
+    from backend.lecture_routes import lec
+    from backend.assignments import assgn
+    app.register_blueprint(lec)
+    app.register_blueprint(assgn)
+
 '''
 spec = APISpec(
     title="SE Gen AI Project",
@@ -167,6 +164,24 @@ def programmingassignment():
           description: Success
     """       
     return render_template('programmingassignment.html')
+
+
+
+
+
+@app.route('/dashboard/gradedassignment')
+def gradedassignment():
+
+    """
+    ---
+    get:
+      summary: Graded Assignment Page
+      description: Graded Assignment Page populated with details 
+      responses:
+        200:
+          description: Success
+    """       
+    return render_template('ga_copy.html')
 
 """
 # Register paths with the spec
