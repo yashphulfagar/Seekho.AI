@@ -17,13 +17,6 @@ paths:
         '200':
           description: Success
       summary: Clear Activity
-  /api/chat/clear:
-    delete:
-      description: Clears all chat history involving the chatbot and current user
-      responses:
-        '200':
-          description: Success
-      summary: Clear Chat History
   /api/chat_chain:
     post:
       description: Endpoint to chain LLM conversations and generate responses.

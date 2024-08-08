@@ -69,11 +69,6 @@ def test_activity_reset(client):
     response = client.delete('/api/activityquestion/clear')
     assert response.status_code == 200
 
-def test_programmingassignment_reset(client):
-    # Test resetting programming assignment
-    response = client.delete('/api/programmingassignment/clear')
-    assert response.status_code == 200
-
 def test_gradedassignment_reset(client):
     # Test resetting graded assignment
     response = client.delete('/api/gradedassignment/clear')

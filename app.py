@@ -425,7 +425,7 @@ def programmingassignment_api():
     return 
 
 
-@app.route('/api/logout',options=['DELETE'])
+@app.route('/api/logout',methods=['DELETE'])
 def logout_user():
 
     """
@@ -437,7 +437,7 @@ def logout_user():
         200:
           description: Success
     """       
-    return render_template('starter-page.html')
+    return render_template('starter-page.html'),200
 
 @app.route('/api/activityquestion/clear')
 def activityreset():
