@@ -90,4 +90,30 @@ def full_fucntion(question):
 # print(answer.text)
 
 
+def get_summary(transcript):
+    prompt = ("""You are a helpful and informative bot that sumarizes text and transcripts provided to you below namely the passage. \
+    Be sure to respond in a complete sentence, being comprehensive, including all relevant background information. \
+    However, you are talking to a non-technical audience, so be sure to break down complicated concepts and \
+    strike a friendly and converstional tone. \
+    Refer to the passage below as "the lecture". \
+    QUESTION: \n'Summarize the passage below'
+    PASSAGE: '{transcript}'
 
+        ANSWER:
+    """).format( transcript=transcript)
+    summary = get_response(prompt)
+    return summary
+
+
+def get_key(transcript):
+    prompt = ("""You are a helpful and informative bot that analyzes text and transcripts provided to you below namely the passage and from these generates the key topics discussed in the video. \
+    Respond in short bullet points each on a new line in a markdown format. \
+    Be very concise and to the point. \
+    Ensure that you add a line break after each bullet point. \
+    QUESTION: \n'Extract key points and topics covered from the passage below'
+    PASSAGE: '{transcript}'
+
+        ANSWER:
+    """).format( transcript=transcript)
+    key = get_response(prompt)
+    return key

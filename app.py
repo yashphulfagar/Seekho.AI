@@ -3,10 +3,11 @@ from youtube_transcript_api import YouTubeTranscriptApi
 from apispec import APISpec
 from apispec_webframeworks.flask import FlaskPlugin
 import yaml
+import requests
 
-
-
-
+from lecture_database import lectures_db as lectures_db
+from flask_restful import Resource, Api
+from backend.atharva.llm_setup import *
 
 
 
@@ -18,6 +19,7 @@ import re
 from chatbot import chat_bot
 
 app = Flask(__name__)
+api = Api(app)
 
 # Initialize
 spec = APISpec(
@@ -27,34 +29,32 @@ spec = APISpec(
     plugins=[FlaskPlugin()],
 )
 
+"""
+---
+post:
+  summary: Fetches video data from database
+  description: Endpoint to fetch video data from database.
+  responses:
+    200:
+      description: Success
+"""        
 
-@app.route('/api/populate_assignments', methods=['POST'])
-def populate_assignments():
 
-    """
-    ---
-    post:
-      summary: Populates assignment
-      description: Endpoint to populate assignments into the page.
-      responses:
-        200:
-          description: Success
-    """
-    return
 
-@app.route('/api/verify_assignments', methods=['POST'])
-def verify_assignments():
 
-    """
-    ---
-    post:
-      summary: Verifies assignment
-      description: Endpoint to verify the responses that the user has given.
-      responses:
-        200:
-          description: Success
-    """
-    return
+# class lecture_url(Resource):
+
+#     def get(self, week_id, lecture_id):
+#         print("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+#         print(week_id, lecture_id)
+
+#         return {"lecture_link": embed_url}
+    
+# api.add_resource(lecture_url, '/api/vid_database_fetch/<string:week_id>/<string:lecture_id>')
+
+
+
+
 
 @app.route('/api/lecture_populate', methods=['POST'])
 def lecture_populate():
@@ -70,34 +70,7 @@ def lecture_populate():
     """    
     return
 
-@app.route('/api/vid_database_fetch', methods=['POST'])
-def vid_database_fetch():
 
-    """
-    ---
-    post:
-      summary: Fetches video data from database
-      description: Endpoint to fetch video data from database.
-      responses:
-        200:
-          description: Success
-    """    
-    return
-
-
-@app.route('/api/chat_chain', methods=['POST'])
-def chat_chain():
-
-    """
-    ---
-    post:
-      summary: Chain LLM conversation
-      description: Endpoint to chain LLM conversations and generate responses.
-      responses:
-        200:
-          description: Success
-    """    
-    return
 
 @app.route('/api/vid_summary', methods=['POST'])
 def vid_summary():
@@ -155,6 +128,62 @@ def vid_keyword_gen():
     """        
     return
 
+@app.route('/api/dashboard/lecture')
+def lecture_api():
+
+    """
+    ---
+    post:
+      summary: Lecture Page Contents
+      description: Lecture Page populated with details
+      responses:
+        200:
+          description: Success
+    """       
+    return 
+
+@app.route('/api/populate_assignments', methods=['POST'])
+def populate_assignments():
+
+    """
+    ---
+    post:
+      summary: Populates assignment
+      description: Endpoint to populate assignments into the page.
+      responses:
+        200:
+          description: Success
+    """
+    return
+
+@app.route('/api/verify_assignments', methods=['POST'])
+def verify_assignments():
+
+    """
+    ---
+    post:
+      summary: Verifies assignment
+      description: Endpoint to verify the responses that the user has given.
+      responses:
+        200:
+          description: Success
+    """
+    return
+
+@app.route('/api/chat_chain', methods=['POST'])
+def chat_chain():
+
+    """
+    ---
+    post:
+      summary: Chain LLM conversation
+      description: Endpoint to chain LLM conversations and generate responses.
+      responses:
+        200:
+          description: Success
+    """    
+    return
+
 @app.route('/api/per_qn_explaination', methods=['POST'])
 def per_qn_explaination():
 
@@ -183,6 +212,132 @@ def per_qn_doubt():
     """        
     return
 
+@app.route('/api/dashboard/programmingassignment')
+def programmingassignment_api():
+
+    """
+    ---
+    post:
+      summary: Programming Assignment Page Details
+      description: Programming assignment Page populated with details
+      responses:
+        200:
+          description: Success
+    """       
+    return 
+
+
+@app.route('/api/dashboard/gradedassignment')
+def gradedassignment_api():
+
+    """
+    ---
+    post:
+      summary: Graded Assignment Page Details
+      description: Graded Assignment Page populated with details
+      responses:
+        200:
+          description: Success
+    """       
+    return 
+
+@app.route('/api/chat/clear')
+def clearchat():
+
+    """
+    ---
+    delete:
+      summary: Clear Chat History
+      description: Clears all chat history involving the chatbot and current user
+      responses:
+        200:
+          description: Success
+    """       
+    return 
+
+@app.route('/api/logout')
+def logout_user():
+
+    """
+    ---
+    delete:
+      summary: Clear All User Data
+      description: Clears all of the current users history and data
+      responses:
+        200:
+          description: Success
+    """       
+    return 
+
+@app.route('/api/activityquestion/clear')
+def activityreset():
+
+    """
+    ---
+    delete:
+      summary: Clear Activity
+      description: Clear the answers of the current activity question
+      responses:
+        200:
+          description: Success
+    """       
+    return 
+
+@app.route('/api/programmingassignment/clear')
+def programmingassignmentreset():
+
+    """
+    ---
+    delete:
+      summary: Clear Programming Assignment
+      description: Clear the answers of the current Programming Assignment
+      responses:
+        200:
+          description: Success
+    """       
+    return 
+
+@app.route('/api/gradedassignment/clear')
+def gradedassignmentreset():
+
+    """
+    ---
+    delete:
+      summary: Clear Graded Assignment
+      description: Clear the answers of the current graded assignment
+      responses:
+        200:
+          description: Success
+    """       
+    return 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @app.route('/api/process_regular_questions', methods=['POST'])
 def process_questions():
@@ -205,6 +360,16 @@ def process_questions():
 
     # Return the response as JSON
     return jsonify({'response': question_answer})
+
+
+
+
+
+
+
+
+
+
 
 @app.route('/api/complete_assignment_feedback', methods=['POST'])
 def process_questionnaire():
@@ -341,8 +506,8 @@ def dashboard_api():
     """       
     return 
 
-@app.route('/dashboard/lecture')
-def lecture():
+@app.route('/dashboard/lecture/<week_id>/<lecture_id>')
+def lecture(week_id,lecture_id):
 
     """
     ---
@@ -353,21 +518,31 @@ def lecture():
         200:
           description: Success
     """       
-    return render_template('lecture_copy.html')
+    # print(week_id+"_"+lecture_id+"_"+"lectureeeeeeeeeeeeeeeeeeeeeeeeeee")
 
-@app.route('/api/dashboard/lecture')
-def lecture_api():
+    print("before passing")
+    print(week_id, lecture_id)
 
-    """
-    ---
-    post:
-      summary: Lecture Page Contents
-      description: Lecture Page populated with details
-      responses:
-        200:
-          description: Success
-    """       
-    return 
+
+    lecture_link = lectures_db[int(week_id)][int(lecture_id)]
+
+    def convert_to_embed_url(youtube_url):
+        # print(youtube_url)
+        video_id = youtube_url[0].split(".be/")[-1].split("&")[0]
+        embed_url = f"https://www.youtube.com/embed/{video_id}"
+        return embed_url  
+    
+    embed_url = convert_to_embed_url(lecture_link)
+
+    lec_transcript = lecture_link[1]
+
+
+    lec_summary = get_summary(lec_transcript)
+    lec_key = get_key(lec_transcript)
+
+    return render_template('lecture_copy.html', lecture_link=embed_url,lecture_id=lecture_id,week_id=week_id,lec_summary=lec_summary,lec_key=lec_key)
+
+
 
 @app.route('/dashboard/gradedassignment')
 def gradedassignment():
@@ -376,26 +551,14 @@ def gradedassignment():
     ---
     get:
       summary: Graded Assignment Page
-      description: Graded Assignment Page populated with details
+      description: Graded Assignment Page populated with details 
       responses:
         200:
           description: Success
     """       
     return render_template('ga_copy.html')
 
-@app.route('/api/dashboard/gradedassignment')
-def gradedassignment_api():
 
-    """
-    ---
-    post:
-      summary: Graded Assignment Page Details
-      description: Graded Assignment Page populated with details
-      responses:
-        200:
-          description: Success
-    """       
-    return 
 
 @app.route('/dashboard/chatbot')
 def chatbot():
@@ -457,93 +620,6 @@ def programmingassignment():
     """       
     return render_template('programmingassignment.html')
 
-@app.route('/api/dashboard/programmingassignment')
-def programmingassignment_api():
-
-    """
-    ---
-    post:
-      summary: Programming Assignment Page Details
-      description: Programming assignment Page populated with details
-      responses:
-        200:
-          description: Success
-    """       
-    return 
-
-
-@app.route('/api/chat/clear')
-def clearchat():
-
-    """
-    ---
-    delete:
-      summary: Clear Chat History
-      description: Clears all chat history involving the chatbot and current user
-      responses:
-        200:
-          description: Success
-    """       
-    return 
-
-@app.route('/api/logout')
-def logout_user():
-
-    """
-    ---
-    delete:
-      summary: Clear All User Data
-      description: Clears all of the current users history and data
-      responses:
-        200:
-          description: Success
-    """       
-    return 
-
-@app.route('/api/activityquestion/clear')
-def activityreset():
-
-    """
-    ---
-    delete:
-      summary: Clear Activity
-      description: Clear the answers of the current activity question
-      responses:
-        200:
-          description: Success
-    """       
-    return 
-
-
-
-@app.route('/api/programmingassignment/clear')
-def programmingassignmentreset():
-
-    """
-    ---
-    delete:
-      summary: Clear Programming Assignment
-      description: Clear the answers of the current Programming Assignment
-      responses:
-        200:
-          description: Success
-    """       
-    return 
-
-@app.route('/api/gradedassignment/clear')
-def gradedassignmentreset():
-
-    """
-    ---
-    delete:
-      summary: Clear Graded Assignment
-      description: Clear the answers of the current graded assignment
-      responses:
-        200:
-          description: Success
-    """       
-    return 
-
 
 # Register paths with the spec
 with app.test_request_context():
@@ -561,3 +637,4 @@ with open('se_api.yaml', 'w') as file:
 
 if __name__ == '__main__':
     app.run(debug=True)
+    
