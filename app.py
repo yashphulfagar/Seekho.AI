@@ -7,8 +7,8 @@ import requests
 
 
 from flask_restful import Resource, Api
-from backend.atharva.llm_setup import *
-from backend.atharva.lecture_database import *
+from backend.GA.llm_setup import *
+from backend.GA.lecture_database import *
 
 
 
