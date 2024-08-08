@@ -5,9 +5,10 @@ from apispec_webframeworks.flask import FlaskPlugin
 import yaml
 import requests
 
-from lecture_database import lectures_db as lectures_db
+
 from flask_restful import Resource, Api
 from backend.atharva.llm_setup import *
+from backend.atharva.lecture_database import *
 
 
 
@@ -310,34 +311,19 @@ def gradedassignmentreset():
           description: Success
     """       
     return 
+@app.route('/api/dashboard')
+def dashboard_api():
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    """
+    ---
+    post:
+      summary: Dashboard Page Contents
+      description: Dashboard Page populated with details
+      responses:
+        200:
+          description: Success
+    """       
+    return 
 
 @app.route('/api/process_regular_questions', methods=['POST'])
 def process_questions():
@@ -360,16 +346,6 @@ def process_questions():
 
     # Return the response as JSON
     return jsonify({'response': question_answer})
-
-
-
-
-
-
-
-
-
-
 
 @app.route('/api/complete_assignment_feedback', methods=['POST'])
 def process_questionnaire():
@@ -443,6 +419,48 @@ def get_transcript():
         return jsonify({'error': str(e)}), 500
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @app.route('/api/chatbot_page', methods=['POST'])
 def chatbot_page():
 
@@ -492,19 +510,7 @@ def dashboard():
     """       
     return render_template('dashboard_copy.html')
 
-@app.route('/api/dashboard')
-def dashboard_api():
 
-    """
-    ---
-    post:
-      summary: Dashboard Page Contents
-      description: Dashboard Page populated with details
-      responses:
-        200:
-          description: Success
-    """       
-    return 
 
 @app.route('/dashboard/lecture/<week_id>/<lecture_id>')
 def lecture(week_id,lecture_id):
@@ -518,7 +524,7 @@ def lecture(week_id,lecture_id):
         200:
           description: Success
     """       
-    # print(week_id+"_"+lecture_id+"_"+"lectureeeeeeeeeeeeeeeeeeeeeeeeeee")
+    # print(week_id+"_"+lecture_id+"_"+"lectureeeeeeeeeeeeeeeeee")
 
     print("before passing")
     print(week_id, lecture_id)
@@ -542,24 +548,6 @@ def lecture(week_id,lecture_id):
 
     return render_template('lecture_copy.html', lecture_link=embed_url,lecture_id=lecture_id,week_id=week_id,lec_summary=lec_summary,lec_key=lec_key)
 
-
-
-@app.route('/dashboard/gradedassignment')
-def gradedassignment():
-
-    """
-    ---
-    get:
-      summary: Graded Assignment Page
-      description: Graded Assignment Page populated with details 
-      responses:
-        200:
-          description: Success
-    """       
-    return render_template('ga_copy.html')
-
-
-
 @app.route('/dashboard/chatbot')
 def chatbot():
        
@@ -575,35 +563,46 @@ def chatbot():
     return render_template('chatbot.html')
 
 
-
-
-@app.route('/dashboard/activityquestion')
-def activityquestion():
+@app.route('/dashboard/gradedassignment/<week_id>')
+def gradedassignment(week_id):
 
     """
     ---
     get:
-      summary: Activity Question Page
-      description: Route for activity question page
+      summary: Graded Assignment Page
+      description: Graded Assignment Page populated with details 
       responses:
         200:
           description: Success
-    """       
-    return render_template('activityquestion.html')
+    """     
 
-@app.route('/api/dashboard/activityquestion')
-def activityquestion_api():
 
-    """
-    ---
-    post:
-      summary: Activity Question Page Details
-      description: Activity Question Page populated with details
-      responses:
-        200:
-          description: Success
-    """       
-    return 
+    print("week_id",week_id)
+
+    weeks_asg=  all_asg[int(week_id)]
+    print(weeks_asg)
+    return render_template('ga_copy.html', weeks_asg=weeks_asg, week_id=week_id)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @app.route('/dashboard/programmingassignment')

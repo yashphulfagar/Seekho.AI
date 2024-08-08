@@ -53,13 +53,6 @@ paths:
         '200':
           description: Success
       summary: Dashboard Page Contents
-  /api/dashboard/activityquestion:
-    post:
-      description: Activity Question Page populated with details
-      responses:
-        '200':
-          description: Success
-      summary: Activity Question Page Details
   /api/dashboard/gradedassignment:
     post:
       description: Graded Assignment Page populated with details
@@ -189,13 +182,6 @@ paths:
         '200':
           description: Success
       summary: Dashboard
-  /dashboard/activityquestion:
-    get:
-      description: Route for activity question page
-      responses:
-        '200':
-          description: Success
-      summary: Activity Question Page
   /dashboard/chatbot:
     get:
       description: Route for chatbot interface
@@ -203,7 +189,7 @@ paths:
         '200':
           description: Success
       summary: Central Chatbot
-  /dashboard/gradedassignment:
+  /dashboard/gradedassignment/{week_id}:
     get:
       description: Graded Assignment Page populated with details
       responses:
