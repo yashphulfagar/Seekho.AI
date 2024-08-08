@@ -27,33 +27,45 @@ href="{{ url_for('static', filename='lecture.css') }}"
 
 
   <br />
-  <span class="topic">Lecture 1</span>
+  <span class="topic">Week {{week_id}} Lecture {{lecture_id}}</span>
   <br /><br />
   <div class="div4_1">
     <iframe
+      id="lecture-frame"
       class="video"
       width="800"
       height="300"
-      src="https://www.youtube.com/embed/F9BZ5JsnjYM"
       frameborder="0"
       allowfullscreen
     ></iframe>
   </div>
   <br />
-  <span class="topic">Lecture 1: Summary</span>
+  <span class="topic">Lecture {{lecture_id}}: Summary</span>
   <div class="summary-container">
-    <textarea
+    <div
       class="summary-textarea"
       placeholder="AI Generated Summary"
-    ></textarea>
+      style="overflow-y: scroll;"
+    >{{lec_summary}}</div>
   </div>
   <br />
-  <span class="topic">Lecture 1: Key Topics</span>
+  <span class="topic">Lecture {{lecture_id}}: Key Topics</span>
   <div class="summary-container">
-    <textarea
+    <div
       class="summary-textarea"
       placeholder="AI Generated Key Topics"
-    ></textarea>
+      style="overflow-y: scroll;"
+    >{{lec_key}}</div>
   </div>
 
+
+  <script>
+    // Get the lecture link from the Flask backend
+    const lectureLink = "{{ lecture_link }}";
+  
+
+    
+    // Set the src attribute of the iframe to the lecture link
+    document.getElementById('lecture-frame').src = lectureLink;
+  </script>
   {% endblock %}

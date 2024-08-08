@@ -132,13 +132,6 @@ paths:
         '200':
           description: Success
       summary: Verifies assignment
-  /api/vid_database_fetch:
-    post:
-      description: Endpoint to fetch video data from database.
-      responses:
-        '200':
-          description: Success
-      summary: Fetches video data from database
   /api/vid_keyword:
     post:
       description: Endpoint to fetch keywords mentioned in video.
@@ -195,7 +188,7 @@ paths:
         '200':
           description: Success
       summary: Graded Assignment Page
-  /dashboard/lecture:
+  /dashboard/lecture/{week_id}/{lecture_id}:
     get:
       description: Route for lecture page
       responses:
