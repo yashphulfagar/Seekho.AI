@@ -6,17 +6,6 @@ from flask import Flask, render_template, request, jsonify, Blueprint, url_for
 # Initialize
 app = Flask(__name__)
 
-
-# Register Blueprints
-with app.app_context():
-    from backend.lecture_routes import lec
-    from backend.assignments import assgn
-    from backend.chat_routes import chatt
-    app.register_blueprint(lec)
-    app.register_blueprint(assgn)
-    app.register_blueprint(chatt)
-
-
 #Logout
 @app.route('/api/logout' , methods=['DELETE'])
 def logout_user():
@@ -33,7 +22,7 @@ def logout_user():
     return render_template('starter-page.html'),200
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
 
     """
@@ -47,7 +36,7 @@ def index():
     """       
     return render_template('starter-page.html')
 
-@app.route('/dashboard')
+@app.route('/dashboard', methods=['GET'])
 def dashboard():
 
     """
@@ -62,7 +51,7 @@ def dashboard():
     return render_template('dashboard_copy.html')
 
 
-@app.route('/dashboard/chatbot')
+@app.route('/dashboard/chatbot', methods=['GET'])
 def chatbot():
        
     """
@@ -75,6 +64,17 @@ def chatbot():
           description: Success
     """           
     return render_template('chatbot.html'),200
+
+# Register Blueprints
+with app.app_context():
+    from backend.lecture_routes import lec
+    from backend.assignments import assgn
+    from backend.chat_routes import chatt
+    app.register_blueprint(lec)
+    app.register_blueprint(assgn)
+    app.register_blueprint(chatt)
+    print(app.url_map)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
