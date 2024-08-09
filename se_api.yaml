@@ -12,13 +12,6 @@ paths:
       summary: Home Page
   /analyze: {}
   /analyze_doubt: {}
-  /api/activityquestion/clear:
-    delete:
-      description: Clear the answers of the current activity question
-      responses:
-        '200':
-          description: Success
-      summary: Clear Activity
   /api/chat/clear:
     delete:
       description: Clears all chat history involving the chatbot and current user
@@ -55,27 +48,20 @@ paths:
         '200':
           description: Success
       summary: Dashboard Page Contents
-  /api/dashboard/gradedassignment:
+  /api/dashboard/gradedassignment/{week_id}:
     post:
       description: Graded Assignment Page populated with details
       responses:
         '200':
           description: Success
       summary: Graded Assignment Page Details
-  /api/dashboard/lecture:
+  /api/dashboard/lecture/{week_id}/{lecture_id}:
     post:
       description: Lecture Page populated with details
       responses:
         '200':
           description: Success
       summary: Lecture Page Contents
-  /api/dashboard/programmingassignment:
-    post:
-      description: Programming assignment Page populated with details
-      responses:
-        '200':
-          description: Success
-      summary: Programming Assignment Page Details
   /api/get_transcript:
     post:
       description: Get the transcript of a given video lecture.
@@ -83,7 +69,7 @@ paths:
         '200':
           description: Success
       summary: Fetches video transcript
-  /api/gradedassignment/clear:
+  /api/gradedassignment/{week_id}/clear:
     delete:
       description: Clear the answers of the current graded assignment
       responses:
@@ -135,13 +121,6 @@ paths:
         '200':
           description: Success
       summary: Chatbot for regular questions
-  /api/programmingassignment/clear:
-    delete:
-      description: Clear the answers of the current Programming Assignment
-      responses:
-        '200':
-          description: Success
-      summary: Clear Programming Assignment
   /api/verify_assignments:
     post:
       description: Endpoint to verify the responses that the user has given.
@@ -149,28 +128,28 @@ paths:
         '200':
           description: Success
       summary: Verifies assignment
-  /api/vid_keyword:
+  /api/vid_keyword/{week_id}/{lecture_id}:
     post:
       description: Endpoint to fetch keywords mentioned in video.
       responses:
         '200':
           description: Success
       summary: Fetches video keywords
-  /api/vid_keyword_gen:
+  /api/vid_keyword_gen/{week_id}/{lecture_id}:
     post:
       description: Endpoint to generate keywords mentioned in video.
       responses:
         '200':
           description: Success
       summary: Generates video keywords
-  /api/vid_summary:
+  /api/vid_summary/{week_id}/{lecture_id}:
     post:
       description: Endpoint to fetch video summary.
       responses:
         '200':
           description: Success
       summary: Fetches video summary
-  /api/vid_summary_gen:
+  /api/vid_summary_gen/{week_id}/{lecture_id}:
     post:
       description: Endpoint to generate video summary.
       responses:
