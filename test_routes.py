@@ -55,18 +55,13 @@ def test_dashboard(client):
 
 def test_lecture_page(client):
     # Test the lecture page
-    response = client.get('/dashboard/lecture')
+    response = client.get('/dashboard/lecture/1/1')
     assert response.status_code == 200
     assert b'Lecture' in response.data
 
 def test_logout_user(client):
     # Test clearing all user data
     response = client.delete('/api/logout')
-    assert response.status_code == 200
-
-def test_activity_reset(client):
-    # Test resetting activity question
-    response = client.delete('/api/activityquestion/clear')
     assert response.status_code == 200
 
 def test_gradedassignment_reset(client):

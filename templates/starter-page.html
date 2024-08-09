@@ -11,15 +11,16 @@
   </head>
   <body>
     <div class="container">
-      <h1>Welcome to SE Project</h1>
-      <a href="{{ url_for('dashboard') }}"
-        ><button id="get-started-btn">Let's Get Started</button></a
-      >
+      <h1>Welcome to IITM BS SEEK Portal</h1>
+      <input type="text" id="mailid" class="mail" placeholder="Enter your student ID"  />
+      <a href="{{ url_for('dashboard') }}"><button id="get-started-btn" >Let's Get Started</button></a>
     </div>
     <script>
-      //   document.getElementById("get-started-btn").onclick = function () {
-      //     alert("Button clicked!");
-      //   };
+          document.getElementById("mailid").onclick = function () {
+             if (document.getElementById("mailid").value.contains("@ds.study.iitm.ac.in")) {
+                alert("Login Successful");
+             }
+            };
     </script>
   </body>
 </html>
