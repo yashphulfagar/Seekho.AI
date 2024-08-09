@@ -4,6 +4,7 @@ import pandas as pd
 import google.generativeai as genai
 from IPython.display import Markdown
 import os 
+
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -13,7 +14,9 @@ os.environ["GLOG_minloglevel"] = "2"
 
 
 genai.configure(api_key=os.getenv('API_KEY'))
-path = "backend\Chatbot\dataframe.pkl"
+#path = "backend\Chatbot\dataframe.pkl"
+current_dir = os.path.dirname(__file__) 
+path = os.path.join(current_dir, 'dataframe.pkl')
 df = pd.read_pickle(path)
 model = 'models/text-embedding-004'
 

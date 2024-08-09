@@ -1,13 +1,12 @@
 ###############Importing Libraries################
-from flask import Flask, render_template, request, jsonify, Blueprint
+from flask import Flask, render_template, request, jsonify, Blueprint, url_for
 #from apispec import APISpec
 #from apispec_webframeworks.flask import FlaskPlugin
 #import yaml
 #import requests
+import os
 from backend.Chatbot.chatbot import chat_bot
-
 ###############Importing Libraries################
-
 
 # Initialize
 app = Flask(__name__)
@@ -27,22 +26,38 @@ spec = APISpec(
     plugins=[FlaskPlugin()],
 )
 '''
-
-@app.route('/api/chat/clear')
-def clearchat():
+#Home Page
+@app.route('/')
+def index():
 
     """
     ---
-    delete:
-      summary: Clear Chat History
-      description: Clears all chat history involving the chatbot and current user
+    get:
+      summary: Home Page
+      description: Route for home page
       responses:
         200:
           description: Success
     """       
-    return 
+    return render_template('starter-page.html'),200
 
-@app.route('/api/logout')
+#Dashboard
+@app.route('/dashboard')
+def dashboard():
+
+    """
+    ---
+    get:
+      summary: Dashboard
+      description: Route for dashboard
+      responses:
+        200:
+          description: Success
+    """       
+    return render_template('dashboard_copy.html'),200
+
+#Logout
+@app.route('/api/logout' , methods=['DELETE'])
 def logout_user():
 
     """
@@ -54,7 +69,8 @@ def logout_user():
         200:
           description: Success
     """       
-    return 
+    return render_template('starter-page.html'),200
+
 
 
 @app.route('/api/chatbot_page', methods=['POST'])
@@ -74,39 +90,8 @@ def chatbot_page():
     print(user_message)
     chatbot_response = chat_bot(str(user_message))
     # sample repsonse, modify this Aryan to send the actual chatbot thing
-    return jsonify({'response': chatbot_response})
+    return jsonify({'response': chatbot_response}),200
       
-
-@app.route('/')
-def index():
-
-    """
-    ---
-    get:
-      summary: Home Page
-      description: Route for home page
-      responses:
-        200:
-          description: Success
-    """       
-    return render_template('starter-page.html')
-
-@app.route('/dashboard')
-def dashboard():
-
-    """
-    ---
-    get:
-      summary: Dashboard
-      description: Route for dashboard
-      responses:
-        200:
-          description: Success
-    """       
-    return render_template('dashboard_copy.html')
-
-
-
 
 @app.route('/dashboard/chatbot')
 def chatbot():
@@ -120,8 +105,11 @@ def chatbot():
         200:
           description: Success
     """           
-    return render_template('chatbot.html')
+    return render_template('chatbot.html'),200
 
+
+
+'''
 @app.route('/dashboard/activityquestion')
 def activityquestion():
 
@@ -134,7 +122,7 @@ def activityquestion():
         200:
           description: Success
     """       
-    return render_template('activityquestion.html')
+    return render_template('activityquestion.html'),200
 
 @app.route('/api/dashboard/activityquestion')
 def activityquestion_api():
@@ -166,7 +154,7 @@ def programmingassignment():
     return render_template('programmingassignment.html')
 
 
-
+'''
 
 
 @app.route('/dashboard/gradedassignment')

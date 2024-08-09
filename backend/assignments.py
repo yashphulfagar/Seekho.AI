@@ -33,19 +33,6 @@ def verify_assignments():
     """
     return
 
-@assgn.route('/api/chat_chain', methods=['POST'])
-def chat_chain():
-
-    """
-    ---
-    post:
-      summary: Chain LLM conversation
-      description: Endpoint to chain LLM conversations and generate responses.
-      responses:
-        200:
-          description: Success
-    """    
-    return
 
 @assgn.route('/api/per_qn_explaination', methods=['POST'])
 def per_qn_explaination():
@@ -76,7 +63,7 @@ def per_qn_doubt():
     return
 
 
-
+'''
 @assgn.route('/api/activityquestion/clear')
 def activityreset():
 
@@ -90,20 +77,7 @@ def activityreset():
           description: Success
     """       
     return 
-
-@assgn.route('/api/programmingassignment/clear')
-def programmingassignmentreset():
-
-    """
-    ---
-    delete:
-      summary: Clear Programming Assignment
-      description: Clear the answers of the current Programming Assignment
-      responses:
-        200:
-          description: Success
-    """       
-    return 
+'''
 
 @assgn.route('/api/gradedassignment/clear')
 def gradedassignmentreset():
@@ -211,20 +185,4 @@ def get_transcript():
         return jsonify({'transcript': transcript_text,'keypoints': keypoints})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-
-
-@assgn.route('/api/dashboard/gradedassignment')
-def gradedassignment_api():
-
-    """
-    ---
-    post:
-      summary: Graded Assignment Page Details
-      description: Graded Assignment Page populated with details
-      responses:
-        200:
-          description: Success
-    """       
-    return 
 

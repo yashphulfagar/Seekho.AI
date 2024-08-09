@@ -4,22 +4,6 @@ from backend.GA.llm_setup import get_summary,get_key
 lec = Blueprint("lecture_routes",__name__,static_folder = '../static',template_folder="../templates" )
 
 
-@lec.route('/api/lecture_populate', methods=['POST'])
-def lecture_populate():
-
-    """
-    ---
-    post:
-      summary: Populates lecture pages
-      description: Endpoint to populate lectures pages.
-      responses:
-        200:
-          description: Success
-    """    
-    return
-
-
-
 @lec.route('/api/vid_summary', methods=['POST'])
 def vid_summary():
 
@@ -76,20 +60,6 @@ def vid_keyword_gen():
           description: Success
     """        
     return
-
-@lec.route('/api/dashboard/lecture')
-def lecture_api():
-
-    """
-    ---
-    post:
-      summary: Lecture Page Contents
-      description: Lecture Page populated with details
-      responses:
-        200:
-          description: Success
-    """       
-    return 
 
 @lec.route('/dashboard/lecture/<week_id>/<lecture_id>')
 def lecture(week_id,lecture_id):
