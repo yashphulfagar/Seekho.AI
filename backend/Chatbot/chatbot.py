@@ -5,15 +5,12 @@ import google.generativeai as genai
 from IPython.display import Markdown
 import os 
 
-from dotenv import load_dotenv
-load_dotenv()
-
 # Suppress logging warnings
 os.environ["GRPC_VERBOSITY"] = "ERROR"
 os.environ["GLOG_minloglevel"] = "2"
+API_KEY = "AIzaSyAptDqXJLYJTf2ttp_8J1ZN3em9P2HkfSg"
 
-
-genai.configure(api_key=os.getenv('API_KEY'))
+genai.configure(api_key=API_KEY)
 #path = "backend\Chatbot\dataframe.pkl"
 current_dir = os.path.dirname(__file__) 
 path = os.path.join(current_dir, 'dataframe.pkl')
