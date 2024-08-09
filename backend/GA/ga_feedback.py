@@ -1,4 +1,4 @@
-from llm_setup import *
+from backend.GA.llm_setup import *
 
 all_asg = {
   1:{

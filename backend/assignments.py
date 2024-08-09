@@ -12,6 +12,7 @@ from flask import (
 from flask_restful import Resource, Api
 from backend.GA.llm_setup import *
 from backend.GA.lecture_database import *
+from backend.GA.ga_feedback import all_asg 
 
 assgn = Blueprint(
     "assignments", __name__, static_folder="../static", template_folder="../templates"
@@ -299,7 +300,7 @@ def populate_assignments():
         200:
           description: Success
     """
-    return
+    return jsonify({"message": "Success"}),200
 
 
 @assgn.route("/api/gradedassignment/<week_id>/clear")

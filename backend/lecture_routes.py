@@ -7,7 +7,7 @@ from backend.GA.lecture_database import *
 
 lec = Blueprint("lecture_routes",__name__,static_folder = '../static',template_folder="../templates" )
 
-@lec.route('/dashboard/lecture/<week_id>/<lecture_id>')
+@lec.route('/dashboard/lecture/<week_id>/<lecture_id>', methods=['GET'])
 def lecture(week_id,lecture_id):
 
     """
@@ -28,14 +28,11 @@ def lecture(week_id,lecture_id):
         return embed_url  
     
     embed_url = convert_to_embed_url(lecture_link)
-
     lec_transcript = lecture_link[1]
-
-
     lec_summary = get_summary(lec_transcript)
     lec_key = get_key(lec_transcript)
 
-    return render_template('lecture_copy.html', lecture_link=embed_url,lecture_id=lecture_id,week_id=week_id,lec_summary=lec_summary,lec_key=lec_key)
+    return render_template('lecture_copy.html', lecture_link=embed_url,lecture_id=lecture_id,week_id=week_id,lec_summary=lec_summary,lec_key=lec_key),200
 
 # TODO
 @lec.route('/api/lecture_populate', methods=['POST'])
@@ -50,4 +47,4 @@ def lecture_populate():
         200:
           description: Success
     """    
-    return
+    return jsonify({"message":"success"}),200

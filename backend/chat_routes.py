@@ -40,7 +40,7 @@ def clearchat():
         200:
           description: Success
     """       
-    return 
+    return jsonify({"message":"chat cleared"}),200
 
 
 #  TODO
@@ -56,4 +56,6 @@ def chat_chain():
         200:
           description: Success
     """    
-    return
+    data = request.get_json()
+    conversation_chain = data.get('messages', [])
+    return jsonify({"role": "assistant", "content": "Yes,it will rain."}),200
