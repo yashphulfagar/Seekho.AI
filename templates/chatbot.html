@@ -123,6 +123,9 @@
                         <button class="send-button" onclick="sendMessage()">
                             <img src="{{ url_for('static', filename='send.png') }}" alt="Send" class="send">
                         </button>
+                        <button class="send-button" onclick="clearChat()">
+                            <img src="{{ url_for('static', filename='bin.png') }}" alt="Send" class="clear">
+                        </button>
                     </div>
                 </div>
             </div>
@@ -137,6 +140,9 @@
         }
         function openGmail() {
             window.open("https://mail.google.com/mail/u/0/#inbox", "_blank");
+        }
+        function clearChat() {
+            document.getElementById('chat-container').innerHTML = '';
         }
 
         async function sendMessage() {

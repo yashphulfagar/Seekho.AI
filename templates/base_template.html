@@ -121,14 +121,16 @@
         <span class="close" onclick="closeModal_new('1')">&times;</span>
         <h2>Week 1 Content</h2>
         <div class="button-column">
-          <a href="{{ url_for('lecture', week_id=1, lecture_id=1) }}"><button>Lecture 1</button></a>
-          <a href="{{ url_for('lecture', week_id=1, lecture_id=2) }}"><button>Lecture 2</button></a>
-          <a href="{{ url_for('lecture', week_id=1, lecture_id=3) }}"><button>Lecture 3</button></a>
-          <a href="{{ url_for('lecture', week_id=1, lecture_id=4) }}"><button>Lecture 4</button></a>
-          <a href="{{ url_for('lecture', week_id=1, lecture_id=5) }}"><button>Lecture 5</button></a>
-          <a href="{{ url_for('lecture', week_id=1, lecture_id=6) }}"><button>Lecture 6</button></a>          
-          <a href="{{ url_for('lecture', week_id=1, lecture_id=7) }}"><button>Lecture 7</button></a>          
-          <a href="{{ url_for('gradedassignment', week_id=1) }}"
+
+          <a href="{{ url_for('lecture_routes.lecture', week_id=1, lecture_id=1) }}"><button>Lecture 1</button></a>
+          <a href="{{ url_for('lecture_routes.lecture', week_id=1, lecture_id=2) }}"><button>Lecture 2</button></a>
+          <a href="{{ url_for('lecture_routes.lecture', week_id=1, lecture_id=3) }}"><button>Lecture 3</button></a>
+          <a href="{{ url_for('lecture_routes.lecture', week_id=1, lecture_id=4) }}"><button>Lecture 4</button></a>
+          <a href="{{ url_for('lecture_routes.lecture', week_id=1, lecture_id=5) }}"><button>Lecture 5</button></a>
+          <a href="{{ url_for('lecture_routes.lecture', week_id=1, lecture_id=6) }}"><button>Lecture 6</button></a>          
+          <a href="{{ url_for('lecture_routes.lecture', week_id=1, lecture_id=7) }}"><button>Lecture 7</button></a>          
+          <a href="{{ url_for('gradedassignment') }}"
+
             ><button>Graded Assignment</button></a
           >
         </div>
@@ -140,12 +142,14 @@
         <span class="close" onclick="closeModal_new('2')">&times;</span>
         <h2>Week 2 Content</h2>
         <div class="button-column">
-          <a href="{{ url_for('lecture', week_id=2, lecture_id=1) }}"><button>Lecture 1</button></a>
-          <a href="{{ url_for('lecture', week_id=2, lecture_id=2) }}"><button>Lecture 2</button></a>
-          <a href="{{ url_for('lecture', week_id=2, lecture_id=3) }}"><button>Lecture 3</button></a>
-          <a href="{{ url_for('lecture', week_id=2, lecture_id=4) }}"><button>Lecture 4</button></a>
-          <a href="{{ url_for('lecture', week_id=2, lecture_id=5) }}"><button>Lecture 5</button></a>          
-          <a href="{{ url_for('gradedassignment', week_id=2) }}"
+
+          <a href="{{ url_for('lecture_routes.lecture', week_id=2, lecture_id=1) }}"><button>Lecture 1</button></a>
+          <a href="{{ url_for('lecture_routes.lecture', week_id=2, lecture_id=2) }}"><button>Lecture 2</button></a>
+          <a href="{{ url_for('lecture_routes.lecture', week_id=2, lecture_id=3) }}"><button>Lecture 3</button></a>
+          <a href="{{ url_for('lecture_routes.lecture', week_id=2, lecture_id=4) }}"><button>Lecture 4</button></a>
+          <a href="{{ url_for('lecture_routes.lecture', week_id=2, lecture_id=5) }}"><button>Lecture 5</button></a>          
+          <a href="{{ url_for('gradedassignment') }}"
+
             ><button>Graded Assignment</button></a
           >
         </div>
@@ -157,13 +161,15 @@
         <span class="close" onclick="closeModal_new('3')">&times;</span>
         <h2>Week 3 Content</h2>
         <div class="button-column">
-          <a href="{{ url_for('lecture', week_id=3, lecture_id=1) }}"><button>Lecture 1</button></a>
-          <a href="{{ url_for('lecture', week_id=3, lecture_id=2) }}"><button>Lecture 2</button></a>
-          <a href="{{ url_for('lecture', week_id=3, lecture_id=3) }}"><button>Lecture 3</button></a>
-          <a href="{{ url_for('lecture', week_id=3, lecture_id=4) }}"><button>Lecture 4</button></a>
-          <a href="{{ url_for('lecture', week_id=3, lecture_id=5) }}"><button>Lecture 5</button></a>
-          <a href="{{ url_for('lecture', week_id=3, lecture_id=6) }}"><button>Lecture 6</button></a>          
-          <a href="{{ url_for('gradedassignment', week_id=3) }}"
+
+          <a href="{{ url_for('lecture_routes.lecture', week_id=3, lecture_id=1) }}"><button>Lecture 1</button></a>
+          <a href="{{ url_for('lecture_routes.lecture', week_id=3, lecture_id=2) }}"><button>Lecture 2</button></a>
+          <a href="{{ url_for('lecture_routes.lecture', week_id=3, lecture_id=3) }}"><button>Lecture 3</button></a>
+          <a href="{{ url_for('lecture_routes.lecture', week_id=3, lecture_id=4) }}"><button>Lecture 4</button></a>
+          <a href="{{ url_for('lecture_routes.lecture', week_id=3, lecture_id=5) }}"><button>Lecture 5</button></a>
+          <a href="{{ url_for('lecture_routes.lecture', week_id=3, lecture_id=6) }}"><button>Lecture 6</button></a>          
+          <a href="{{ url_for('gradedassignment') }}"
+
             ><button>Graded Assignment</button></a
           >
         </div>
@@ -175,13 +181,15 @@
         <span class="close" onclick="closeModal_new('4')">&times;</span>
         <h2>Week 4 Content</h2>
         <div class="button-column">
-          <a href="{{ url_for('lecture', week_id=4, lecture_id=1) }}"><button>Lecture 1</button></a>
-          <a href="{{ url_for('lecture', week_id=4, lecture_id=2) }}"><button>Lecture 2</button></a>
-          <a href="{{ url_for('lecture', week_id=4, lecture_id=3) }}"><button>Lecture 3</button></a>
-          <a href="{{ url_for('lecture', week_id=4, lecture_id=4) }}"><button>Lecture 4</button></a>
-          <a href="{{ url_for('lecture', week_id=4, lecture_id=5) }}"><button>Lecture 5</button></a>
-          <a href="{{ url_for('lecture', week_id=4, lecture_id=6) }}"><button>Lecture 6</button></a>          
-          <a href="{{ url_for('gradedassignment', week_id=4) }}"
+
+          <a href="{{ url_for('lecture_routes.lecture', week_id=4, lecture_id=1) }}"><button>Lecture 1</button></a>
+          <a href="{{ url_for('lecture_routes.lecture', week_id=4, lecture_id=2) }}"><button>Lecture 2</button></a>
+          <a href="{{ url_for('lecture_routes.lecture', week_id=4, lecture_id=3) }}"><button>Lecture 3</button></a>
+          <a href="{{ url_for('lecture_routes.lecture', week_id=4, lecture_id=4) }}"><button>Lecture 4</button></a>
+          <a href="{{ url_for('lecture_routes.lecture', week_id=4, lecture_id=5) }}"><button>Lecture 5</button></a>
+          <a href="{{ url_for('lecture_routes.lecture', week_id=4, lecture_id=6) }}"><button>Lecture 6</button></a>          
+          <a href="{{ url_for('gradedassignment') }}"
+
             ><button>Graded Assignment</button></a
           >
         </div>

@@ -1,4 +1,5 @@
 
+
 from flask import render_template,request,redirect,url_for,Blueprint,flash,abort,jsonify, Flask
 import re
 from youtube_transcript_api import YouTubeTranscriptApi
@@ -72,6 +73,7 @@ def lecture_populate():
 @lec.route('/api/vid_summary/<string:week_id>/<string:lecture_id>', methods=['POST'])
 def vid_summary(week_id, lecture_id):
 
+
     """
     ---
     post:
@@ -96,6 +98,7 @@ def vid_summary(week_id, lecture_id):
 @lec.route('/api/vid_summary_gen/<string:week_id>/<string:lecture_id>', methods=['POST'])
 def vid_summary_gen(week_id, lecture_id):
 
+
     """
     ---
     post:
@@ -119,6 +122,7 @@ def vid_summary_gen(week_id, lecture_id):
 @lec.route('/api/vid_keyword/<string:week_id>/<string:lecture_id>', methods=['POST'])
 def vid_keyword(week_id, lecture_id):
 
+
     """
     ---
     post:
@@ -128,6 +132,7 @@ def vid_keyword(week_id, lecture_id):
         200:
           description: Success
     """        
+
 
     lecture_link = lectures_db[int(week_id)][int(lecture_id)]
 
@@ -139,6 +144,7 @@ def vid_keyword(week_id, lecture_id):
 @lec.route('/api/vid_keyword_gen/<string:week_id>/<string:lecture_id>', methods=['POST'])
 def vid_keyword_gen(week_id, lecture_id):
 
+
     """
     ---
     post:
@@ -148,6 +154,7 @@ def vid_keyword_gen(week_id, lecture_id):
         200:
           description: Success
     """        
+
     lecture_link = lectures_db[int(week_id)][int(lecture_id)]
 
 
@@ -178,10 +185,12 @@ def dashboard_api():
     post:
       summary: Dashboard Page Contents
       description: Dashboard Page populated with details
+
       responses:
         200:
           description: Success
     """       
+
     return render_template('dashboard_copy.html')
 
 @lec.route('/api/dashboard/lecture/<week_id>/<lecture_id>')
@@ -203,11 +212,13 @@ def lecture_api(week_id,lecture_id):
     
     
 
+
     lec_transcript = lecture_link[1]
 
 
     lec_summary = get_summary(lec_transcript)
     lec_key = get_key(lec_transcript)
+
 
     return jsonify({'video_url': video_url, 'summary': lec_summary, 'keypoints': lec_key, 'transcript': lec_transcript})
 
@@ -231,5 +242,6 @@ def lecture_populate():
           description: Success
     """    
     return
+
 
 

@@ -250,9 +250,11 @@ def temp_submission():
 @assgn.route('/api/complete_assignment_feedback', methods=['POST'])
 def process_questionnaire():
 
+
     """
     ---
     post:
+
       summary: Generate student custom feedback
       description: Endppoint to generate student custom feedback based on the questionnaire and student responses.
       responses:
@@ -290,9 +292,11 @@ def process_questionnaire():
 @assgn.route('/api/process_regular_questions', methods=['POST'])
 def process_questions():
 
+
     """
     ---
     post:
+
       summary: Chatbot for regular questions
       description: Endpoint to process regular questions and generate responses from LLM.
       responses:
@@ -315,9 +319,11 @@ def process_questions():
 @assgn.route('/api/populate_assignments', methods=['POST'])
 def populate_assignments():
 
+
     """
     ---
     post:
+
       summary: Populates assignment
       description: Endpoint to populate assignments into the page.
       responses:
@@ -331,15 +337,19 @@ def populate_assignments():
 @assgn.route('/api/gradedassignment/<week_id>/clear')
 def gradedassignmentreset(week_id):
 
+
     """
     ---
     delete:
+
       summary: Clear Graded Assignment
       description: Clear the answers of the current graded assignment
+
       responses:
         200:
           description: Success
     """       
+
     weeks_asg=  all_asg[int(week_id)]
     # print(weeks_asg)
     return render_template('ga_copy.html', weeks_asg=weeks_asg, week_id=week_id)
@@ -352,10 +362,12 @@ def gradedassignment_api(week_id):
     post:
       summary: Graded Assignment Page Details
       description: Graded Assignment Page populated with details
+
       responses:
         200:
           description: Success
     """       
+
     weeks_asg=  all_asg[int(week_id)]
     # print(weeks_asg)
     return jsonify({'weeks_asg': weeks_asg, 'week_id': week_id})
@@ -363,9 +375,11 @@ def gradedassignment_api(week_id):
 @assgn.route('/api/per_qn_explaination', methods=['POST'])
 def per_qn_explaination():
 
+
     """
     ---
     post:
+
       summary: Generates explanation for individual question
       description: Endpoint to generate explanation for individual question without user query.
       responses:
@@ -399,9 +413,11 @@ def per_qn_doubt():
 @assgn.route('/api/verify_assignments', methods=['POST'])
 def verify_assignments():
 
+
     """
     ---
     post:
+
       summary: Verifies assignment
       description: Endpoint to verify the responses that the user has given.
       responses:
@@ -482,6 +498,7 @@ def verify_assignments():
 @assgn.route('/api/populate_assignments', methods=['POST'])
 def populate_assignments():
 
+
     """
     ---
     post:
@@ -492,4 +509,5 @@ def populate_assignments():
           description: Success
     """
     return
+
 

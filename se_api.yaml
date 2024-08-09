@@ -10,6 +10,7 @@ paths:
         '200':
           description: Success
       summary: Home Page
+
   /analyze: {}
   /analyze_doubt: {}
   /api/chat/clear:
@@ -19,6 +20,7 @@ paths:
         '200':
           description: Success
       summary: Clear Chat History
+
   /api/chat_chain:
     post:
       description: Endpoint to chain LLM conversations and generate responses.
@@ -41,6 +43,7 @@ paths:
         '200':
           description: Success
       summary: Generate student custom feedback
+
   /api/dashboard:
     post:
       description: Dashboard Page populated with details
@@ -49,6 +52,7 @@ paths:
           description: Success
       summary: Dashboard Page Contents
   /api/dashboard/gradedassignment/{week_id}:
+
     post:
       description: Graded Assignment Page populated with details
       responses:
@@ -113,6 +117,7 @@ paths:
         '200':
           description: Success
       summary: Populates assignment
+
   /api/process_regular_questions:
     post:
       description: Endpoint to process regular questions and generate responses from
@@ -121,6 +126,7 @@ paths:
         '200':
           description: Success
       summary: Chatbot for regular questions
+
   /api/verify_assignments:
     post:
       description: Endpoint to verify the responses that the user has given.
