@@ -10,13 +10,17 @@ paths:
         '200':
           description: Success
       summary: Home Page
-  /api/activityquestion/clear:
+
+  /analyze: {}
+  /analyze_doubt: {}
+  /api/chat/clear:
     delete:
-      description: Clear the answers of the current activity question
+      description: Clears all chat history involving the chatbot and current user
       responses:
         '200':
           description: Success
-      summary: Clear Activity
+      summary: Clear Chat History
+
   /api/chat_chain:
     post:
       description: Endpoint to chain LLM conversations and generate responses.
@@ -39,34 +43,29 @@ paths:
         '200':
           description: Success
       summary: Generate student custom feedback
-  /api/dashboard/activityquestion:
+
+  /api/dashboard:
     post:
-      description: Activity Question Page populated with details
+      description: Dashboard Page populated with details
       responses:
         '200':
           description: Success
-      summary: Activity Question Page Details
-  /api/dashboard/gradedassignment:
+      summary: Dashboard Page Contents
+  /api/dashboard/gradedassignment/{week_id}:
+
     post:
       description: Graded Assignment Page populated with details
       responses:
         '200':
           description: Success
       summary: Graded Assignment Page Details
-  /api/dashboard/lecture:
+  /api/dashboard/lecture/{week_id}/{lecture_id}:
     post:
       description: Lecture Page populated with details
       responses:
         '200':
           description: Success
       summary: Lecture Page Contents
-  /api/dashboard/programmingassignment:
-    post:
-      description: Programming assignment Page populated with details
-      responses:
-        '200':
-          description: Success
-      summary: Programming Assignment Page Details
   /api/get_transcript:
     post:
       description: Get the transcript of a given video lecture.
@@ -74,7 +73,7 @@ paths:
         '200':
           description: Success
       summary: Fetches video transcript
-  /api/gradedassignment/clear:
+  /api/gradedassignment/{week_id}/clear:
     delete:
       description: Clear the answers of the current graded assignment
       responses:
@@ -118,13 +117,16 @@ paths:
         '200':
           description: Success
       summary: Populates assignment
-  /api/programmingassignment/clear:
-    delete:
-      description: Clear the answers of the current Programming Assignment
+
+  /api/process_regular_questions:
+    post:
+      description: Endpoint to process regular questions and generate responses from
+        LLM.
       responses:
         '200':
           description: Success
-      summary: Clear Programming Assignment
+      summary: Chatbot for regular questions
+
   /api/verify_assignments:
     post:
       description: Endpoint to verify the responses that the user has given.
@@ -132,28 +134,28 @@ paths:
         '200':
           description: Success
       summary: Verifies assignment
-  /api/vid_keyword:
+  /api/vid_keyword/{week_id}/{lecture_id}:
     post:
       description: Endpoint to fetch keywords mentioned in video.
       responses:
         '200':
           description: Success
       summary: Fetches video keywords
-  /api/vid_keyword_gen:
+  /api/vid_keyword_gen/{week_id}/{lecture_id}:
     post:
       description: Endpoint to generate keywords mentioned in video.
       responses:
         '200':
           description: Success
       summary: Generates video keywords
-  /api/vid_summary:
+  /api/vid_summary/{week_id}/{lecture_id}:
     post:
       description: Endpoint to fetch video summary.
       responses:
         '200':
           description: Success
       summary: Fetches video summary
-  /api/vid_summary_gen:
+  /api/vid_summary_gen/{week_id}/{lecture_id}:
     post:
       description: Endpoint to generate video summary.
       responses:
@@ -167,13 +169,6 @@ paths:
         '200':
           description: Success
       summary: Dashboard
-  /dashboard/activityquestion:
-    get:
-      description: Route for activity question page
-      responses:
-        '200':
-          description: Success
-      summary: Activity Question Page
   /dashboard/chatbot:
     get:
       description: Route for chatbot interface
@@ -181,7 +176,7 @@ paths:
         '200':
           description: Success
       summary: Central Chatbot
-  /dashboard/gradedassignment:
+  /dashboard/gradedassignment/{week_id}:
     get:
       description: Graded Assignment Page populated with details
       responses:
@@ -202,3 +197,4 @@ paths:
         '200':
           description: Success
       summary: Programming Assignment Page
+  /submit: {}

@@ -52,7 +52,7 @@ href="{{ url_for('static', filename='gradedassignment.css') }}"
                   <input type="checkbox" name="question-{{count.value}}" value="{{soln}}">{{soln}}</input>
                   <br>
                 {% endfor %} 
-
+                <div>{{results[index][index2]}}</div>
                 <div class="answer-container">
                   <textarea id="doubt_content_{{count.value}}"
                     class="answer-textarea"
@@ -73,12 +73,12 @@ href="{{ url_for('static', filename='gradedassignment.css') }}"
       {% endfor %}
       <input type="hidden" name="week" value="{{week_id}}">
 
-      
+
 
       <div class="submit-button">
         <input class="submit" type="submit" value="Check Answers">
       </div> 
-
+           
   </form>
 
   <br><br>
@@ -87,7 +87,6 @@ href="{{ url_for('static', filename='gradedassignment.css') }}"
     <button class="analysis" id="analyzeButton" >Analyze Solutions</button>
   </div>  
   <div id="assignment_analysis" ></div>
-  
 
 
 
@@ -130,15 +129,15 @@ href="{{ url_for('static', filename='gradedassignment.css') }}"
 
 
 
-  
+    
 
 
 
 
 <script>
   $(document).ready(function() {
-    $('#analyzeButton').on('click', function() {
-      event.preventDefault(); 
+      $('#analyzeButton').on('click', function() {
+        event.preventDefault(); 
           $.ajax({
               type: 'POST',
               url: '/analyze',
