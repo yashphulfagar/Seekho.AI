@@ -6,7 +6,6 @@ from flask_restful import Resource, Api
 from backend.GA.llm_setup import *
 from backend.GA.lecture_database import *
 
-from chatbot import chat_bot
 
 
 # TODO

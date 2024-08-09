@@ -108,6 +108,25 @@ def chatbot():
     """           
     return render_template('chatbot.html'),200
 
+@app.route('/dashboard/gradedassignment/<week_id>')
+def gradedassignment(week_id):
+
+    """
+    ---
+    get:
+      summary: Graded Assignment Page
+      description: Graded Assignment Page populated with details 
+      responses:
+        200:
+          description: Success
+    """     
+
+
+    # print("week_id",week_id)
+
+    weeks_asg=  all_asg[int(week_id)]
+    # print(weeks_asg)
+    return render_template('ga_copy.html', weeks_asg=weeks_asg, week_id=week_id)
 
 
 

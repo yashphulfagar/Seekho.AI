@@ -152,25 +152,6 @@ def analyze_doubt():
 
 
 
-@assgn.route('/dashboard/gradedassignment/<week_id>')
-def gradedassignment(week_id):
-
-    """
-    ---
-    get:
-      summary: Graded Assignment Page
-      description: Graded Assignment Page populated with details 
-      responses:
-        200:
-          description: Success
-    """     
-
-
-    # print("week_id",week_id)
-
-    weeks_asg=  all_asg[int(week_id)]
-    # print(weeks_asg)
-    return render_template('ga_copy.html', weeks_asg=weeks_asg, week_id=week_id)
 
 
 
@@ -492,22 +473,6 @@ def verify_assignments():
 
 
 
-# TODO
 
-
-@assgn.route('/api/populate_assignments', methods=['POST'])
-def populate_assignments():
-
-
-    """
-    ---
-    post:
-      summary: Populates assignment
-      description: Endpoint to populate assignments into the page.
-      responses:
-        200:
-          description: Success
-    """
-    return
 
 

@@ -5,12 +5,12 @@ import google.generativeai as genai
 from IPython.display import Markdown
 import os 
 
-from dotenv import load_dotenv
-load_dotenv()
+# from dotenv import load_dotenv
+# load_dotenv()
 
-# Suppress logging warnings
-os.environ["GRPC_VERBOSITY"] = "ERROR"
-os.environ["GLOG_minloglevel"] = "2"
+# # Suppress logging warnings
+# os.environ["GRPC_VERBOSITY"] = "ERROR"
+# os.environ["GLOG_minloglevel"] = "2"
 
 
 genai.configure(api_key=os.getenv('API_KEY'))

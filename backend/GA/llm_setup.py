@@ -6,6 +6,8 @@ import torch
 from IPython.display import Markdown
 
 
+# import os
+os.environ["GOOGLE_API_KEY"] = "AIzaSyB7t4BLUq7lmE-7Es7GGRsTCcNUKULSfPg"
 
 genai.configure(api_key="AIzaSyB7t4BLUq7lmE-7Es7GGRsTCcNUKULSfPg")
 gemini_model = genai.GenerativeModel('gemini-1.5-flash')
@@ -15,6 +17,7 @@ gemini_model = genai.GenerativeModel('gemini-1.5-flash')
 # print(response.text)
 
 def get_response(question):
+    # print(question)
     response = gemini_model.generate_content(question)
     return response.text
 
@@ -23,7 +26,7 @@ def get_response(question):
 tokenizer = AutoTokenizer.from_pretrained("intfloat/multilingual-e5-large")
 model = AutoModel.from_pretrained("intfloat/multilingual-e5-large")
 
-
+# print(get_response("what is the capital of franche?"))
 # Function to generate embeddings
 def generate_embedding(text):
     inputs = tokenizer(text, return_tensors='pt', truncation=True, padding=True)

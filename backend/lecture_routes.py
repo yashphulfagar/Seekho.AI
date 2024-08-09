@@ -228,20 +228,7 @@ def lecture_api(week_id,lecture_id):
 
 
 
-# TODO
-@lec.route('/api/lecture_populate', methods=['POST'])
-def lecture_populate():
 
-    """
-    ---
-    post:
-      summary: Populates lecture pages
-      description: Endpoint to populate lectures pages.
-      responses:
-        200:
-          description: Success
-    """    
-    return
 
 
 
