@@ -3,7 +3,7 @@ import os
 from pinecone import Pinecone
 from transformers import AutoTokenizer, AutoModel
 import torch
-from IPython.display import Markdown
+
 
 
 
