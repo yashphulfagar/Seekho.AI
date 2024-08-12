@@ -1,71 +1,51 @@
 {% extends 'base_template.html' %}
 
-
 {% block title %}
-
 Lecture
-
 {% endblock %}
-
 
 {% block links %}
-
-<link
-rel="stylesheet"
-href="{{ url_for('static', filename='lecture.css') }}"
-/>
-
-
+<link rel="stylesheet" href="{{ url_for('static', filename='lecture.css') }}" />
 {% endblock %}
 
-
-
-
-
 {% block content %}
-
-
-
-  <br />
-  <span class="topic">Week {{week_id}} Lecture {{lecture_id}}</span>
-  <br /><br />
-  <div class="div4_1">
-    <iframe
-      id="lecture-frame"
-      class="video"
-      width="800"
-      height="300"
-      frameborder="0"
-      allowfullscreen
-    ></iframe>
-  </div>
-  <br />
-  <span class="topic">Lecture {{lecture_id}}: Summary</span>
+<br />
+<span class="topic">Week {{week_id}} Lecture {{lecture_id}}</span>
+<br /><br />
+<div class="div4_1">
+  <iframe id="lecture-frame" class="video" width="1000" height="500" frameborder="0" allowfullscreen></iframe>
+</div>
+<br />
+<nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+  <ul class="nav nav-pills">
+    <li class="nav-item">
+      <a class="nav-link" href="#scrollspyHeading1">Summary</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#scrollspyHeading2">Key Points</a>
+    </li>
+  </ul>
+</nav>
+<div data-bs-spy="scroll" data-bs-target="#navbar-example2" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
+  <div>
+  <span id="scrollspyHeading1" class="topic">Lecture {{lecture_id}}: Summary</span>
   <div class="summary-container">
-    <div
-      class="summary-textarea"
-      placeholder="AI Generated Summary"
-      style="overflow-y: scroll;"
-    >{{lec_summary}}</div>
+    <div class="summary-textarea" placeholder="AI Generated Summary">{{lec_summary}}</div>
   </div>
-  <br />
-  <span class="topic">Lecture {{lecture_id}}: Key Topics</span>
+</div>
+<div>
+  <span id="scrollspyHeading2" class="topic">Lecture {{lecture_id}}: Key Topics</span>
   <div class="summary-container">
-    <div
-      class="summary-textarea"
-      placeholder="AI Generated Key Topics"
-      style="overflow-y: scroll;"
-    >{{lec_key}}</div>
+    <div class="summary-textarea" placeholder="AI Generated Key Topics">{{lec_key}}</div>
   </div>
+</div>
+</div>
 
+<script>
+  // Get the lecture link from the Flask backend
+  const lectureLink = "{{ lecture_link }}";
 
-  <script>
-    // Get the lecture link from the Flask backend
-    const lectureLink = "{{ lecture_link }}";
-  
-
-    
-    // Set the src attribute of the iframe to the lecture link
-    document.getElementById('lecture-frame').src = lectureLink;
-  </script>
-  {% endblock %}
+  // Set the src attribute of the iframe to the lecture link
+  document.getElementById('lecture-frame').src = lectureLink;
+</script>
+{% endblock %}
