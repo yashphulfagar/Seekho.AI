@@ -155,71 +155,39 @@ def gradedassignment(week_id):
 
     weeks_asg = all_asg[int(week_id)]
     # print(weeks_asg)
-    return render_template("ga_copy.html", weeks_asg=weeks_asg, week_id=week_id)
-
+    return render_template("ga_copy.html", weeks_asg=weeks_asg, week_id=week_id, results={})
 
 @assgn.route("/submit", methods=["POST"])
 def temp_submission():
     if request.method == "POST":
         selected_options = request.form
-        print("submit just took place")
-
-        # Print the submitted form data to the console
         week_id = selected_options.get("week")
-        print(week_id)
-        print(selected_options)
-        print("hiiiiiiiiiiiiiiiii")
-        # print(all_asg)
 
         results = {}
         counter = 0
         grp_counter = 0
         weeks_questions = all_asg[int(week_id)]
-        print("new")
-        # print(weeks_questions)
+
         for i, bulk_question in weeks_questions.items():
-            # print(bulk_question)
-            # print("yo")
             grp_counter += 1
             results[grp_counter] = {}
 
-            bulk_context = bulk_question[0]
             for j, question_deets in bulk_question[1].items():
                 counter += 1
-                print(question_deets)
+                act_ans = sorted(question_deets[2])
+                selected_answers = sorted(selected_options.getlist(f"question-{counter}"))
 
-                act_qn = question_deets[0]
-                act_opt = question_deets[1]
-                act_ans = question_deets[2]
-                act_ans.sort()
-                this_name = "question-" + str(counter)
-
-                selected_answers = selected_options.getlist(this_name)
-                selected_answers.sort()
-
-                # print("_________strt____________")
-                # print(act_qn)
-                # print(act_opt)
-                # print(act_ans)
-                # print(selected_answers)
-                # print("_________nxt____________")
-
-                print(grp_counter)
-                print(j)
                 if selected_answers == act_ans:
                     results[grp_counter][j] = "Correct"
-
                 else:
                     results[grp_counter][j] = "Incorrect"
 
-        print("___________hia____________")
-        print(results)
-
         return render_template(
-            "ga_copy_ans.html",
+            "ga_copy.html",
             weeks_asg=weeks_questions,
             week_id=week_id,
             results=results,
+            selected_options=selected_options
         )
 
 
@@ -319,7 +287,7 @@ def gradedassignmentreset(week_id):
 
     weeks_asg = all_asg[int(week_id)]
     # print(weeks_asg)
-    return render_template("ga_copy.html", weeks_asg=weeks_asg, week_id=week_id)
+    return redirect(url_for("assignments.gradedassignment", week_id=week_id))
 
 
 @assgn.route("/api/dashboard/gradedassignment/<week_id>")

@@ -73,7 +73,6 @@ with app.app_context():
     app.register_blueprint(lec)
     app.register_blueprint(assgn)
     app.register_blueprint(chatt)
-    print(app.url_map)
 
 
 if __name__ == '__main__':
