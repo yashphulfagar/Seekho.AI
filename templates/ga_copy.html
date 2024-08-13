@@ -12,6 +12,168 @@ Graded Assignment
 rel="stylesheet"
 href="{{ url_for('static', filename='gradedassignment.css') }}"
 />
+<style>
+  /* Base styles */
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Title styling */
+.topic {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  display: block;
+  margin-bottom: 20px;
+}
+
+/* Form and question styling */
+form {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.question {
+  margin-bottom: 20px;
+}
+
+.question h4 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+  margin-left: 0;
+}
+
+textarea {
+  width: 100%;
+  max-width: 600px;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.send-button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #000;
+  border: 1px solid #000;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+.submit-button,
+.analyse-button {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.submit-button input,
+.analyse-button button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #000;
+  border: 1px solid #000;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+.submit-button input:hover,
+.analyse-button button:hover {
+  background-color: #333;
+}
+
+/* Analysis container styling */
+#assignment_analysis {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.message-box-container {
+  width: 100%;
+  max-width: 600px;
+  margin-left: 40px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.message-box {
+  display: flex;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+  background-color: #f9f9f9;
+}
+
+.message-box textarea {
+  flex: 1;
+  border: none;
+  outline: none;
+  resize: none;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.send-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.send-button img.send {
+  width: 20px;
+  height: 20px;
+}
+
+.send-button img.clear {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+}
+.doubt-solution-box {
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  color: #333;
+  max-width: 600px;
+  margin-left: 40px; /* Align with other elements */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+</style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -22,117 +184,49 @@ href="{{ url_for('static', filename='gradedassignment.css') }}"
 
 
 {% block content %}
-
-<div class="div4">
-    <br>
-    <span class="topic">Graded Assignment {{week_id}}</span>
-    <br><br>
-
-    <form id="quizForm" action="/submit" method="POST">
-      {% set count = namespace(value=0) %}
-      {% for index, q in weeks_asg.items() %}
-          <div>
-              <p>{{ q[0] }}</p>
-              <br>
-
-              {% for index2, optionss in q[1].items() %}
-                {% set count.value = count.value + 1 %}
-                <!-- <div>{{ optionss }}</div><br> -->
-              
-               <div class="question">
-                <h4>{{ count.value }}. {{ optionss[0] }} </h4><br>
-                 
-              
-               <!-- <div>{{ optionss[1] }} </div> -->
-               
-                {% for soln in optionss[1] %}
-                  
-                  <!-- <div>{{ soln }}</div><br> -->
-
-                  <input type="checkbox" name="question-{{count.value}}" value="{{soln}}">{{soln}}</input>
-                  <br>
-                {% endfor %} 
-
-                <div class="answer-container">
-                  <textarea id="doubt_content_{{count.value}}"
-                    class="answer-textarea"
-                    placeholder="Ask your question here..."
-                  ></textarea>
-                </div>
-                <div id="doubt_soln_{{count.value}}" ></div>
-              
-              <button  id="doubt-{{count.value}}" class="send-button doubt_button"   data-week="{{ week_id }}">Send</button>
-              
-               
-
-                </div>                   
-              {% endfor %}              
-              
-
+<div class="container">
+  <div class="topic">Graded Assignment {{ week_id }}</div>
+  
+  <form id="quizForm" action="/submit" method="POST">
+    {% set count = namespace(value=0) %}
+    {% for index, q in weeks_asg.items() %}
+      <div class="question">
+        <p>{{ q[0] }}</p>
+        {% for index2, optionss in q[1].items() %}
+          {% set count.value = count.value + 1 %}
+          <h4>{{ count.value }}. {{ optionss[0] }}</h4>
+          {% for soln in optionss[1] %}
+            <div>
+              <input type="checkbox" name="question-{{ count.value }}" value="{{ soln }}">
+              <label>{{ soln }}</label>
+            </div>
+          {% endfor %}
+          <div class="message-box-container">
+            <div class="message-box">
+              <textarea id="doubt_content_{{ count.value }}" placeholder="Ask your question here..." rows="2" 
+                        style="flex: 1; border: none; outline: none; resize: none;"></textarea>
+              <button id="doubt-{{ count.value }}" class="send-button doubt_button" data-week="{{ week_id }}" onclick="sendMessage()">
+                <img src="{{ url_for('static', filename='send.png') }}" alt="Send" class="send">
+              </button>
+            </div>
           </div>
-      {% endfor %}
-      <input type="hidden" name="week" value="{{week_id}}">
-
-      
-
-      <div class="submit-button">
-        <input class="submit" type="submit" value="Check Answers">
-      </div> 
-
+          <div id="doubt_soln_{{ count.value }}" style="padding: 5px;margin: 5px; "></div>          
+        {% endfor %}
+      </div>
+    {% endfor %}
+    <input type="hidden" name="week" value="{{ week_id }}">
+    <div style="display: flex; flex-direction: row;">
+    <div class="submit-button" style="margin: 10px;">
+      <input class="submit" type="submit" value="Check Answers">
+    </div>
   </form>
-
-  <br><br>
-
-  <div class="analyse-button">
-    <button class="analysis" id="analyzeButton" >Analyze Solutions</button>
-  </div>  
-  <div id="assignment_analysis" ></div>
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
+  <div class="analyse-button" style="margin: 10px;">
+    <button class="analysis" id="analyzeButton">Analyze Solutions</button>
+  </div>
+  </div>
+  <div id="assignment_analysis"></div>
+</div>
 
 
 <script>
@@ -179,35 +273,4 @@ href="{{ url_for('static', filename='gradedassignment.css') }}"
             });    
   });
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 {% endblock %}        

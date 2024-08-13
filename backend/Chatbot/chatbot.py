@@ -30,7 +30,8 @@ def make_prompt(query, relevant_passage):
   escaped = relevant_passage.replace("'", "").replace('"', "").replace("\n", " ")
   prompt = textwrap.dedent("""You are a helpful and informative bot that answers questions using text from the reference passage included below and the internet. \
   Be sure to respond in a complete and to the point sentence (answer must be of atleast 50 words), being comprehensive, including all relevant background information. \
-  If the passage is irrelevant to the answer, you may ignore it.if someone says hi ,please greet them and if they ask question unrelated to software engineering, please reply "i can't answer that". \ 
+  If the passage is irrelevant to the answer, you may ignore it.if someone says hi ,please greet them and if they ask question unrelated to software engineering, please reply "i can't answer that". \
+  Note : Instead of Bullet points use numbers and remove symbols like "*" from response i.e. make response HTML Friendly\ 
   QUESTION: '{query}'
   PASSAGE: '{relevant_passage}'
 
