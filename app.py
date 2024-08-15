@@ -2,10 +2,25 @@ from flask_restful import Resource, Api
 from backend.GA.llm_setup import *
 from backend.GA.lecture_database import *
 from flask import Flask, render_template, request, jsonify, Blueprint, url_for,json,redirect,session
+from models import Student,Grades
 
 # Initialize
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
 
+# Register Blueprints
+with app.app_context():
+    from backend.lecture_routes import lec
+    from backend.assignments import assgn
+    from backend.chat_routes import chatt
+    from models import db
+    db.init_app(app)
+    app.register_blueprint(lec)
+    app.register_blueprint(assgn)
+    app.register_blueprint(chatt)
+    db.create_all()
+
+# OAuth 2.0 Configuration
 from oauthlib.oauth2 import WebApplicationClient
 import requests
 import os
@@ -13,10 +28,10 @@ import os
 app.secret_key = os.urandom(24)  # Needed to use session
 
 # OAuth 2.0 Configuration
-CLIENT_ID = "1098906111028-3sa643vtdniu8p42iiuqg45nknn3qkh2.apps.googleusercontent.com"  # Replace with your Google Client ID
-CLIENT_SECRET = "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"  # Replace with your Google Client Secret
+CLIENT_ID = "1098906111028-gakcsjvvittc5uorvg7e9qm6nevb9a5j.apps.googleusercontent.com"  # Replace with your Google Client ID
+CLIENT_SECRET = "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"  # Replace with your Google Client Secret
 #REDIRECT_URI = "https://localhost:5000/google-signin"
-REDIRECT_URI = "https://scaling-robot-9r6w9x796j42pjxx-5000.app.github.dev/google-signin"
+REDIRECT_URI = "http://127.0.0.1:5000/google-signin"
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'  # Disable in production
 os.environ['OAUTHLIB_RELAX_TOKEN_SCOPE'] = '1'
 
@@ -27,10 +42,6 @@ GOOGLE_DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configura
 
 def get_google_provider_cfg():
     return requests.get(GOOGLE_DISCOVERY_URL).json()
-
-@app.route("/log")
-def indexa():
-    return "<h1>Welcome to the Google Sign-In Demo!</h1><a href='/login'>Login with Google</a>"
 
 @app.route("/login")
 def login():
@@ -67,8 +78,6 @@ def callback():
         auth=(CLIENT_ID, CLIENT_SECRET),
     )
 
-    print(token_response.json())
-
     # Parse the tokens!
     client.parse_request_body_response(json.dumps(token_response.json()))
 
@@ -83,19 +92,8 @@ def callback():
     # Store user info in session
     session['user'] = user_info
 
-    return redirect(url_for("profile"))
+    return redirect(url_for("dashboard"))
 
-@app.route("/profile")
-def profile():
-    if 'user' in session:
-        user_info = session['user']
-        return f"""
-        <h1>Welcome {user_info['name']}!</h1>
-        <p>Email: {user_info['email']}</p>
-        <img src="{user_info['picture']}" alt="Profile Picture">
-        """
-    else:
-        return redirect(url_for("indexa"))
 
 @app.route("/privacy_policy")
 def privacy_policy():
@@ -148,8 +146,33 @@ def dashboard():
       responses:
         200:
           description: Success
+    """
+    if 'user' in session:
+        user_info = session['user']
+        if 'email' in user_info:
+            email = user_info['email']
+            user = Student.query.filter_by(email=email).first()
+            if user is None:
+                user = Student(email=email)
+                db.session.add(user)
+                db.session.commit()
+    
+    return render_template('dashboard_copy.html',user_info=user_info)
+
+@app.route('/dashboard/grades', methods=['GET'])
+def grades():
+
+    """
+    ---
+    get:
+      summary: Grades
+      description: Route for grades
+      responses:
+        200:
+          description: Success
     """       
-    return render_template('dashboard_copy.html')
+
+    return render_template('grades.html',user_info = session['user']),200
 
 
 @app.route('/dashboard/chatbot', methods=['GET'])
@@ -166,14 +189,6 @@ def chatbot():
     """           
     return render_template('chatbot.html'),200
 
-# Register Blueprints
-with app.app_context():
-    from backend.lecture_routes import lec
-    from backend.assignments import assgn
-    from backend.chat_routes import chatt
-    app.register_blueprint(lec)
-    app.register_blueprint(assgn)
-    app.register_blueprint(chatt)
 
 
 if __name__ == '__main__':

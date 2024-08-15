@@ -7,6 +7,7 @@ from flask import (
     flash,
     abort,
     jsonify,
+    session,
     Flask,
 )
 from flask_restful import Resource, Api
@@ -155,7 +156,7 @@ def gradedassignment(week_id):
 
     weeks_asg = all_asg[int(week_id)]
     # print(weeks_asg)
-    return render_template("ga_copy.html", weeks_asg=weeks_asg, week_id=week_id, results={})
+    return render_template("ga_copy.html", weeks_asg=weeks_asg, week_id=week_id, results={},user_info = session['user'])
 
 @assgn.route("/submit", methods=["POST"])
 def temp_submission():
@@ -188,6 +189,7 @@ def temp_submission():
             week_id=week_id,
             results=results,
             selected_options=selected_options
+            ,user_info = session['user']
         )
 
 

@@ -1,4 +1,4 @@
-from flask import render_template,request,redirect,url_for,Blueprint,flash,abort,jsonify, Flask
+from flask import render_template,request,redirect,url_for,Blueprint,flash,abort,jsonify, Flask,session
 from flask_restful import Resource, Api
 from backend.GA.llm_setup import *
 from backend.GA.lecture_database import *
@@ -32,7 +32,7 @@ def lecture(week_id,lecture_id):
     lec_summary = get_summary(lec_transcript)
     lec_key = get_key(lec_transcript)
 
-    return render_template('lecture_copy.html', lecture_link=embed_url,lecture_id=lecture_id,week_id=week_id,lec_summary=lec_summary,lec_key=lec_key),200
+    return render_template('lecture_copy.html', lecture_link=embed_url,lecture_id=lecture_id,week_id=week_id,lec_summary=lec_summary,lec_key=lec_key,user_info=session['user']),200
 
 # TODO
 @lec.route('/api/lecture_populate', methods=['POST'])
