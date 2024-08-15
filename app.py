@@ -184,7 +184,14 @@ def grades():
         3: 6,  # Week 3: 6 lectures
         4: 6   # Week 4: 6 lectures
     }
-    return render_template('grades.html',user_info = session['user'],lecture_links = week_lecture_counts),200
+    #retrieve grades from database
+    usermail = session['user'].get('email')
+    user = Student.query.filter_by(email=usermail).first()
+    if user is None:
+        return render_template('grades.html',user_info = session['user'],lecture_links = week_lecture_counts,grades = []),200
+    
+    grades = Grades.query.filter_by(student_id=user.id).all()
+    return render_template('grades.html',user_info = session['user'],lecture_links = week_lecture_counts,grades=grades),200
 
 
 @app.route('/dashboard/chatbot', methods=['GET'])

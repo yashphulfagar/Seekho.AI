@@ -155,8 +155,8 @@ def gradedassignment(week_id):
     }
     # print(weeks_asg)
     return render_template("ga_copy.html", weeks_asg=weeks_asg, week_id=week_id, results={},user_info = session['user'],lecture_links = week_lecture_counts)
+from flask import render_template, request, redirect, url_for, session
 
-#function to submit the graded assignment
 @assgn.route("/submit", methods=["POST"])
 def temp_submission():
     if request.method == "POST":
@@ -164,6 +164,8 @@ def temp_submission():
         week_id = selected_options.get("week")
 
         results = {}
+        total_marks = 0
+        obtained_marks = 0
         counter = 0
         grp_counter = 0
         weeks_questions = all_asg.get(int(week_id), {})
@@ -174,6 +176,7 @@ def temp_submission():
 
             for j, question_deets in bulk_question[1].items():
                 counter += 1
+                total_marks += 1  # Each question is 1 mark
                 act_ans = sorted(question_deets[2])
                 selected_answers = sorted(selected_options.getlist(f"question-{counter}"))
 
@@ -182,14 +185,18 @@ def temp_submission():
                         "status": "Correct",
                         "selected": selected_answers
                     }
+                    obtained_marks += 1
                 elif set(selected_answers).intersection(set(act_ans)):
                     # Determine if the selected answers are partially correct
                     correct_selected = set(selected_answers).intersection(set(act_ans))
                     if correct_selected and len(selected_answers) != len(act_ans):
+                        # Calculate partial marks
+                        partial_marks = len(correct_selected) / len(act_ans)
                         results[grp_counter][j] = {
                             "status": "Partially Correct",
                             "selected": selected_answers
                         }
+                        obtained_marks += partial_marks
                     else:
                         results[grp_counter][j] = {
                             "status": "Incorrect",
@@ -200,12 +207,36 @@ def temp_submission():
                         "status": "Incorrect",
                         "selected": selected_answers
                     }
+
+        # Calculate percentage
+        if total_marks > 0:
+            percentage = int((obtained_marks / total_marks) * 100)
+        else:
+            percentage = 0
+
         week_lecture_counts = {
-        1: 7,  # Week 1: 7 lectures
-        2: 5,  # Week 2: 5 lectures
-        3: 6,  # Week 3: 6 lectures
-        4: 6   # Week 4: 6 lectures
-    }
+            1: 7,  # Week 1: 7 lectures
+            2: 5,  # Week 2: 5 lectures
+            3: 6,  # Week 3: 6 lectures
+            4: 6   # Week 4: 6 lectures
+        }
+
+        from models import Student, Grades, db
+        #save the obtained marks in the database
+        if 'user' in session:
+            user_info = session['user']
+            if 'email' in user_info:
+                email = user_info['email']
+                user = Student.query.filter_by(email=email).first()
+                if user is None:
+                    user = Student(email=email)
+                    db.session.add(user)
+                    db.session.commit()
+
+                #save the obtained marks in the database
+                grade = Grades(student_id=user.id, week_id=week_id, grade=percentage)
+                db.session.add(grade)
+                db.session.commit()
 
         return render_template(
             "ga_copy.html",
@@ -214,37 +245,9 @@ def temp_submission():
             results=results,
             selected_options=selected_options,
             user_info=session.get('user'),
-            lecture_links=week_lecture_counts
+            lecture_links=week_lecture_counts,
         )
 
-    return redirect(url_for('assignments.gradedassignment'))  # or some other appropriate response
-
-
-@assgn.route("/calculate_marks", methods=["POST"])
-def calculate_marks():
-    if request.method == "POST":
-        selected_options = request.form
-        week_id = selected_options.get("week")
-
-        weeks_questions = all_asg[int(week_id)]
-        total_questions = len(weeks_questions)
-        correct_answers = 0
-
-        for i, bulk_question in weeks_questions.items():
-            for j, question_deets in bulk_question[1].items():
-                correct_answers_set = set(question_deets[2])
-                selected_answers_set = set(selected_options.getlist(f"question-{i}"))
-
-                if selected_answers_set == correct_answers_set:
-                    correct_answers += 1
-
-        percentage = (correct_answers / total_questions) * 100
-
-        return jsonify({
-            "marks": correct_answers,
-            "total": total_questions,
-            "percentage": percentage
-        })
 
 # TODO
 @assgn.route("/api/complete_assignment_feedback", methods=["POST"])

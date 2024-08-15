@@ -276,6 +276,22 @@ Graded Assignment
 
     $('#analyzeButton').on('click', function (event) {
       event.preventDefault();
+
+      // Check if all questions are answered
+      let allAnswered = true;
+      $('input[type="checkbox"]').each(function() {
+        const name = $(this).attr('name');
+        if ($(`input[name="${name}"]:checked`).length === 0) {
+          allAnswered = false;
+          return false; // Exit each loop
+        }
+      });
+
+      if (!allAnswered) {
+        alert('Please answer all questions before analyzing solutions.');
+        return;
+      }
+
       $.ajax({
         type: 'POST',
         url: '/analyze',
@@ -290,13 +306,15 @@ Graded Assignment
 
           // Show analysis feedback
           $('#assignment_analysis').empty().html(feedback);
+
+          // Scroll to the bottom of the page
+          window.scrollTo(0, document.body.scrollHeight);
         },
         error: function () {
           alert('An error occurred while processing your request.');
         }
       });
     });
-
 
     $('.doubt_button').on('click', function (event) {
       event.preventDefault();

@@ -25,39 +25,39 @@ def get_response(question):
 def markdown_to_html(text):
     """Convert markdown-like text to HTML with proper formatting."""
     # Convert headers with specific font size and remove extra colons
-    text = text.replace("Student Analysis:", "<h2 style='font-size: 14pt; margin-bottom: 2px;'>Student Analysis</h2>")
-    text = text.replace("Strengths:", "<h3 style='font-size: 14pt; margin-bottom: 2px;'>Strengths</h3>")
-    text = text.replace("Weaknesses:", "<h3 style='font-size: 14pt; margin-bottom: 2px;'>Weaknesses</h3>")
-    text = text.replace("Actionable Feedback:", "<h3 style='font-size: 14pt; margin-bottom: 2px;'>Actionable Feedback</h3>")
-    text = text.replace("Overall:", "<h3 style='font-size: 14pt; margin-bottom: 2px;'>Overall</h3>")
+    text = text.replace("Student Analysis:", "<h2 style='font-size: 14pt; margin-bottom: 10px;'>Student Analysis </h2>")
+    text = text.replace("Strengths:", "<h3 style='font-size: 14pt; margin-bottom: 8px; margin-top:8px;'>Strengths</h3>")
+    text = text.replace("Weaknesses:", "<h3 style='font-size: 14pt; margin-bottom: 8px;margin-top:8px;'>Weaknesses</h3>")
+    text = text.replace("Actionable Feedback:", "<h3 style='font-size: 14pt; margin-bottom: 8px;margin-top:8px;'>Actionable Feedback</h3>")
+    text = text.replace("Overall:", "<h3 style='font-size: 14pt; margin-bottom: 8px;margin-top:8px;'>Overall</h3>")
 
-    # Convert symbols to whitespace
-    text = text.replace("**", " ").replace("*", " ").replace("#"," ")
+    # Convert symbols to whitespace and remove unwanted characters
+    text = text.replace("**", " ").replace("*", " ").replace("#", " ")
+    text = text.replace("& x27;", "'")  # Correct single quotes encoding
 
     # Convert list items and minimize spacing
     lines = text.split('\n')
     formatted_lines = []
     for line in lines:
         if line.strip().startswith("-"):
-            formatted_lines.append(f"<li style='margin-bottom: 1px;'>{line.strip()[1:].strip()}</li>")
+            formatted_lines.append(f"<li style='margin-bottom: 5px;margin-top:5px'>{line.strip()[1:].strip()}</li>")
         else:
-            formatted_lines.append(line)
+            formatted_lines.append(line.strip())
 
     text = "\n".join(formatted_lines)
 
     # Wrap lists in unordered list tags
     if "<li>" in text:
-        text = text.replace("<li>", "<ul style='margin-bottom:1px;'><li>").replace("</li>", "</li></ul>")
+        text = text.replace("<li>", "<ul style='margin-left: 20px;'><li>").replace("</li>", "</li></ul>")
 
     # Apply Times New Roman font and ensure proper spacing
     html_content = (
-        "<div style='font-family: \"Times New Roman\", Times, serif; font-size: 12pt; line-height: 1.4;'>"
-        + text.replace('\n', '<br>')
+        "<div style='font-family: \"Times New Roman\", Times, serif; font-size: 12pt; line-height: 1.5;'>"
+        + text
         + "</div>"
     )
 
     return html_content
-
 
 
 # Load the multilingual-e5-large model and tokenizer from Huggingface
