@@ -4,25 +4,65 @@ from pinecone import Pinecone
 from transformers import AutoTokenizer, AutoModel
 import torch
 
-
-
-
 genai.configure(api_key="AIzaSyB7t4BLUq7lmE-7Es7GGRsTCcNUKULSfPg")
 gemini_model = genai.GenerativeModel('gemini-1.5-flash')
 
+from html import escape
 
-# response = gemini_model.generate_content("what is the capitla of spain?")
-# print(response.text)
 
 def get_response(question):
     response = gemini_model.generate_content(question)
-    return response.text
+    response_text = response.text
+
+    # Escape any HTML special characters
+    escaped_text = escape(response_text)
+
+    # Convert markdown-like syntax to HTML with precise formatting
+    html_text = markdown_to_html(escaped_text)
+
+    return html_text
+
+def markdown_to_html(text):
+    """Convert markdown-like text to HTML with proper formatting."""
+    # Convert headers with specific font size and remove extra colons
+    text = text.replace("Student Analysis:", "<h2 style='font-size: 14pt; margin-bottom: 10px;'>Student Analysis </h2>")
+    text = text.replace("Strengths:", "<h3 style='font-size: 14pt; margin-bottom: 8px; margin-top:8px;'>Strengths</h3>")
+    text = text.replace("Weaknesses:", "<h3 style='font-size: 14pt; margin-bottom: 8px;margin-top:8px;'>Weaknesses</h3>")
+    text = text.replace("Actionable Feedback:", "<h3 style='font-size: 14pt; margin-bottom: 8px;margin-top:8px;'>Actionable Feedback</h3>")
+    text = text.replace("Overall:", "<h3 style='font-size: 14pt; margin-bottom: 8px;margin-top:8px;'>Overall</h3>")
+
+    # Convert symbols to whitespace and remove unwanted characters
+    text = text.replace("**", " ").replace("*", " ").replace("#", " ")
+    text = text.replace("& x27;", "'")  # Correct single quotes encoding
+
+    # Convert list items and minimize spacing
+    lines = text.split('\n')
+    formatted_lines = []
+    for line in lines:
+        if line.strip().startswith("-"):
+            formatted_lines.append(f"<li style='margin-bottom: 5px;margin-top:5px'>{line.strip()[1:].strip()}</li>")
+        else:
+            formatted_lines.append(line.strip())
+
+    text = "\n".join(formatted_lines)
+
+    # Wrap lists in unordered list tags
+    if "<li>" in text:
+        text = text.replace("<li>", "<ul style='margin-left: 20px;'><li>").replace("</li>", "</li></ul>")
+
+    # Apply Times New Roman font and ensure proper spacing
+    html_content = (
+        "<div style='font-family: \"Times New Roman\", Times, serif; font-size: 12pt; line-height: 1.5;'>"
+        + text
+        + "</div>"
+    )
+
+    return html_content
 
 
 # Load the multilingual-e5-large model and tokenizer from Huggingface
 tokenizer = AutoTokenizer.from_pretrained("intfloat/multilingual-e5-large")
 model = AutoModel.from_pretrained("intfloat/multilingual-e5-large")
-
 
 # Function to generate embeddings
 def generate_embedding(text):
@@ -37,7 +77,8 @@ def make_prompt(query, relevant_passage):
   Be sure to respond in a complete sentence, being comprehensive, including all relevant background information. \
   However, you are talking to a non-technical audience, so be sure to break down complicated concepts and \
   strike a friendly and converstional tone. \
-  If the passage is irrelevant to the answer, you may ignore it. Ensure that you still attempt to answer the question to you maximum ability. Do not mention the use of the passage to me.
+  If the passage is irrelevant to the answer, you may ignore it. Ensure that you still attempt to answer the question to you maximum ability. Do not mention the use of the passage to me.\
+  Important Note : Provide HTML Friendly Answers,Formatted. \
   QUESTION: \n'{query}'
   PASSAGE: '{relevant_passage}'
 
@@ -80,21 +121,13 @@ def full_fucntion(question):
 
 
 
-
-# query = "WHAT IS the difference between a story card and user stories?"
-# context = fetch_context(query)
-# prompt = make_prompt(query, context)
-# answer = get_response(prompt)
-
-# print(answer.text)
-
-
 def get_summary(transcript):
     prompt = ("""You are a helpful and informative bot that sumarizes text and transcripts provided to you below namely the passage. \
     Be sure to respond in a complete sentence, being comprehensive, including all relevant background information. \
     However, you are talking to a non-technical audience, so be sure to break down complicated concepts and \
     strike a friendly and converstional tone. \
     Refer to the passage below as "the lecture". \
+    Important Note : Provide HTML Friendly Answers,Formatted. \
     QUESTION: \n'Summarize the passage below'
     PASSAGE: '{transcript}'
 
@@ -102,7 +135,6 @@ def get_summary(transcript):
     """).format( transcript=transcript)
     summary = get_response(prompt)
     return summary
-
 
 def get_key(transcript):
     prompt = ("""You are a helpful and informative bot that analyzes text and transcripts provided to you below namely the passage and from these generates the key topics discussed in the video. \
@@ -113,14 +145,21 @@ def get_key(transcript):
     PASSAGE: '{transcript}'
 
         ANSWER:
-    """).format( transcript=transcript)
+    """).format(transcript=transcript)
+    
+    # Get the response (which is already a string)
     key = get_response(prompt)
-    return key
-
-
-
-
-
+    
+    # Split the key points using newlines first
+    key_points = key.split('\n')
+    
+    # Remove leading hyphens and extra spaces
+    key_points = [point.lstrip('- ').strip() for point in key_points if point.strip()]
+    
+    # Format the key points as an unordered list
+    formatted_key_points = '<ul>\n' + '\n'.join([f'<li>{point}</li>' for point in key_points]) + '\n</ul>'
+    
+    return formatted_key_points
 
 
 
@@ -930,62 +969,93 @@ demo_results= {
 
 }
 
-
-
 def feedback_gen(asg_no, results):
+    asg_number = int(asg_no)
 
-    asg_number=int(asg_no)
-    demo_results=results
+    # Initial instructions for the AI model
+    initial_instructions = (
+        "<h3>You are an analyzer who analyzes student assignment submissions.</h3>"
+        "<p>Based on the questions answered correctly and incorrectly, identify the student's strengths and weaknesses. "
+        "Provide actionable feedback on what topics the student needs to focus on to improve, and acknowledge their strengths. "
+        "Focus on both the correctness of the answers and the reasoning behind them.</p>"
+    )
 
-    initial_instructions="You are a analyzer who analyzes the assignments that students have submitted. On the basis of the questions that the student has answered correctly as well as the basis of the questions that the student has answered incorrectly, identify the weak topics of the student, what exactly they need to study in order to improve. Prepare an analysis of this. Also identify what the user is actually good at. Talk directly to the student."
-    final_instructions = ""
-    correct_questions ="### These are the questions that the student has answered correctly: \n"
-    incorrect_questions ="### These are the questions that the student has answered incorrectly: \n"
+    # Prepare sections for correct, partially correct, and incorrect questions
+    correct_questions = "<h4>Correctly Answered Questions:</h4>"
+    partially_correct_questions = "<h4>Partially Correctly Answered Questions:</h4>"
+    incorrect_questions = "<h4>Incorrectly Answered Questions:</h4>"
 
-    question_counter=0
-    for i in  demo_results:
-        for j in demo_results[i]:
-            question_counter+=1
-            # print(i,j)
-            if demo_results[i][j] == "Correct":
-                correct_questions += "\nQ"+str(question_counter)+"\n"+all_asg[asg_number][i][0]+"\n"+ all_asg[asg_number][i][1][j][0]+"\n"+"Correct Options: \n"
-                for k in all_asg[asg_number][i][1][j][2]:
-                    correct_questions += k+"\n"
-            else:
-                incorrect_questions +="\nQ"+str(question_counter)+"\n"+all_asg[asg_number][i][0]+"\n"+ all_asg[asg_number][i][1][j][0]+"\n"+"Correct Options: \n"
-                for k in all_asg[asg_number][i][1][j][2]:
-                    incorrect_questions += k+"\n"            
+    question_counter = 0
+    for group_id, questions in results.items():
+        for question_id, details in questions.items():
+            question_counter += 1
+            question_text = all_asg[asg_number][group_id][1][question_id][0]
+            correct_opts = "<br>".join(all_asg[asg_number][group_id][1][question_id][2])
+            selected_opts = "<br>".join(details["selected"])
 
+            if details["status"] == "Correct":
+                correct_questions += (
+                    f"<p><strong>Q{question_counter}:</strong> {question_text}<br>"
+                    f"<strong>Correct Options:</strong><br>{correct_opts}<br>"
+                    f"<strong>Selected Options:</strong><br>{selected_opts}</p>"
+                )
+            elif details["status"] == "Partially Correct":
+                partially_correct_questions += (
+                    f"<p><strong>Q{question_counter}:</strong> {question_text}<br>"
+                    f"<strong>Correct Options:</strong><br>{correct_opts}<br>"
+                    f"<strong>Selected Options:</strong><br>{selected_opts}</p>"
+                )
+            else:  # Incorrect
+                incorrect_questions += (
+                    f"<p><strong>Q{question_counter}:</strong> {question_text}<br>"
+                    f"<strong>Correct Options:</strong><br>{correct_opts}<br>"
+                    f"<strong>Selected Options:</strong><br>{selected_opts}</p>"
+                )
 
-    # print(correct_questions)
-    # print("_____________________")
-    # print(incorrect_questions)
+    # Combine all sections into a single HTML string
+    final_to_send = (
+        initial_instructions + "<br>" +
+        correct_questions + "<br>" +
+        partially_correct_questions + "<br>" +
+        incorrect_questions
+    )
 
-    final_to_send = initial_instructions + "\n\n" + correct_questions + "\n\n" + incorrect_questions + "\n\n" + final_instructions
-
-    # response_gen = full_fucntion(final_to_send)
+    # Send the prompt to the generative model
     response_gen = get_response(final_to_send)
 
+    # Here we assume `response_gen` contains the AI-generated HTML-friendly response.
+    feedback = response_gen  # The generated feedback
+    raw_feedback = final_to_send  # The raw prompt sent to the model
 
-    print(final_to_send)
+    return feedback, raw_feedback
 
-    print("_____________________")
-    print(response_gen)
-    # return final_to_send
-    return response_gen    
+
 
 
 def individual_doubt(doubt, context, question, options, answer):
-    initial_inst="You are a doubt solver who solves the doubts of the students which are based on a specific question. A student has asked you the following doubt. He has also provided the corresponding question: \n"
-    final_inst="Solve the doubt using the given information. Give the response directly to the student. Remember to not give the student the answer directly even if he asks for it. You are there to teach him not to enable copying.\n"
-    question_text=" Question: "+ context+"\n" + question + "\n"
-    options_text="Options: \n" + "\n".join(options) + "\n"
-    answer_text="Correct Answer: "+ "\n".join(answer) + "\n"
-    doubt_text="Doubt: "+ doubt + "\n"
+    initial_inst = (
+        "You are a doubt solver who solves the doubts of the students which are based on a specific question. "
+        "A student has asked you the following doubt. He has also provided the corresponding question:\n\n"
+    )
+    final_inst = (
+        "Solve the doubt using the given information. Give the response directly to the student. "
+        "Remember to not give the student the answer directly even if he asks for it. "
+        "You are there to teach him, not to enable copying.\n"
+        "if the student greets you, greet him back. If he thanks you, thank him back and close the conversation."
+    )
+    
+    question_text = f"**Question:**\n{context}\n{question}\n\n"
+    options_text = f"**Options:**\n" + "\n".join([f"{i+1}. {opt}" for i, opt in enumerate(options)]) + "\n\n"
+    answer_text = f"**Correct Answer:** {', '.join(answer)}\n\n"
+    doubt_text = f"**Student's Doubt:**\n{doubt}\n\n"
+    
     final_to_send = initial_inst + question_text + options_text + answer_text + doubt_text + final_inst
 
-    cleared_doubt= get_response(final_to_send)
+    cleared_doubt = get_response(final_to_send)
 
-    print("this is the cleared doubt \n"+cleared_doubt)
+    # Enhance formatting for readability in HTML context
+    cleared_doubt = cleared_doubt.replace('\n', '<br>').replace('*', '<strong>').replace('_', '<em>')
+    
     return cleared_doubt
+
 

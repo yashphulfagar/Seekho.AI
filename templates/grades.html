@@ -26,26 +26,16 @@ Grades
         <thead>
             <tr>
                 <th scope="col">Week</th>
-                <th scope="col">Grade</th>
+                <th scope="col">Grade(%)</th>
             </tr>
         </thead>
         <tbody>
+            {% for grade in grades %}
             <tr>
-                <td>Week 1</td>
-                <td>A</td>
+                <td>Week {{ grade.week_id }} </td>
+                <td>{{ grade.grade }}</td>
             </tr>
-            <tr>
-                <td>Week 2</td>
-                <td>B+</td>
-            </tr>
-            <tr>
-                <td>Week 3</td>
-                <td>A-</td>
-            </tr>
-            <tr>
-                <td>Week 4</td>
-                <td>B</td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>

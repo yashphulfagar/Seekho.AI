@@ -1,13 +1,10 @@
 {% extends 'base_template.html' %}
 
 {% block title %}
-
 Graded Assignment
-
 {% endblock %}
 
 {% block links %}
-
 <link rel="stylesheet" href="{{ url_for('static', filename='gradedassignment.css') }}" />
 <style>
   /* Base styles */
@@ -30,7 +27,6 @@ Graded Assignment
     font-size: 2rem;
     font-weight: bold;
     text-align: center;
-    display: block;
     margin-bottom: 20px;
   }
 
@@ -65,28 +61,14 @@ Graded Assignment
     margin-bottom: 10px;
   }
 
-  .send-button {
-    display: inline-block;
-    padding: 10px 20px;
-    margin-top: 10px;
-    font-size: 1rem;
-    color: #fff;
-    background-color: #000;
-    border: 1px solid #000;
-    border-radius: 4px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-  }
-
   .submit-button,
-  .analyse-button .submit-button {
-    text-align: center;
-    margin-top: 20px;
+  .analyse-button {
+    display: inline-block;
+    margin-top: 10px;
   }
 
-  .submit-button input,
-  .analyse-button button .submit-button input {
+  .submit-button button,
+  .analyse-button button {
     padding: 10px 20px;
     font-size: 1rem;
     color: #fff;
@@ -98,8 +80,8 @@ Graded Assignment
     text-decoration: none;
   }
 
-  .submit-button input:hover,
-  .analyse-button button:hover .submit-button input:hover {
+  .submit-button button:hover,
+  .analyse-button button:hover {
     background-color: #333;
   }
 
@@ -168,13 +150,29 @@ Graded Assignment
     color: #333;
     max-width: 600px;
     margin-left: 40px;
-    /* Align with other elements */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
+
+  .feedback {
+    font-weight: bold;
+  }
+
+  .status-correct {
+    color: green;
+    font-weight: bold;
+  }
+
+  .status-partially-correct {
+    color: orange;
+    font-weight: bold;
+  }
+
+  .status-incorrect {
+    color: red;
+    font-weight: bold;
+  }
 </style>
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 {% endblock %}
 
 {% block content %}
@@ -188,22 +186,43 @@ Graded Assignment
       <p>{{ q[0] }}</p>
       {% for index2, optionss in q[1].items() %}
       {% set count.value = count.value + 1 %}
-      <h4>{{ count.value }}. {{ optionss[0] }}</h4>
+      <h4>{{ count.value }}. {{ optionss[0] }}<i style="margin-left: 10px;">(1 Point)</i></h4>
       {% for soln in optionss[1] %}
       <div>
         <input type="checkbox" name="question-{{ count.value }}" value="{{ soln }}" {% if results.get(index,
-          {}).get(index2, '' )=='Correct' or results.get(index, {}).get(index2, '' )=='Incorrect' %} {% if soln in
+          {}).get(index2, {}).status in ['Correct', 'Incorrect' , 'Partially Correct' ] %} {% if soln in
           selected_options.getlist('question-' ~ count.value) %}checked{% endif %} {% endif %}>
         <label>{{ soln }}</label>
       </div>
       {% endfor %}
       {% if results %}
-      {% if results[index][index2] == "Correct" %}
-      <div style="color: green; margin-top: 5px;margin-bottom: 5px;">{{ results[index][index2] }}</div>
-      {% elif results[index][index2] == "Incorrect" %}
-      <div style="color: red;margin-top: 5px;margin-bottom: 5px;">{{ results[index][index2] }}</div>
+      {% set result = results[index][index2] %}
+      {% if result.status == "Correct" %}
+      <div class="status-correct">Correct</div>
+      <div style="color: green; margin-top: 5px; margin-bottom: 5px;">
+        Selected options: <br>
+        {% for opt in result.selected %}
+        <div>{{ loop.index }}. {{ opt }}</div>
+        {% endfor %}
+      </div>
+      {% elif result.status == "Partially Correct" %}
+      <div class="status-partially-correct">Partially Correct</div>
+      <div style="color: orange; margin-top: 5px; margin-bottom: 5px;">
+        Selected options: <br>
+        {% for opt in result.selected %}
+        <div>{{ loop.index }}. {{ opt }}</div>
+        {% endfor %}
+      </div>
+      {% elif result.status == "Incorrect" %}
+      <div class="status-incorrect">Incorrect</div>
+      <div style="color: red; margin-top: 5px; margin-bottom: 5px;">
+        Selected options: <br>
+        {% for opt in result.selected %}
+        <div>{{ loop.index }}. {{ opt }}</div>
+        {% endfor %}
+      </div>
       {% else %}
-      <div>{{ results[index][index2] }}</div>
+      <div>{{ result.status }}</div>
       {% endif %}
       {% endif %}
       <div class="message-box-container">
@@ -219,15 +238,17 @@ Graded Assignment
     </div>
     {% endfor %}
     <input type="hidden" name="week" value="{{ week_id }}">
-    <div style="display: flex; flex-direction: row;">
-      <div class="submit-button" style="margin: 10px;">
+    <div style="display: flex; flex-direction: row; justify-content: center;">
+      <div class="submit-button" style="margin-right:10px ;">
         <button type="button" class="submit" id="submitButton">Check Answers</button>
       </div>
-      <div class="analyse-button" style="margin: 10px;">
-        <button class="analysis"><a href="{{ url_for('assignments.gradedassignmentreset', week_id=week_id) }}"
-            style="text-decoration: none;">Reset</a></button>
+      <div class="analyse-button" style="margin-right:10px ;">
+        <button class="analysis">
+          <a href="{{ url_for('assignments.gradedassignmentreset', week_id=week_id) }}"
+            style="text-decoration: none; color: #fff;">Reset</a>
+        </button>
       </div>
-      <div class="analyse-button" style="margin: 10px;">
+      <div class="analyse-button" style="margin-right:10px ;">
         <button class="analysis" id="analyzeButton">Analyze Solutions</button>
       </div>
     </div>
@@ -236,10 +257,9 @@ Graded Assignment
   <div id="assignment_analysis"></div>
 </div>
 
-
 <script>
   $(document).ready(function () {
-    $('#submitButton').on('click', function () {
+    $('#submitButton').on('click', function (event) {
       event.preventDefault();
       $.ajax({
         type: 'POST',
@@ -254,14 +274,41 @@ Graded Assignment
       });
     });
 
-    $('#analyzeButton').on('click', function () {
+    $('#analyzeButton').on('click', function (event) {
       event.preventDefault();
+
+      // Check if all questions are answered
+      let allAnswered = true;
+      $('input[type="checkbox"]').each(function() {
+        const name = $(this).attr('name');
+        if ($(`input[name="${name}"]:checked`).length === 0) {
+          allAnswered = false;
+          return false; // Exit each loop
+        }
+      });
+
+      if (!allAnswered) {
+        alert('Please answer all questions before analyzing solutions.');
+        return;
+      }
+
       $.ajax({
         type: 'POST',
         url: '/analyze',
         data: $('#quizForm').serialize(),
         success: function (response) {
-          $('#assignment_analysis').empty().text(response);
+          // Assuming response contains "results" and "feedback"
+          const results = response.results;
+          const feedback = response.feedback;
+
+          // Update the quiz form with results
+          $('.container').html($(response).find('.container').html());
+
+          // Show analysis feedback
+          $('#assignment_analysis').empty().html(feedback);
+
+          // Scroll to the bottom of the page
+          window.scrollTo(0, document.body.scrollHeight);
         },
         error: function () {
           alert('An error occurred while processing your request.');
@@ -269,7 +316,7 @@ Graded Assignment
       });
     });
 
-    $('.doubt_button').on('click', function () {
+    $('.doubt_button').on('click', function (event) {
       event.preventDefault();
       const questionIndex = $(this).attr('id').replace('doubt-', '');
       const weekId = $(this).data('week');
@@ -284,7 +331,7 @@ Graded Assignment
           week: weekId
         },
         success: function (response) {
-          $(responseBlock).empty().text(response);
+          $(responseBlock).empty().html(response);
         },
         error: function () {
           alert('An error occurred while processing your request.');
