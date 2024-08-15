@@ -8,7 +8,7 @@ all_asg = {
         "",
         {
             1:[ "Software can be divided into manageable components. Find the one(s) that are TRUE about breaking software into components from the list below. ", 
-                ["It is a way of breaking the complexity of the system into manageable parts.","It enables different teams to work on different components.", "veryone on the development team must know how to work with all the components.", "It conceals implementation details while providing an interface for others to display its capabilities."], 
+                ["It is a way of breaking the complexity of the system into manageable parts.","It enables different teams to work on different components.", "Everyone on the development team must know how to work with all the components.", "It conceals implementation details while providing an interface for others to display its capabilities."], 
                 ["It is a way of breaking the complexity of the system into manageable parts.", "It enables different teams to work on different components.","It conceals implementation details while providing an interface for others to display its capabilities."] 
               ],    
 

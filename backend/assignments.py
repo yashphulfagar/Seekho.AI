@@ -167,7 +167,7 @@ def temp_submission():
         results = {}
         counter = 0
         grp_counter = 0
-        weeks_questions = all_asg[int(week_id)]
+        weeks_questions = all_asg.get(int(week_id), {})
 
         for i, bulk_question in weeks_questions.items():
             grp_counter += 1
@@ -179,18 +179,39 @@ def temp_submission():
                 selected_answers = sorted(selected_options.getlist(f"question-{counter}"))
 
                 if selected_answers == act_ans:
-                    results[grp_counter][j] = "Correct"
+                    results[grp_counter][j] = {
+                        "status": "Correct",
+                        "selected": selected_answers
+                    }
+                elif set(selected_answers).intersection(set(act_ans)):
+                    # Determine if the selected answers are partially correct
+                    correct_selected = set(selected_answers).intersection(set(act_ans))
+                    if correct_selected and len(selected_answers) != len(act_ans):
+                        results[grp_counter][j] = {
+                            "status": "Partially Correct",
+                            "selected": selected_answers
+                        }
+                    else:
+                        results[grp_counter][j] = {
+                            "status": "Incorrect",
+                            "selected": selected_answers
+                        }
                 else:
-                    results[grp_counter][j] = "Incorrect"
+                    results[grp_counter][j] = {
+                        "status": "Incorrect",
+                        "selected": selected_answers
+                    }
 
         return render_template(
             "ga_copy.html",
             weeks_asg=weeks_questions,
             week_id=week_id,
             results=results,
-            selected_options=selected_options
-            ,user_info = session['user']
+            selected_options=selected_options,
+            user_info=session.get('user')
         )
+
+    return redirect(url_for('assignments.gradedassignment'))  # or some other appropriate response
 
 
 # TODO
