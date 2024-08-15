@@ -29,15 +29,12 @@ def submission_analysis():
         if not any(selected_options.getlist(key) for key in selected_options if "question-" in key):
             return jsonify({"error": "No options selected!"})
 
-        print("analyze just took place")
-
         # Print the submitted form data to the console
         week_id = selected_options.get("week")
         results = {}
         counter = 0
         grp_counter = 0
         weeks_questions = all_asg[int(week_id)]
-        print("new")
 
         for i, bulk_question in weeks_questions.items():
             grp_counter += 1

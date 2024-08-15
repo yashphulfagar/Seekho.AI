@@ -7,9 +7,57 @@ import torch
 genai.configure(api_key="AIzaSyB7t4BLUq7lmE-7Es7GGRsTCcNUKULSfPg")
 gemini_model = genai.GenerativeModel('gemini-1.5-flash')
 
+from html import escape
+
+
 def get_response(question):
     response = gemini_model.generate_content(question)
-    return response.text
+    response_text = response.text
+
+    # Escape any HTML special characters
+    escaped_text = escape(response_text)
+
+    # Convert markdown-like syntax to HTML with precise formatting
+    html_text = markdown_to_html(escaped_text)
+
+    return html_text
+
+def markdown_to_html(text):
+    """Convert markdown-like text to HTML with proper formatting."""
+    # Convert headers with specific font size and remove extra colons
+    text = text.replace("Student Analysis:", "<h2 style='font-size: 14pt; margin-bottom: 2px;'>Student Analysis</h2>")
+    text = text.replace("Strengths:", "<h3 style='font-size: 14pt; margin-bottom: 2px;'>Strengths</h3>")
+    text = text.replace("Weaknesses:", "<h3 style='font-size: 14pt; margin-bottom: 2px;'>Weaknesses</h3>")
+    text = text.replace("Actionable Feedback:", "<h3 style='font-size: 14pt; margin-bottom: 2px;'>Actionable Feedback</h3>")
+    text = text.replace("Overall:", "<h3 style='font-size: 14pt; margin-bottom: 2px;'>Overall</h3>")
+
+    # Convert symbols to whitespace
+    text = text.replace("**", " ").replace("*", " ").replace("#"," ")
+
+    # Convert list items and minimize spacing
+    lines = text.split('\n')
+    formatted_lines = []
+    for line in lines:
+        if line.strip().startswith("-"):
+            formatted_lines.append(f"<li style='margin-bottom: 1px;'>{line.strip()[1:].strip()}</li>")
+        else:
+            formatted_lines.append(line)
+
+    text = "\n".join(formatted_lines)
+
+    # Wrap lists in unordered list tags
+    if "<li>" in text:
+        text = text.replace("<li>", "<ul style='margin-bottom:1px;'><li>").replace("</li>", "</li></ul>")
+
+    # Apply Times New Roman font and ensure proper spacing
+    html_content = (
+        "<div style='font-family: \"Times New Roman\", Times, serif; font-size: 12pt; line-height: 1.4;'>"
+        + text.replace('\n', '<br>')
+        + "</div>"
+    )
+
+    return html_content
+
 
 
 # Load the multilingual-e5-large model and tokenizer from Huggingface
@@ -921,71 +969,65 @@ demo_results= {
 
 }
 
-
 def feedback_gen(asg_no, results):
     asg_number = int(asg_no)
 
     # Initial instructions for the AI model
     initial_instructions = (
-        "You are an analyzer who analyzes student assignment submissions. "
-        "Based on the questions answered correctly and incorrectly, identify the student's strengths and weaknesses. "
+        "<h3>You are an analyzer who analyzes student assignment submissions.</h3>"
+        "<p>Based on the questions answered correctly and incorrectly, identify the student's strengths and weaknesses. "
         "Provide actionable feedback on what topics the student needs to focus on to improve, and acknowledge their strengths. "
-        "Focus on both the correctness of the answers and the reasoning behind them."
+        "Focus on both the correctness of the answers and the reasoning behind them.</p>"
     )
 
-    # Prepare sections for correct and incorrect questions
-    correct_questions = "### Correctly Answered Questions: \n"
-    partially_correct_questions = "### Partially Correctly Answered Questions: \n"
-    incorrect_questions = "### Incorrectly Answered Questions: \n"
+    # Prepare sections for correct, partially correct, and incorrect questions
+    correct_questions = "<h4>Correctly Answered Questions:</h4>"
+    partially_correct_questions = "<h4>Partially Correctly Answered Questions:</h4>"
+    incorrect_questions = "<h4>Incorrectly Answered Questions:</h4>"
 
     question_counter = 0
     for group_id, questions in results.items():
         for question_id, details in questions.items():
             question_counter += 1
             question_text = all_asg[asg_number][group_id][1][question_id][0]
-            correct_opts = "\n".join(all_asg[asg_number][group_id][1][question_id][2])
-            selected_opts = "\n".join(details["selected"])
+            correct_opts = "<br>".join(all_asg[asg_number][group_id][1][question_id][2])
+            selected_opts = "<br>".join(details["selected"])
 
             if details["status"] == "Correct":
                 correct_questions += (
-                    f"\nQ{question_counter}: {question_text}\n"
-                    f"Correct Options: \n{correct_opts}\n"
-                    f"Selected Options: \n{selected_opts}\n"
+                    f"<p><strong>Q{question_counter}:</strong> {question_text}<br>"
+                    f"<strong>Correct Options:</strong><br>{correct_opts}<br>"
+                    f"<strong>Selected Options:</strong><br>{selected_opts}</p>"
                 )
             elif details["status"] == "Partially Correct":
                 partially_correct_questions += (
-                    f"\nQ{question_counter}: {question_text}\n"
-                    f"Correct Options: \n{correct_opts}\n"
-                    f"Selected Options: \n{selected_opts}\n"
+                    f"<p><strong>Q{question_counter}:</strong> {question_text}<br>"
+                    f"<strong>Correct Options:</strong><br>{correct_opts}<br>"
+                    f"<strong>Selected Options:</strong><br>{selected_opts}</p>"
                 )
             else:  # Incorrect
                 incorrect_questions += (
-                    f"\nQ{question_counter}: {question_text}\n"
-                    f"Correct Options: \n{correct_opts}\n"
-                    f"Selected Options: \n{selected_opts}\n"
+                    f"<p><strong>Q{question_counter}:</strong> {question_text}<br>"
+                    f"<strong>Correct Options:</strong><br>{correct_opts}<br>"
+                    f"<strong>Selected Options:</strong><br>{selected_opts}</p>"
                 )
 
-    # Combine all instructions into a single prompt for the model
+    # Combine all sections into a single HTML string
     final_to_send = (
-        initial_instructions + "\n\n" +
-        correct_questions + "\n\n" +
-        partially_correct_questions + "\n\n" +
-        incorrect_questions + "\n\n"
+        initial_instructions + "<br>" +
+        correct_questions + "<br>" +
+        partially_correct_questions + "<br>" +
+        incorrect_questions
     )
 
     # Send the prompt to the generative model
     response_gen = get_response(final_to_send)
 
-    # Here we assume `response_gen` is the only value we need to return.
-    # However, if you want to split this, you need to extract the main feedback and raw feedback separately.
-    # For demonstration, we'll return both the `response_gen` and the full prompt.
-
+    # Here we assume `response_gen` contains the AI-generated HTML-friendly response.
     feedback = response_gen  # The generated feedback
     raw_feedback = final_to_send  # The raw prompt sent to the model
 
     return feedback, raw_feedback
-
-
 
 
 

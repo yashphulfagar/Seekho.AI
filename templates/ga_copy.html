@@ -289,7 +289,7 @@ Graded Assignment
           $('.container').html($(response).find('.container').html());
 
           // Show analysis feedback
-          $('#assignment_analysis').empty().html('<h3>Analysis:</h3><p>' + feedback + '</p>');
+          $('#assignment_analysis').empty().html(feedback);
         },
         error: function () {
           alert('An error occurred while processing your request.');
