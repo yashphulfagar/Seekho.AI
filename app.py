@@ -157,7 +157,14 @@ def dashboard():
                 db.session.add(user)
                 db.session.commit()
     
-    return render_template('dashboard_copy.html',user_info=user_info)
+    week_lecture_counts = {
+        1: 7,  # Week 1: 7 lectures
+        2: 5,  # Week 2: 5 lectures
+        3: 6,  # Week 3: 6 lectures
+        4: 6   # Week 4: 6 lectures
+    }
+    
+    return render_template('dashboard_copy.html',user_info=user_info, lecture_links=week_lecture_counts),200
 
 @app.route('/dashboard/grades', methods=['GET'])
 def grades():
@@ -171,8 +178,13 @@ def grades():
         200:
           description: Success
     """       
-
-    return render_template('grades.html',user_info = session['user']),200
+    week_lecture_counts = {
+        1: 7,  # Week 1: 7 lectures
+        2: 5,  # Week 2: 5 lectures
+        3: 6,  # Week 3: 6 lectures
+        4: 6   # Week 4: 6 lectures
+    }
+    return render_template('grades.html',user_info = session['user'],lecture_links = week_lecture_counts),200
 
 
 @app.route('/dashboard/chatbot', methods=['GET'])

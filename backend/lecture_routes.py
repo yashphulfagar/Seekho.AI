@@ -31,8 +31,13 @@ def lecture(week_id,lecture_id):
     lec_transcript = lecture_link[1]
     lec_summary = get_summary(lec_transcript)
     lec_key = get_key(lec_transcript)
-
-    return render_template('lecture_copy.html', lecture_link=embed_url,lecture_id=lecture_id,week_id=week_id,lec_summary=lec_summary,lec_key=lec_key,user_info=session['user']),200
+    week_lecture_counts = {
+        1: 7,  # Week 1: 7 lectures
+        2: 5,  # Week 2: 5 lectures
+        3: 6,  # Week 3: 6 lectures
+        4: 6   # Week 4: 6 lectures
+    }
+    return render_template('lecture_copy.html', lecture_link=embed_url,lecture_id=lecture_id,week_id=week_id,lec_summary=lec_summary,lec_key=lec_key,user_info=session['user'],lecture_links = week_lecture_counts),200
 
 # TODO
 @lec.route('/api/lecture_populate', methods=['POST'])

@@ -922,48 +922,72 @@ demo_results= {
 }
 
 
-
 def feedback_gen(asg_no, results):
+    asg_number = int(asg_no)
 
-    asg_number=int(asg_no)
-    demo_results=results
+    # Initial instructions for the AI model
+    initial_instructions = (
+        "You are an analyzer who analyzes student assignment submissions. "
+        "Based on the questions answered correctly and incorrectly, identify the student's strengths and weaknesses. "
+        "Provide actionable feedback on what topics the student needs to focus on to improve, and acknowledge their strengths. "
+        "Focus on both the correctness of the answers and the reasoning behind them."
+    )
 
-    initial_instructions="You are a analyzer who analyzes the assignments that students have submitted. On the basis of the questions that the student has answered correctly as well as the basis of the questions that the student has answered incorrectly, identify the weak topics of the student, what exactly they need to study in order to improve. Prepare an analysis of this. Also identify what the user is actually good at. Talk directly to the student."
-    final_instructions = ""
-    correct_questions ="### These are the questions that the student has answered correctly: \n"
-    incorrect_questions ="### These are the questions that the student has answered incorrectly: \n"
+    # Prepare sections for correct and incorrect questions
+    correct_questions = "### Correctly Answered Questions: \n"
+    partially_correct_questions = "### Partially Correctly Answered Questions: \n"
+    incorrect_questions = "### Incorrectly Answered Questions: \n"
 
-    question_counter=0
-    for i in  demo_results:
-        for j in demo_results[i]:
-            question_counter+=1
-            # print(i,j)
-            if demo_results[i][j] == "Correct":
-                correct_questions += "\nQ"+str(question_counter)+"\n"+all_asg[asg_number][i][0]+"\n"+ all_asg[asg_number][i][1][j][0]+"\n"+"Correct Options: \n"
-                for k in all_asg[asg_number][i][1][j][2]:
-                    correct_questions += k+"\n"
-            else:
-                incorrect_questions +="\nQ"+str(question_counter)+"\n"+all_asg[asg_number][i][0]+"\n"+ all_asg[asg_number][i][1][j][0]+"\n"+"Correct Options: \n"
-                for k in all_asg[asg_number][i][1][j][2]:
-                    incorrect_questions += k+"\n"            
+    question_counter = 0
+    for group_id, questions in results.items():
+        for question_id, details in questions.items():
+            question_counter += 1
+            question_text = all_asg[asg_number][group_id][1][question_id][0]
+            correct_opts = "\n".join(all_asg[asg_number][group_id][1][question_id][2])
+            selected_opts = "\n".join(details["selected"])
 
+            if details["status"] == "Correct":
+                correct_questions += (
+                    f"\nQ{question_counter}: {question_text}\n"
+                    f"Correct Options: \n{correct_opts}\n"
+                    f"Selected Options: \n{selected_opts}\n"
+                )
+            elif details["status"] == "Partially Correct":
+                partially_correct_questions += (
+                    f"\nQ{question_counter}: {question_text}\n"
+                    f"Correct Options: \n{correct_opts}\n"
+                    f"Selected Options: \n{selected_opts}\n"
+                )
+            else:  # Incorrect
+                incorrect_questions += (
+                    f"\nQ{question_counter}: {question_text}\n"
+                    f"Correct Options: \n{correct_opts}\n"
+                    f"Selected Options: \n{selected_opts}\n"
+                )
 
-    # print(correct_questions)
-    # print("_____________________")
-    # print(incorrect_questions)
+    # Combine all instructions into a single prompt for the model
+    final_to_send = (
+        initial_instructions + "\n\n" +
+        correct_questions + "\n\n" +
+        partially_correct_questions + "\n\n" +
+        incorrect_questions + "\n\n"
+    )
 
-    final_to_send = initial_instructions + "\n\n" + correct_questions + "\n\n" + incorrect_questions + "\n\n" + final_instructions
-
-    # response_gen = full_fucntion(final_to_send)
+    # Send the prompt to the generative model
     response_gen = get_response(final_to_send)
 
+    # Here we assume `response_gen` is the only value we need to return.
+    # However, if you want to split this, you need to extract the main feedback and raw feedback separately.
+    # For demonstration, we'll return both the `response_gen` and the full prompt.
 
-    print(final_to_send)
+    feedback = response_gen  # The generated feedback
+    raw_feedback = final_to_send  # The raw prompt sent to the model
 
-    print("_____________________")
-    print(response_gen)
-    # return final_to_send
-    return response_gen    
+    return feedback, raw_feedback
+
+
+
+
 
 
 def individual_doubt(doubt, context, question, options, answer):

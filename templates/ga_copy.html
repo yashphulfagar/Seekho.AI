@@ -182,17 +182,16 @@ Graded Assignment
   <form id="quizForm" action="/submit" method="POST">
     {% set count = namespace(value=0) %}
     {% for index, q in weeks_asg.items() %}
-  <div class="question">
-    <p>{{ q[0] }}</p>
-    {% for index2, optionss in q[1].items() %}
+    <div class="question">
+      <p>{{ q[0] }}</p>
+      {% for index2, optionss in q[1].items() %}
       {% set count.value = count.value + 1 %}
-      <h4>{{ count.value }}. {{ optionss[0] }}</h4>
+      <h4>{{ count.value }}. {{ optionss[0] }}<i style="margin-left: 10px;">(1 Point)</i></h4>
       {% for soln in optionss[1] %}
       <div>
-        <input type="checkbox" name="question-{{ count.value }}" value="{{ soln }}" 
-        {% if results.get(index, {}).get(index2, {}).status in ['Correct', 'Incorrect', 'Partially Correct'] %}
-        {% if soln in selected_options.getlist('question-' ~ count.value) %}checked{% endif %}
-        {% endif %}>
+        <input type="checkbox" name="question-{{ count.value }}" value="{{ soln }}" {% if results.get(index,
+          {}).get(index2, {}).status in ['Correct', 'Incorrect' , 'Partially Correct' ] %} {% if soln in
+          selected_options.getlist('question-' ~ count.value) %}checked{% endif %} {% endif %}>
         <label>{{ soln }}</label>
       </div>
       {% endfor %}
@@ -237,18 +236,19 @@ Graded Assignment
       <div id="doubt_soln_{{ count.value }}" class="doubt-solution-box"></div>
       {% endfor %}
     </div>
-    {% endfor %}    
+    {% endfor %}
     <input type="hidden" name="week" value="{{ week_id }}">
     <div style="display: flex; flex-direction: row; justify-content: center;">
-      <div class="submit-button">
+      <div class="submit-button" style="margin-right:10px ;">
         <button type="button" class="submit" id="submitButton">Check Answers</button>
       </div>
-      <div class="analyse-button">
+      <div class="analyse-button" style="margin-right:10px ;">
         <button class="analysis">
-          <a href="{{ url_for('assignments.gradedassignmentreset', week_id=week_id) }}" style="text-decoration: none; color: #fff;">Reset</a>
+          <a href="{{ url_for('assignments.gradedassignmentreset', week_id=week_id) }}"
+            style="text-decoration: none; color: #fff;">Reset</a>
         </button>
       </div>
-      <div class="analyse-button">
+      <div class="analyse-button" style="margin-right:10px ;">
         <button class="analysis" id="analyzeButton">Analyze Solutions</button>
       </div>
     </div>
@@ -281,13 +281,22 @@ Graded Assignment
         url: '/analyze',
         data: $('#quizForm').serialize(),
         success: function (response) {
-          $('#assignment_analysis').empty().html(response);
+          // Assuming response contains "results" and "feedback"
+          const results = response.results;
+          const feedback = response.feedback;
+
+          // Update the quiz form with results
+          $('.container').html($(response).find('.container').html());
+
+          // Show analysis feedback
+          $('#assignment_analysis').empty().html('<h3>Analysis:</h3><p>' + feedback + '</p>');
         },
         error: function () {
           alert('An error occurred while processing your request.');
         }
       });
     });
+
 
     $('.doubt_button').on('click', function (event) {
       event.preventDefault();

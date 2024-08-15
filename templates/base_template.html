@@ -34,7 +34,7 @@
             {{ user_info.email }}
           </span>
           <span class="navbar-text">
-            <a href="/"><svg _ngcontent-mlo-c14="" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            <a href="/" id="logout"><svg _ngcontent-mlo-c14="" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                 viewBox="0 0 24 24" class="ng-tns-c14-0">
                 <title _ngcontent-mlo-c14="" class="ng-tns-c14-0">Logout</title>
                 <g _ngcontent-mlo-c14="" fill="none" fill-rule="evenodd" class="ng-tns-c14-0">
@@ -100,277 +100,77 @@
           </ul>
         </div>
       </div>
-      <div class="div3">
-        <div class="accordion accordion-flush" id="accordionFlushExample">
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#flush-collapseZero" aria-expanded="false" aria-controls="flush-collapseZero">
-                Course Introduction
-              </button>
-            </h2>
-            <div id="flush-collapseZero" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-              <div class="accordion-body">
-                <ul class="list-group">
-                  <li class="list-group-item">
-                    <input class="input" type="radio" name="lecRadio" value="courseIntro"
-                      id="courseIntro" />
-                    <label class="label" for="courseIntro">
-                    <a href="{{ url_for('dashboard') }}">About the Course</a>
-                    </label>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                Week 1
-              </button>
-            </h2>
-            <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-              <div class="accordion-body">
-                <ul class="list-group">
-                  <li class="list-group-item">
-                    <input class="form-check-input me-1" type="radio" name="lectureRadio" value="1.1" id="lecture1.1">
-                    <label class="form-check-label" for="lecture1.1">
-                      <a href="{{ url_for('lecture_routes.lecture', week_id=1, lecture_id=1) }}">Lecture 1.1</a>
-                    </label>
-                  </li>
-                  <li class="list-group-item">
-                    <input class="form-check-input me-1" type="radio" name="lectureRadio" value="1.2" id="lecture1.2">
-                    <label class="form-check-label" for="lecture1.2">
-                      <a href="{{ url_for('lecture_routes.lecture', week_id=1, lecture_id=2) }}">Lecture 1.2</a>
-                    </label>
-                  </li>
-                  <li class="list-group-item">
-                    <input class="form-check-input me-1" type="radio" name="lectureRadio" value="1.3" id="lecture1.3">
-                    <label class="form-check-label" for="lecture1.3">
-                      <a href="{{ url_for('lecture_routes.lecture', week_id=1, lecture_id=3) }}">Lecture 1.3</a>
-                    </label>
-                  </li>
-                  <li class="list-group-item">
-                    <input class="form-check-input me-1" type="radio" name="lectureRadio" value="1.4" id="lecture1.4">
-                    <label class="form-check-label" for="lecture1.4">
-                      <a href="{{ url_for('lecture_routes.lecture', week_id=1, lecture_id=4) }}">Lecture 1.4</a>
-                    </label>
-                  </li>
-                  <li class="list-group-item">
-                    <input class="form-check-input me-1" type="radio" name="lectureRadio" value="1.5" id="lecture1.5">
-                    <label class="form-check-label" for="lecture1.5">
-                      <a href="{{ url_for('lecture_routes.lecture', week_id=1, lecture_id=5) }}">Lecture 1.5</a>
-                    </label>
-                  </li>
-                  <li class="list-group-item">
-                    <input class="form-check-input me-1" type="radio" name="lectureRadio" value="1.6" id="lecture1.6">
-                    <label class="form-check-label" for="lecture1.6">
-                      <a href="{{ url_for('lecture_routes.lecture', week_id=1, lecture_id=6) }}">Lecture 1.6</a>
-                    </label>
-                  </li>
-                  <li class="list-group-item">
-                    <input class="form-check-input me-1" type="radio" name="lectureRadio" value="1.7" id="lecture1.7">
-                    <label class="form-check-label" for="lecture1.7">
-                      <a href="{{ url_for('lecture_routes.lecture', week_id=1, lecture_id=7) }}">Lecture 1.7</a>
-                    </label>
-                  </li>
-                  <li class="list-group-item">
-                    <input class="form-check-input me-1" type="radio" name="lectureRadio" value="gradedAssignment"
-                      id="gradedAssignment">
-                    <label class="form-check-label" for="gradedAssignment">
-                      <a href="{{ url_for('assignments.gradedassignment', week_id=1) }}">Graded Assignment</a>
-                    </label>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                Week 2
-              </button>
-            </h2>
-            <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-              <div class="accordion-body">
-                <ul class="list-group">
-                  <li class="list-group-item">
-                    <input class="form-check-input me-1" type="radio" name="lectureRadio" value="2.1" id="lecture2.1">
-                    <label class="form-check-label" for="lecture2.1">
-                      <a href="{{ url_for('lecture_routes.lecture', week_id=2, lecture_id=1) }}">Lecture 2.1</a>
-                    </label>
-                  </li>
-                  <li class="list-group-item">
-                    <input class="form-check-input me-1" type="radio" name="lectureRadio" value="2.2" id="lecture2.2">
-                    <label class="form-check-label" for="lecture2.2">
-                      <a href="{{ url_for('lecture_routes.lecture', week_id=2, lecture_id=2) }}">Lecture 2.2</a>
-                    </label>
-                  </li>
-                  <li class="list-group-item">
-                    <input class="form-check-input me-1" type="radio" name="lectureRadio" value="2.3" id="lecture2.3">
-                    <label class="form-check-label" for="lecture2.3">
-                      <a href="{{ url_for('lecture_routes.lecture', week_id=2, lecture_id=3) }}">Lecture 2.3</a>
-                    </label>
-                  </li>
-                  <li class="list-group-item">
-                    <input class="form-check-input me-1" type="radio" name="lectureRadio" value="2.4" id="lecture2.4">
-                    <label class="form-check-label" for="lecture2.4">
-                      <a href="{{ url_for('lecture_routes.lecture', week_id=2, lecture_id=4) }}">Lecture 2.4</a>
-                    </label>
-                  </li>
-                  <li class="list-group-item">
-                    <input class="form-check-input me-1" type="radio" name="lectureRadio" value="2.5" id="lecture2.5">
-                    <label class="form-check-label" for="lecture2.5">
-                      <a href="{{ url_for('lecture_routes.lecture', week_id=2, lecture_id=5) }}">Lecture 2.5</a>
-                    </label>
-                  </li>
-                  <li class="list-group-item">
-                    <input class="form-check-input me-1" type="radio" name="lectureRadio" value="gradedAssignment"
-                      id="gradedAssignment">
-                    <label class="form-check-label" for="gradedAssignment">
-                      <a href="{{ url_for('assignments.gradedassignment', week_id=2) }}">Graded Assignment</a>
-                    </label>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                Week 3
-              </button>
-            </h2>
-            <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+          <div class="div3">
+      <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseZero" aria-expanded="false" aria-controls="flush-collapseZero">
+              Course Introduction
+            </button>
+          </h2>
+          <div id="flush-collapseZero" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
               <ul class="list-group">
                 <li class="list-group-item">
-                  <input class="form-check-input me-1" type="radio" name="lectureRadio" value="3.1" id="lecture3.1">
-                  <label class="form-check-label" for="lecture3.1">
-                    <a href="{{ url_for('lecture_routes.lecture', week_id=3, lecture_id=1) }}">Lecture 3.1</a>
-                  </label>
-                </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" type="radio" name="lectureRadio" value="3.2" id="lecture3.2">
-                  <label class="form-check-label" for="lecture3.2">
-                    <a href="{{ url_for('lecture_routes.lecture', week_id=3, lecture_id=2) }}">Lecture 3.2</a>
-                  </label>
-                </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" type="radio" name="lectureRadio" value="3.3" id="lecture3.3">
-                  <label class="form-check-label" for="lecture3.3">
-                    <a href="{{ url_for('lecture_routes.lecture', week_id=3, lecture_id=3) }}">Lecture 3.3</a>
-                  </label>
-                </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" type="radio" name="lectureRadio" value="3.4" id="lecture3.4">
-                  <label class="form-check-label" for="lecture3.4">
-                    <a href="{{ url_for('lecture_routes.lecture', week_id=3, lecture_id=4) }}">Lecture 3.4</a>
-                  </label>
-                </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" type="radio" name="lectureRadio" value="3.5" id="lecture3.5">
-                  <label class="form-check-label" for="lecture3.5">
-                    <a href="{{ url_for('lecture_routes.lecture', week_id=3, lecture_id=5) }}">Lecture 3.5</a>
-                  </label>
-                </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" type="radio" name="lectureRadio" value="3.6" id="lecture3.6">
-                  <label class="form-check-label" for="lecture3.6">
-                    <a href="{{ url_for('lecture_routes.lecture', week_id=3, lecture_id=6) }}">Lecture 3.6</a>
-                  </label>
-                </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" type="radio" name="lectureRadio" value="gradedAssignment"
-                    id="gradedAssignment">
-                  <label class="form-check-label" for="gradedAssignment">
-                    <a href="{{ url_for('assignments.gradedassignment', week_id=3) }}">Graded Assignment</a>
+                  <input class="input" type="radio" name="lecRadio" value="courseIntro" id="courseIntro" />
+                  <label class="label" for="courseIntro">
+                    <a href="{{ url_for('dashboard') }}" onclick="selectLecture('courseIntro', 'flush-collapseZero')">About the Course</a>
                   </label>
                 </li>
               </ul>
-
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseOne">
-                Week 4
-              </button>
-            </h2>
-            <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-              <ul class="list-group">
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" type="radio" name="lectureRadio" value="4.1" id="lecture4.1">
-                  <label class="form-check-label" for="lecture4.1">
-                    <a href="{{ url_for('lecture_routes.lecture', week_id=4, lecture_id=1) }}">Lecture 4.1</a>
-                  </label>
-                </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" type="radio" name="lectureRadio" value="4.2" id="lecture4.2">
-                  <label class="form-check-label" for="lecture4.2">
-                    <a href="{{ url_for('lecture_routes.lecture', week_id=4, lecture_id=2) }}">Lecture 4.2</a>
-                  </label>
-                </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" type="radio" name="lectureRadio" value="4.3" id="lecture4.3">
-                  <label class="form-check-label" for="lecture4.3">
-                    <a href="{{ url_for('lecture_routes.lecture', week_id=4, lecture_id=3) }}">Lecture 4.3</a>
-                  </label>
-                </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" type="radio" name="lectureRadio" value="4.4" id="lecture4.4">
-                  <label class="form-check-label" for="lecture4.4">
-                    <a href="{{ url_for('lecture_routes.lecture', week_id=4, lecture_id=4) }}">Lecture 4.4</a>
-                  </label>
-                </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" type="radio" name="lectureRadio" value="4.5" id="lecture4.5">
-                  <label class="form-check-label" for="lecture4.5">
-                    <a href="{{ url_for('lecture_routes.lecture', week_id=4, lecture_id=5) }}">Lecture 4.5</a>
-                  </label>
-                </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" type="radio" name="lectureRadio" value="4.6" id="lecture4.6">
-                  <label class="form-check-label" for="lecture4.6">
-                    <a href="{{ url_for('lecture_routes.lecture', week_id=4, lecture_id=6) }}">Lecture 4.6</a>
-                  </label>
-                </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" type="radio" name="lectureRadio" value="gradedAssignment"
-                    id="gradedAssignment">
-                  <label class="form-check-label" for="gradedAssignment">
-                    <a href="{{ url_for('assignments.gradedassignment', week_id=4) }}">Graded Assignment</a>
-                  </label>
-                </li>
-              </ul>
-
             </div>
           </div>
         </div>
+
+        {% for week in range(1, 5) %}
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#flush-collapse{{ week }}" aria-expanded="false"
+              aria-controls="flush-collapse{{ week }}">
+              Week {{ week }}
+            </button>
+          </h2>
+          <div id="flush-collapse{{ week }}" class="accordion-collapse collapse"
+            data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <ul class="list-group">
+                {% for lecture in range(1, lecture_links[week] + 1) %}
+                <li class="list-group-item">
+                  <input class="form-check-input me-1" type="radio" name="lectureRadio"
+                    value="{{ week }}.{{ lecture }}" id="lecture{{ week }}.{{ lecture }}">
+                  <label class="form-check-label" for="lecture{{ week }}.{{ lecture }}">
+                    <a href="{{ url_for('lecture_routes.lecture', week_id=week, lecture_id=lecture) }}"
+                      onclick="selectLecture('lecture{{ week }}.{{ lecture }}', 'flush-collapse{{ week }}')">Lecture {{
+                      week }}.{{ lecture }}</a>
+                  </label>
+                </li>
+                {% endfor %}
+                <li class="list-group-item">
+                  <input class="form-check-input me-1" type="radio" name="lectureRadio" value="gradedAssignment"
+                    id="gradedAssignmentWeek{{ week }}">
+                  <label class="form-check-label" for="gradedAssignmentWeek{{ week }}">
+                    <a href="{{ url_for('assignments.gradedassignment', week_id=week) }}"
+                      onclick="selectLecture('gradedAssignmentWeek{{ week }}', 'flush-collapse{{ week }}')">Graded Assignment</a>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
       </div>
-      <div class="div4outer">
-        {% block content %}
-        <!-- Main content area -->
-        {% endblock %}
-      </div>
+    </div>
+    <div class="div4outer">
+      {% block content %}
+      <!-- Main content area -->
+      {% endblock %}
     </div>
   </div>
 
 </body>
 <script>
-
-  function openModal_new(weekNumber) {
-    div_name = "myModal_" + weekNumber;
-    document.getElementById(div_name).style.display = "block";
-  }
-
-  function closeModal_new(weekNumber) {
-    div_name = "myModal_" + weekNumber;
-    document.getElementById(div_name).style.display = "none";
-  }
   function openDiscourse() {
     window.open("https://discourse.onlinedegree.iitm.ac.in/", "_blank");
   }
@@ -378,9 +178,57 @@
   function openGmail() {
     window.open("https://mail.google.com/mail/u/0/#inbox", "_blank");
   }
+
+  function retainRadio() {
+    var radioId = localStorage.getItem('radioId');
+    if (radioId) {
+      document.getElementById(radioId).checked = true;
+    }
+  }
+
+  retainAccordion = () => {
+    var accordionId = localStorage.getItem('accordionId');
+    if (accordionId) {
+      var accordionItem = document.getElementById(accordionId);
+      var accordionCollapse = new bootstrap.Collapse(accordionItem, {
+        toggle: true
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', retainRadio);
+    document.addEventListener('DOMContentLoaded', retainAccordion);
+  } else {
+    retainRadio();
+    retainAccordion();
+  }
+
+  function selectLecture(radioId, accordionId) {
+    // Select the corresponding radio button
+    document.getElementById(radioId).checked = true;
+    localStorage.setItem('radioId', radioId);
+    
+    // Open the corresponding accordion item
+    var accordionItem = document.getElementById(accordionId);
+    var accordionCollapse = new bootstrap.Collapse(accordionItem, {
+      toggle: true
+    });
+    // Store the accordion id in local storage
+    localStorage.setItem('accordionId', accordionId);
+    //keep accordion open when lecture is selected
+    accordionItem.classList.add('show');
+    
+  }
+
+  //when logout is clicked or browser is closed, clear the local storage
+  document.getElementById('logout').addEventListener('click', function() {
+    localStorage.clear();
+  });
+
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-  </script>
+</script>
 
 </html>
