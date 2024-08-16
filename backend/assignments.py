@@ -235,6 +235,9 @@ def temp_submission():
 
                 #save the obtained marks in the database
                 grade = Grades(student_id=user.id, week_id=week_id, grade=percentage)
+                if Grades.query.filter_by(student_id=user.id, week_id=week_id).first():
+                    Grades.query.filter_by(student_id=user.id, week_id=week_id).update({"grade": percentage})
+                    db.session.commit()
                 db.session.add(grade)
                 db.session.commit()
 
