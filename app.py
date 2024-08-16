@@ -206,7 +206,7 @@ def chatbot():
         200:
           description: Success
     """           
-    return render_template('chatbot.html'),200
+    return render_template('chatbot.html',mail = session['user'].get('email')),200
 
 
 

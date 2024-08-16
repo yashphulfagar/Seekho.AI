@@ -10,6 +10,10 @@ gemini_model = genai.GenerativeModel('gemini-1.5-flash')
 from html import escape
 
 
+def get_response_key(question):
+    response = gemini_model.generate_content(question)
+    return response.text
+
 def get_response(question):
     response = gemini_model.generate_content(question)
     response_text = response.text
@@ -148,7 +152,7 @@ def get_key(transcript):
     """).format(transcript=transcript)
     
     # Get the response (which is already a string)
-    key = get_response(prompt)
+    key = get_response_key(prompt)
     
     # Split the key points using newlines first
     key_points = key.split('\n')
