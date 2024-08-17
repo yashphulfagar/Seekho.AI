@@ -189,11 +189,14 @@ Graded Assignment
       <h4>{{ count.value }}. {{ optionss[0] }}<i style="margin-left: 10px;">(1 Point)</i></h4>
       {% for soln in optionss[1] %}
       <div>
-        <input type="checkbox" name="question-{{ count.value }}" value="{{ soln }}" {% if results.get(index,
-          {}).get(index2, {}).status in ['Correct', 'Incorrect' , 'Partially Correct' ] %} {% if soln in
-          selected_options.getlist('question-' ~ count.value) %}checked{% endif %} {% endif %}>
-        <label>{{ soln }}</label>
-      </div>
+        <label>
+          <input type="checkbox" name="question-{{ count.value }}" value="{{ soln }}"
+          {% if results.get(index, {}).get(index2, {}).status in ['Correct', 'Incorrect', 'Partially Correct' ] %}
+            {% if soln in selected_options.getlist('question-' ~ count.value) %}checked{% endif %}
+          {% endif %}>
+          {{ soln }}
+        </label>
+      </div>      
       {% endfor %}
       {% if results %}
       {% set result = results[index][index2] %}
