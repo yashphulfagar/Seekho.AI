@@ -1,7 +1,7 @@
 # **Software Engineering Project for the Term May 2024**  
 **IIT Madras B.S Program**
 
-Welcome to the Software Engineering Project for the May 2024 term,In this project our team designed a SEEK Portal with GenaAI Features for the B.S Program at IIT Madras. This README file will guide you through the process of setting up and running the application on your local machine.
+Welcome to the Software Engineering Project for the May 2024 Term! Our team has developed the SEEK Portal with GenaAI Features for the B.S. Program at IIT Madras. This README file provides step-by-step instructions for setting up and running the application on your local machine.
 
 ## **Table of Contents**
 1. [Prerequisites](#prerequisites)
